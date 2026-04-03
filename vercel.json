@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/report/design_revolution", "destination": "/Redesign Report/design-evolution.html" },
+    { "source": "/report", "destination": "/Redesign Report/Simular_SAI_Redesign_Report.html" },
+    { "source": "/report/(.*)", "destination": "/Redesign Report/Simular_SAI_Redesign_Report.html" },
+    { "source": "/prototype", "destination": "/Redesign Prototype/AgentUI.html" },
+    { "source": "/prototype/(.*)", "destination": "/Redesign Prototype/AgentUI.html" },
+    { "source": "/", "destination": "/Redesign Prototype/AgentUI.html" }
+  ]
+}
