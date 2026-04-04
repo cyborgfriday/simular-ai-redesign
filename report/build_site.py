@@ -93,7 +93,7 @@ def site_nav(active_page):
         ('/report', 'Product Audit'),
         ('/report/redesign', 'Redesign'),
         ('/report/design_revolution', 'Design Evolution'),
-        ('/report/prototype', 'Live Prototype'),
+        ('/report/prototype_intro', 'Live Prototype'),
     ]
     links = '\n    '.join(
         f'<a href="{href}" class="{"active" if href == active_page else ""}">{label}</a>'
@@ -161,9 +161,9 @@ audit_html = build_page(
     audit_body
 )
 
-with open('report_audit.html', 'w', encoding='utf-8') as f:
+with open('index.html', 'w', encoding='utf-8') as f:
     f.write(audit_html)
-print("✓ report_audit.html")
+print("✓ index.html")
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -190,9 +190,9 @@ redesign_html = build_page(
     redesign_body
 )
 
-with open('report_redesign.html', 'w', encoding='utf-8') as f:
+with open('redesign.html', 'w', encoding='utf-8') as f:
     f.write(redesign_html)
-print("✓ report_redesign.html")
+print("✓ redesign.html")
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -251,35 +251,36 @@ prototype_body = """<header class="hero">
 
 prototype_html = build_page(
     'Live Prototype — Simular SAI',
-    '/report/prototype',
+    '/report/prototype_intro',
     prototype_body
 )
 
-with open('report_prototype.html', 'w', encoding='utf-8') as f:
+with open('prototype_intro.html', 'w', encoding='utf-8') as f:
     f.write(prototype_html)
-print("✓ report_prototype.html")
+print("✓ prototype_intro.html")
 
 
 # ══════════════════════════════════════════════════════════════════
-# UPDATE vercel.json
+# UPDATE root vercel.json (single source of truth for routing)
 # ══════════════════════════════════════════════════════════════════
 import json
 
-routes = {
+root_vercel = {
+    "cleanUrls": True,
     "rewrites": [
-        { "source": "/", "destination": "/report_audit.html" },
-        { "source": "/redesign", "destination": "/report_redesign.html" },
-        { "source": "/design_revolution", "destination": "/design-evolution.html" },
-        { "source": "/prototype", "destination": "/report_prototype.html" }
+        { "source": "/", "destination": "/prototype/AgentUI.html" },
+        { "source": "/prototype", "destination": "/prototype/AgentUI.html" },
+        { "source": "/prototype/:path*", "destination": "/prototype/AgentUI.html" }
     ]
 }
 
-with open('vercel.json', 'w') as f:
-    json.dump(routes, f, indent=2)
-print("✓ vercel.json updated")
+with open('../vercel.json', 'w') as f:
+    json.dump(root_vercel, f, indent=2)
+    f.write('\n')
+print("✓ ../vercel.json updated")
 
 print("\nDone! Files created:")
-print("  report_audit.html        → /report")
-print("  report_redesign.html     → /report/redesign")
-print("  design-evolution.html    → /report/design_revolution (needs nav update)")
-print("  report_prototype.html    → /report/prototype")
+print("  index.html           → /report")
+print("  redesign.html        → /report/redesign")
+print("  design_revolution.html → /report/design_revolution")
+print("  prototype_intro.html → /report/prototype_intro")

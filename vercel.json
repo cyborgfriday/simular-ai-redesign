@@ -1,10 +1,8 @@
 {
+  "cleanUrls": true,
   "rewrites": [
-    { "source": "/logo/:file*", "destination": "/Redesign Prototype/logo/:file*" },
-    { "source": "/report", "destination": "/Redesign Report/report_audit.html" },
-    { "source": "/report/:path*", "destination": "/Redesign Report/:path*" },
-    { "source": "/prototype/:path*", "destination": "/Redesign Prototype/AgentUI.html" },
-    { "source": "/prototype", "destination": "/Redesign Prototype/AgentUI.html" },
-    { "source": "/", "destination": "/Redesign Prototype/AgentUI.html" }
+    { "source": "/", "destination": "/prototype/AgentUI.html" },
+    { "source": "/prototype", "destination": "/prototype/AgentUI.html" },
+    { "source": "/prototype/:path*", "destination": "/prototype/AgentUI.html" }
   ]
 }
