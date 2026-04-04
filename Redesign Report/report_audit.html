@@ -364,6 +364,18 @@ footer a:hover { text-decoration: underline; }
   @keyframes heroFadeUp {
     to { opacity: 1; transform: translateY(0); }
   }
+
+  /* Emphasis animation — spectrum + prob-card */
+  .anim-emphasis {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .anim-emphasis.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 </style>
 </head>
@@ -724,38 +736,25 @@ document.addEventListener('keydown', function(e) {
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduced) return;
 
-  /* Hero sequence */
-  var heroEls = document.querySelectorAll('.hero h1, .hero .badge, .hero .subtitle, .hero .meta');
-  heroEls.forEach(function (el, i) {
+  /* ── Hero sequence ── */
+  document.querySelectorAll('.hero .badge, .hero h1, .hero .subtitle, .hero .meta').forEach(function (el, i) {
     el.classList.add('hero-anim');
     el.style.animationDelay = (i * 90 + 60) + 'ms';
   });
 
-  /* Scroll-triggered fade-up */
-  var targets = [
-    'section h2',
-    'section h3',
-    'figure',
-    '.card',
-    '.highlight',
-    '.comparison',
-    '.spectrum',
-    '.prototype-cta',
-    '.problem-tree',
-    '.arch-tree',
-    '.proto-screen',
-    '.journey-step',
-    '.blocker',
-    '.prob-card',
-    '.anno-card',
-    '.comp-section h2',
-    '.comp-section h3',
-  ];
+  /* ── Generic scroll targets (fade-up) ── */
+  var genericTargets = [
+    'section h2', 'section h3', 'figure',
+    '.card', '.highlight', '.comparison',
+    '.prototype-cta', '.problem-tree', '.arch-tree',
+    '.proto-screen', '.journey-step', '.blocker',
+    '.anno-card', '.comp-section h2', '.comp-section h3',
+  ].join(',');
 
-  var els = document.querySelectorAll(targets.join(','));
+  var els = document.querySelectorAll(genericTargets);
   els.forEach(function (el) { el.classList.add('anim-fade'); });
 
-  /* Stagger direct children of grids */
+  /* Stagger grid children */
   document.querySelectorAll('.card-grid, .strategy-grid, .comparison').forEach(function (grid) {
     Array.from(grid.children).forEach(function (child, i) {
       child.style.transitionDelay = (i * 80) + 'ms';
@@ -772,6 +771,33 @@ document.addEventListener('keydown', function(e) {
   }, { threshold: 0.06, rootMargin: '0px 0px -32px 0px' });
 
   els.forEach(function (el) { observer.observe(el); });
+
+  /* ── Emphasis groups: stagger + scale ── */
+  var emphasisGroups = [
+    { parent: '.spectrum',  child: '.spectrum-item', delay: 130 },
+    { parent: '.two-col',   child: '.prob-card',     delay: 110 },
+  ];
+
+  var emphObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var parent = entry.target;
+      emphasisGroups.forEach(function (group) {
+        if (!parent.matches(group.parent)) return;
+        parent.querySelectorAll(group.child).forEach(function (child, i) {
+          child.classList.add('anim-emphasis');
+          setTimeout(function () { child.classList.add('is-visible'); }, i * group.delay + 40);
+        });
+      });
+      emphObserver.unobserve(parent);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  emphasisGroups.forEach(function (group) {
+    document.querySelectorAll(group.parent).forEach(function (el) {
+      emphObserver.observe(el);
+    });
+  });
 })();
 </script>
 
