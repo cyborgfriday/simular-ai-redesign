@@ -356,8 +356,8 @@ footer a:hover { text-decoration: underline; }
 </header>
 <section id="strategy">
   <div class="container">
-    <h2><span class="num">03</span> Design Strategy: The Human-in-the-Loop Spectrum</h2>
-    <p class="section-intro">The audit surfaced three structural gaps: no plan visibility before execution, no graceful recovery when the agent hits a boundary, and no structured handoff when a task completes. Each gap erodes trust at a different stage of the task lifecycle. Simular's long-term vision is full autonomy, but autonomy has to be earned. Right now, SAI operates in the HITL stage, where the agent still makes mistakes, loses context, and hits limits it cannot cross alone. The four principles below target exactly this stage: the interface compensates for what the model cannot yet guarantee, and trust is built one well-handled moment at a time.</p>
+    <h2>Design Strategy: The Human-in-the-Loop Spectrum</h2>
+    <p class="section-intro">The audit surfaced three structural gaps, each at a different phase of the task lifecycle. Before execution: no plan preview. During execution: no recovery when the agent hits a boundary it cannot cross. After completion: no structured delivery back to the user. Simular's long-term vision is full autonomy, but at the current HITL stage, where the agent is capable but not yet reliable enough to run unsupervised, these are the moments that erode trust fastest. The four principles below define how the interface closes each gap.</p>
 
     <div class="spectrum">
       <div class="spectrum-item">
@@ -381,19 +381,19 @@ footer a:hover { text-decoration: underline; }
     <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:20px;">
       <li style="display:flex;align-items:baseline;gap:16px;">
         <span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);background:rgba(180,83,9,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Legibility</span>
-        <span style="font-family:var(--serif);font-size:1.125rem;font-weight:400;letter-spacing:-0.02em;line-height:1.4;color:var(--text);">Make the agent's plan readable before execution. Users can't trust what they can't see.</span>
+        <span style="font-family:var(--sans);font-size:0.9375rem;font-weight:400;line-height:1.65;color:var(--text-dim);">Make the agent's plan readable before execution. Users can't trust what they can't see.</span>
       </li>
       <li style="display:flex;align-items:baseline;gap:16px;">
         <span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);background:rgba(29,78,216,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Boundary Awareness</span>
-        <span style="font-family:var(--serif);font-size:1.125rem;font-weight:400;letter-spacing:-0.02em;line-height:1.4;color:var(--text);">Agent recognizes its own limits and hands off cleanly. Prevents silent retry loops where failure stays invisible.</span>
+        <span style="font-family:var(--sans);font-size:0.9375rem;font-weight:400;line-height:1.65;color:var(--text-dim);">Agent recognizes its own limits and hands off cleanly. Prevents silent retry loops where failure stays invisible.</span>
       </li>
       <li style="display:flex;align-items:baseline;gap:16px;">
         <span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--green);background:rgba(21,128,61,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Controllability</span>
-        <span style="font-family:var(--serif);font-size:1.125rem;font-weight:400;letter-spacing:-0.02em;line-height:1.4;color:var(--text);">Users steer without disrupting. Deliberate intervention, never accidental takeover.</span>
+        <span style="font-family:var(--sans);font-size:0.9375rem;font-weight:400;line-height:1.65;color:var(--text-dim);">Users steer without disrupting. Deliberate intervention, never accidental takeover.</span>
       </li>
       <li style="display:flex;align-items:baseline;gap:16px;">
         <span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--amber);background:rgba(161,98,7,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Progressive Disclosure</span>
-        <span style="font-family:var(--serif);font-size:1.125rem;font-weight:400;letter-spacing:-0.02em;line-height:1.4;color:var(--text);">Complexity appears only when needed. The interface matches the user's growing mental model.</span>
+        <span style="font-family:var(--sans);font-size:0.9375rem;font-weight:400;line-height:1.65;color:var(--text-dim);">Complexity appears only when needed. The interface matches the user's growing mental model.</span>
       </li>
     </ul>
 
@@ -402,7 +402,7 @@ footer a:hover { text-decoration: underline; }
 <section id="redesign">
   <div class="container">
     <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:10px;">
-      <h2 style="margin-bottom:0;"><span class="num">04</span> Design Highlights</h2>
+      <h2 style="margin-bottom:0;">Design Highlights</h2>
       <a href="https://simular-redesign.yrcheng.tech/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 18px;background:var(--text);color:var(--bg);text-decoration:none;border-radius:7px;font-weight:550;font-size:0.8125rem;white-space:nowrap;transition:background 0.2s;" onmouseover="this.style.background='#444'" onmouseout="this.style.background='var(--text)'">Open Prototype &#8594;</a>
     </div>
     <p class="section-intro">Six design decisions that build trust across the task lifecycle: before the agent acts, while it runs, and after it delivers. Each maps to a gap from the audit, applies a specific principle, and includes the trade-off.</p>
@@ -471,7 +471,7 @@ footer a:hover { text-decoration: underline; }
 
     <div style="display:flex;flex-direction:column;gap:28px;margin:28px 0;">
       <div>
-        <p style="font-weight:550;margin-bottom:8px;">Desktop / Browser / Editor tabs</p>
+        <h4 style="font-family:var(--serif);font-size:1.125rem;font-weight:500;letter-spacing:-0.02em;margin:0 0 12px;">Desktop / Browser / Editor tabs</h4>
         <p style="margin-bottom:12px;">Three tabs surface the agent's three execution contexts in real time. Desktop shows the Ubuntu environment. Browser shows live web activity. Editor shows syntax-highlighted code and terminal output. All are view-only by default &mdash; you can watch without touching.</p>
         <div class="comparison" style="margin:0;">
           <figure class="zoomable" style="margin:0;">
@@ -487,7 +487,7 @@ footer a:hover { text-decoration: underline; }
         </div>
       </div>
       <div>
-        <p style="font-weight:550;margin-bottom:8px;">Control with intent &mdash; not by accident</p>
+        <h4 style="font-family:var(--serif);font-size:1.125rem;font-weight:500;letter-spacing:-0.02em;margin:0 0 12px;">Control with intent &mdash; not by accident</h4>
         <p style="margin-bottom:12px;">Clicking into the desktop doesn't silently hand control to the user &mdash; it surfaces an explicit confirmation dialog first. This single friction point prevents accidental interference while preserving the ability to intervene deliberately. Interactive mode also activates automatically during agent-initiated handoffs like authentication.</p>
         <figure class="zoomable" style="max-width:560px;margin:0;"><img src="report_assets/Redesign/after_11_takeover_dialog2_crop.png" alt="Take Over the Desktop dialog" loading="lazy" onclick="openLightbox(this)"></figure>
       </div>
@@ -522,7 +522,7 @@ footer a:hover { text-decoration: underline; }
         <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label before-label">Before</span> Undifferentiated text stream. No stage indicator, no way to tell progress from failure.</p>
       </div>
       <div class="col">
-                <figure class="zoomable" style="margin-bottom:0;"><img src="report_assets/Redesign/after_17_auth_password.png" alt="Redesign: task progress sidebar with step status and activity log" loading="lazy" onclick="openLightbox(this)"></figure>
+                <figure class="zoomable" style="margin-bottom:0;"><img src="report_assets/Redesign/after_17_auth_password_crop.png" alt="Redesign: task progress sidebar with step status and activity log" loading="lazy" onclick="openLightbox(this)"></figure>
         <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label after-label">After</span> Persistent sidebar with step status, current stage, and real-time activity log.</p>
       </div>
     </div>
