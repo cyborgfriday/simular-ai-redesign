@@ -65,16 +65,18 @@ figure.zoomable img:hover { opacity: 0.92; }
 
 /* ── Hero ── */
 .hero {
-  padding: 120px 0 72px;
-  text-align: center;
+  padding: 96px 0 64px;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
+.eyebrow, .hero .badge {
+  font-family: var(--mono); font-size: 0.625rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-dim); display: block; margin-bottom: 16px;
+}
 .hero .badge {
   display: inline-block; padding: 5px 14px; border-radius: 4px;
-  border: 1px solid var(--border); color: var(--text-dim);
-  font-family: var(--mono); font-size: 0.625rem; font-weight: 500;
-  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 28px;
+  border: 1px solid var(--border); letter-spacing: 1px; margin-bottom: 24px;
 }
 .hero h1 {
   font-family: var(--serif); font-size: clamp(2.25rem, 4vw + 0.5rem, 3.5rem); font-weight: 400;
@@ -82,28 +84,16 @@ figure.zoomable img:hover { opacity: 0.92; }
   letter-spacing: -0.025em;
 }
 .hero .subtitle {
-  font-size: 1.125rem; color: var(--text-dim); max-width: 54ch;
-  margin: 0 auto 36px; font-weight: 400; line-height: 1.7;
+  font-size: 1rem; color: var(--text-dim); max-width: 560px;
+  margin: 0 0 28px; font-weight: 400; line-height: 1.8;
 }
 .hero .meta {
-  display: flex; justify-content: center; gap: 28px;
+  display: flex; gap: 28px;
   font-size: 0.8125rem; color: var(--text-dim);
 }
 .hero .meta span { display: flex; align-items: center; gap: 6px; }
 
-/* ── Nav ── */
-nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(250,249,247,0.92); backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border); padding: 10px 0;
-}
-nav .container { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
-nav a {
-  white-space: nowrap; padding: 5px 12px; border-radius: 6px;
-  text-decoration: none; color: var(--text-dim); font-size: 0.8125rem;
-  font-weight: 450; transition: all 0.2s;
-}
-nav a:hover { color: var(--text); background: var(--surface2); }
+/* nav — handled by .site-nav below */
 
 /* ── Sections ── */
 section { padding: 72px 0; border-bottom: 1px solid var(--border); }
@@ -376,23 +366,56 @@ footer a:hover { text-decoration: underline; }
 <!-- HERO -->
 <header class="hero">
   <div class="container">
-    <span class="badge">Product Audit</span>
-    <h1>Can SAI Earn the Trust of the<br>User Who Needs It Most?</h1>
+    <span class="badge">Simular SAI · Product Audit</span>
+    <h1>Can SAI Earn the Trust of the<br><em>User Who Needs It Most?</em></h1>
+    <p class="subtitle">A task-based audit testing SAI against a non-technical solo founder. Surfaces three structural UX gaps in how the product handles multi-step agentic work.</p>
     <div class="meta">
       <span>YuRong Cheng</span>
       <span>April 2026</span>
-      <span>Simular AI — Product Design</span>
     </div>
   </div>
 </header>
+
+<!-- SUMMARY -->
+<section id="summary" style="background: var(--surface); padding: 56px 0;">
+  <div class="container">
+    <p class="eyebrow">Summary</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px 56px; margin-top: 8px;">
+
+      <div>
+        <h4 style="margin-top: 0; margin-bottom: 10px;">What was tested</h4>
+        <p style="font-size: 0.875rem; color: var(--text-dim); margin: 0; line-height: 1.75;">4 tasks across increasing complexity. Deep focus on a home decor marketing analysis — chaining autonomous research, judgement, Google auth, and file delivery. Evaluated from the perspective of a non-technical first-time user.</p>
+      </div>
+
+      <div>
+        <h4 style="margin-top: 0; margin-bottom: 10px;">Key problems found</h4>
+        <ul style="font-size: 0.875rem; color: var(--text-dim); list-style: none; padding: 0; margin: 0; line-height: 1;">
+          <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>No visibility: running, stuck, and failed all look identical</li>
+          <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>No designed touchpoint for user to intervene mid-task</li>
+          <li style="padding: 5px 0; display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>Step limit ends with hard stop — no recovery, no partial output</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="margin-top: 0; margin-bottom: 10px;">Redesign direction</h4>
+        <ul style="font-size: 0.875rem; color: var(--text-dim); list-style: none; padding: 0; margin: 0; line-height: 1;">
+          <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--accent); flex-shrink: 0;">→</span>Plan review before execution — user approves strategy first</li>
+          <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--accent); flex-shrink: 0;">→</span>Structured interrupt for credential / clarification handoffs</li>
+          <li style="padding: 5px 0; display: flex; gap: 10px;"><span style="color: var(--accent); flex-shrink: 0;">→</span>Graceful step-limit exit with summary + resume option</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- 00 PREAMBLE: WHAT I TESTED -->
 <section id="overview" style="background: var(--surface); border-bottom: 1px solid var(--border);">
   <div class="container">
     <h2><span class="num">00</span> Scope of Testing</h2>
-    <p class="section-intro">I tested SAI across four tasks of increasing complexity: a LinkedIn outreach task, a financial market watch report, a research presentation, and a home decor marketing analysis. The goal was to understand how the product performs across different output types and how much coordination it can handle before friction sets in.</p>
+    <p class="section-intro">SAI tested across four tasks: LinkedIn outreach, a financial market watch report, a research presentation, and a home decor marketing analysis. This audit focuses on the marketing analysis — the task that best surfaces what happens when an agent needs human involvement mid-execution.</p>
 
-    <p style="color: var(--text-dim); font-size: 0.875rem; margin-bottom: 0;">SAI completed most tasks. But across all four, the same pattern appeared: whenever the agent needed human involvement — for credentials, clarification, or recovery from an error — the interface had no clear way to handle it. This audit focuses on the <strong>marketing analysis task</strong>, which surfaced the most friction and best illustrates these structural gaps. <a href="report_redesign.html" style="color: var(--accent); font-weight: 550;">Redesign rationale →</a></p>
+    <p style="color: var(--text-dim); font-size: 0.875rem; margin-bottom: 0;">SAI completed most tasks. The pattern across all four: whenever the agent needed credentials, clarification, or recovery from an error, the interface had no designed way to handle it. <a href="report_redesign.html" style="color: var(--accent); font-weight: 550;">Redesign rationale →</a></p>
   </div>
 </section>
 
@@ -401,7 +424,7 @@ footer a:hover { text-decoration: underline; }
   <div class="container">
     <h2><span class="num">01</span> Who I Tested For</h2>
 
-    <p style="font-size:0.875rem; color:var(--text-dim); margin-bottom: 24px;">Technical users have many other automation tools available — scripting, APIs, no-code platforms. SAI's real opportunity is with users who have no alternative. That's who this audit tests for.</p>
+    <p style="font-size:0.875rem; color:var(--text-dim); margin-bottom: 24px;">Technical users have scripting, APIs, and no-code alternatives. SAI's real opportunity is with users who don't. That's who this audit tests for.</p>
 
     <!-- Persona Card -->
     <div style="border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 28px 0; background: var(--surface);">
@@ -472,7 +495,7 @@ footer a:hover { text-decoration: underline; }
       <!-- Scenario -->
       <div style="padding: 20px 28px; background: var(--surface2);">
         <span style="font-family: var(--mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-dim);">Context &amp; Scenario</span>
-        <p style="font-size: 0.875rem; color: var(--text-dim); margin: 8px 0 0; line-height: 1.7;">It's a Tuesday evening. Mei-Ling has a product curation call on Thursday and needs competitor research compiled before then. She's heard about SAI from a founder community and decides to try it. She types her task in plain language, exactly as she'd tell an assistant — and expects it to just work. She doesn't know what a VM is. She doesn't know there are step limits. She has no mental model for what "agent execution" looks like. She only knows whether the deliverable showed up or didn't.</p>
+        <p style="font-size: 0.875rem; color: var(--text-dim); margin: 8px 0 0; line-height: 1.7;">Mei-Ling has a product curation call on Thursday. She's heard about SAI from a founder community and tries it. She types her task in plain language and expects it to just work. She doesn't know what a VM is, doesn't know there are step limits, and has no mental model for agent execution. She only knows whether the deliverable showed up or didn't.</p>
       </div>
 
     </div>
@@ -515,7 +538,7 @@ footer a:hover { text-decoration: underline; }
 <section id="journey">
   <div class="container">
     <h2><span class="num">02</span> How the Task Unfolded</h2>
-    <p class="section-intro">The task ran across multiple sessions over several days. Here are the key moments — where the agent made progress, where it got stuck, and where it stopped entirely.</p>
+    <p class="section-intro">The task ran across multiple sessions. These are the key moments — progress, friction, and failure.</p>
 
     <div class="journey">
 
@@ -524,7 +547,7 @@ footer a:hover { text-decoration: underline; }
         <div class="step-body">
           <div class="step-tag">Initial State</div>
           <div class="step-title">The SAI home screen before anything begins</div>
-          <p>The home screen offers suggested tasks and a text input. Nothing here prepares the user for what a multi-step execution actually looks like — no indication of how long it might take, what permissions might be requested, or when they'll need to step in.</p>
+          <p>The home screen offers suggested tasks and a text input. No indication of how long execution takes, what permissions will be requested, or when the user will need to step in.</p>
           <figure class="zoomable" style="margin-top:12px;">
             <img src="report_assets/audit/01_home_suggestions.png" alt="SAI home screen with suggested tasks" onclick="openLightbox(this)">
             <figcaption>The suggested tasks give no indication of how the agent handles multi-step workflows or what the user should expect during execution.</figcaption>
@@ -537,7 +560,7 @@ footer a:hover { text-decoration: underline; }
         <div class="step-body">
           <div class="step-tag">Start</div>
           <div class="step-title">Task submitted — execution starts immediately</div>
-          <p>SAI accepts the task and begins executing. No plan is shown for review, no confirmation step. The user has no visibility into what strategy the agent will follow or what order of operations to expect.</p>
+          <p>Execution begins immediately. No plan shown, no confirmation step. The user has no visibility into what strategy the agent will follow.</p>
         </div>
       </div>
 
@@ -585,7 +608,7 @@ footer a:hover { text-decoration: underline; }
         <div class="step-body">
           <div class="step-tag">Loss of visibility</div>
           <div class="step-title">"Are you still working?"</div>
-          <p>After a long pause with no status update, the user has to type "are you still working?" to check if the agent is still running. The interface gives no ambient signal — no progress indicator, no activity state, nothing. Working, waiting, and failing all look identical.</p>
+          <p>After a long pause, the user types "are you still working?" — the only way to check. The interface gives no ambient signal of state. Working, waiting, and failing all look identical.</p>
           <figure class="zoomable">
             <img src="report_assets/audit/05_user_asks_are_you_working.png" alt="User asks if agent is still working" onclick="openLightbox(this)">
             <figcaption>The user has no way to tell if the agent is still running. The only option is to ask it directly.</figcaption>
@@ -653,12 +676,12 @@ footer a:hover { text-decoration: underline; }
 <section id="blockers">
   <div class="container">
     <h2><span class="num">03</span> The UX Blockers</h2>
-    <p class="section-intro">Three structural patterns in the interface made the task difficult to manage and impossible to recover from. These aren't edge cases — they surface on every long-running task.</p>
+    <p class="section-intro">Three structural patterns in the interface made the task unmanageable. These aren't edge cases — they surface on every long-running task.</p>
 
     <div class="blocker">
       <div class="blocker-id">Blocker 01</div>
       <h3>No pre-task alignment — the user can't shape what the agent will do</h3>
-      <p class="blocker-body">Execution begins the moment the task is submitted. There's no plan review, no step preview, no opportunity to catch a misunderstanding before work starts. When the agent chooses a strategy the user wouldn't have approved — like spending steps on image collection instead of completing the core data — there's no traceable moment where the user could have intervened.</p>
+      <p class="blocker-body">Execution begins the moment the task is submitted. No plan review, no step preview. When the agent chooses a strategy the user wouldn't have approved — spending steps on image collection before completing the core data — there was no point where the user could have caught it.</p>
     </div>
 
     <div class="blocker">
@@ -681,7 +704,7 @@ footer a:hover { text-decoration: underline; }
 <section id="two-problems" style="border-bottom:none;">
   <div class="container">
     <h2><span class="num">04</span> Two Problems Worth Solving</h2>
-    <p class="section-intro">The three blockers above share two root causes. These are the design problems the redesign addresses.</p>
+    <p class="section-intro">The three blockers share two root causes.</p>
 
     <div class="two-col">
       <div class="prob-card a">
@@ -699,7 +722,7 @@ footer a:hover { text-decoration: underline; }
     </div>
 
     <div class="highlight">
-      <p><strong>The redesign isn't about adding more UI.</strong> It's about introducing two specific moments of human involvement — one before the agent acts, one when the agent needs help — without undermining the value of automation.</p>
+      <p><strong>The redesign isn't about adding more UI.</strong> It introduces two specific moments of human involvement — one before the agent acts, one when it needs help — without undermining the value of automation.</p>
     </div>
   </div>
 </section>
