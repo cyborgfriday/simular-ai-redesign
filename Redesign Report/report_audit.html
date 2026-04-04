@@ -65,7 +65,7 @@ figure.zoomable img:hover { opacity: 0.92; }
 
 /* ── Hero ── */
 .hero {
-  padding: 96px 0 64px;
+  padding: 56px 0 40px;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
@@ -78,11 +78,13 @@ figure.zoomable img:hover { opacity: 0.92; }
   display: inline-block; padding: 5px 14px; border-radius: 4px;
   border: 1px solid var(--border); letter-spacing: 1px; margin-bottom: 24px;
 }
+.hero .badge.accent { color: var(--accent); border-color: rgba(180,83,9,0.25); }
 .hero h1 {
   font-family: var(--serif); font-size: clamp(2.25rem, 4vw + 0.5rem, 3.5rem); font-weight: 400;
   line-height: 1.12; margin-bottom: 20px; color: var(--text);
   letter-spacing: -0.025em;
 }
+.hero h1 em { font-style: italic; color: var(--accent); }
 .hero .subtitle {
   font-size: 1rem; color: var(--text-dim); max-width: 560px;
   margin: 0 0 28px; font-weight: 400; line-height: 1.8;
@@ -308,15 +310,15 @@ footer a:hover { text-decoration: underline; }
 .journey-step.critical .step-dot { background:var(--red); box-shadow:0 0 0 2px rgba(185,28,28,.25); }
 .step-connector { width:2px; flex:1; background:var(--border); margin:4px 0; min-height:20px; }
 .journey-step:last-child .step-connector { display:none; }
-.step-body { padding-bottom:36px; }
+.step-body { padding-bottom:36px; overflow:hidden; }
 .step-tag { font-family:var(--mono); font-size:0.625rem; font-weight:500; letter-spacing:.6px; text-transform:uppercase; color:var(--text-dim); margin-bottom:5px; }
 .journey-step.friction .step-tag { color:var(--amber); }
 .journey-step.critical .step-tag { color:var(--red); }
 .step-title { font-size:1.0625rem; font-weight:600; color:var(--text); margin-bottom:8px; line-height:1.35; letter-spacing:-0.01em; }
 .journey-step.friction .step-title { color:#92400e; }
 .journey-step.critical .step-title { color:var(--red); }
-.step-body p { font-size:0.875rem; color:var(--text-dim); line-height:1.75; margin-bottom:0; max-width:68ch; }
-.step-body figure { margin-top:16px; }
+.step-body p { font-size:0.875rem; color:var(--text-dim); line-height:1.75; margin-bottom:0; }
+.step-body figure { float:left; width:72%; margin:0 28px 12px 0; max-width:none; }
 
 /* Blockers */
 .blocker { border:1px solid var(--border); border-radius:var(--radius); padding:32px 32px 28px; margin-bottom:20px; background:var(--surface); }
@@ -353,7 +355,7 @@ footer a:hover { text-decoration: underline; }
 </div>
 <nav class="site-nav">
   <div class="inner">
-    <a class="brand" href="report_audit.html">Simular SAI — Product Design</a>
+    <a class="brand" href="report_audit.html">Simular — Product Redesign</a>
     <div class="pages">
       <a href="report_audit.html" class="active">Product Audit</a>
       <a href="report_redesign.html">Redesign</a>
@@ -366,9 +368,9 @@ footer a:hover { text-decoration: underline; }
 <!-- HERO -->
 <header class="hero">
   <div class="container">
-    <span class="badge">Simular SAI · Product Audit</span>
-    <h1>Can SAI Earn the Trust of the<br><em>User Who Needs It Most?</em></h1>
-    <p class="subtitle">A task-based audit testing SAI against a non-technical solo founder. Surfaces three structural UX gaps in how the product handles multi-step agentic work.</p>
+    <span class="badge accent">Product Audit</span>
+    <h1>The <em>Core</em> Gaps.</h1>
+    <p class="subtitle">A task-based audit testing SAI against a non-technical solo founder. Surfaces four structural UX gaps in how the product handles multi-step agentic work.</p>
     <div class="meta">
       <span>YuRong Cheng</span>
       <span>April 2026</span>
@@ -387,7 +389,8 @@ footer a:hover { text-decoration: underline; }
         <ul style="font-size: 0.875rem; color: var(--text-dim); list-style: none; padding: 0; margin: 0; line-height: 1;">
           <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>No visibility: running, stuck, and failed all look identical</li>
           <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>No designed touchpoint for user to intervene mid-task</li>
-          <li style="padding: 5px 0; display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>Step limit ends with hard stop — no recovery, no partial output</li>
+          <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>Step limit ends with hard stop — no recovery, no partial output</li>
+          <li style="padding: 5px 0; display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>No observer mode: entering the VM to check progress interrupts the agent</li>
         </ul>
       </div>
 
@@ -401,7 +404,8 @@ footer a:hover { text-decoration: underline; }
         <ul style="font-size: 0.875rem; color: var(--text-dim); list-style: none; padding: 0; margin: 0; line-height: 1;">
           <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--accent); flex-shrink: 0;">→</span>Plan review before execution — user approves strategy first</li>
           <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--accent); flex-shrink: 0;">→</span>Structured interrupt for credential / clarification handoffs</li>
-          <li style="padding: 5px 0; display: flex; gap: 10px;"><span style="color: var(--accent); flex-shrink: 0;">→</span>Graceful step-limit exit with summary + resume option</li>
+          <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--accent); flex-shrink: 0;">→</span>Graceful step-limit exit with summary + resume option</li>
+          <li style="padding: 5px 0; display: flex; gap: 10px;"><span style="color: var(--accent); flex-shrink: 0;">→</span>Separate Simular Computer mode from user take-control mode</li>
         </ul>
       </div>
 
@@ -446,23 +450,52 @@ footer a:hover { text-decoration: underline; }
 
     <div style="border-left: 2px solid var(--border); padding: 14px 20px; margin: 0 0 20px; background: var(--surface2); border-radius: 0 var(--radius) var(--radius) 0;">
       <p style="font-size: 0.875rem; font-style: italic; color: var(--text); margin: 0; line-height: 1.8;">
-        "I am launching a home decor curation brand in Singapore, focusing on Nordic and Japanese home accessories (e.g., vases, small lighting, stools, stationery — no large furniture). Please research brands popular in Singapore and trending in Europe/Japan, curate 20 items with market analysis and pricing, then compile everything into a Google Sheet report I can use for import decisions."
+        "I am launching a home decor curation brand in Singapore, focusing on Nordic and Japanese home accessories (e.g., vases, small lighting, stools, stationery — no large furniture). Please research brands popular in Singapore and trending in Europe/Japan, curate 20 items with market analysis and pricing, then compile everything and images into a Google Sheet report I can use for import decisions."
       </p>
     </div>
 
-    <p style="font-size: 0.875rem; color: var(--text-dim); margin-bottom: 12px; line-height: 1.7;">
-      This task isn't a single capability test — it chains four steps, each requiring the agent to earn trust differently. Any break in the chain means no usable output.
+    <p style="font-size: 0.875rem; color: var(--text-dim); margin-bottom: 16px; line-height: 1.7;">
+      To deliver a usable result, the agent needs to move through four capabilities in sequence — each one building on the last.
     </p>
 
-    <p style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-dim); letter-spacing: 0.3px;">
-      <span style="color: var(--blue);">Research</span>
-      <span style="margin: 0 8px; color: var(--border);">→</span>
-      <span style="color: var(--blue);">Judgement</span>
-      <span style="margin: 0 8px; color: var(--border);">→</span>
-      <span style="color: var(--red);">Auth handoff ⚠</span>
-      <span style="margin: 0 8px; color: var(--border);">→</span>
-      <span style="color: var(--amber);">Delivery</span>
-    </p>
+    <div style="display: flex; align-items: center; gap: 0; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.4px; color: var(--text-dim);">
+      <span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Research</span>
+      <span style="padding: 0 10px; color: var(--text-dim);">→</span>
+      <span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Judgement</span>
+      <span style="padding: 0 10px; color: var(--text-dim);">→</span>
+      <span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Auth handoff</span>
+      <span style="padding: 0 10px; color: var(--text-dim);">→</span>
+      <span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Delivery</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROBLEM STATEMENT -->
+<section id="two-problems">
+  <div class="container">
+    <h2>Problem Statement</h2>
+
+    <div class="two-col">
+      <div class="prob-card a">
+        <span class="prob-label">Problem 01</span>
+        <h3>The user is locked out of the plan</h3>
+        <p>There's no designed moment where the user and agent align on approach before execution starts. Without this, mismatches between user intent and agent strategy are only discovered after steps have been wasted — or after a hard stop.</p>
+        <ul style="margin-top:16px; padding-left:16px; display:flex; flex-direction:column; gap:8px;">
+          <li style="font-family:var(--mono); font-size:0.6875rem; color:var(--text-dim); letter-spacing:0.3px;">No pre-task alignment</li>
+        </ul>
+      </div>
+      <div class="prob-card b">
+        <span class="prob-label">Problem 02</span>
+        <h3>There's no designed touchpoint for human intervention</h3>
+        <p>The agent doesn't have a model for "pause and ask." When it needs credentials, clarification, or approval mid-task, it either retries silently or stops entirely. There's no interaction pattern for the user to step in, help, and let the agent continue.</p>
+        <ul style="margin-top:16px; padding-left:16px; display:flex; flex-direction:column; gap:8px;">
+          <li style="font-family:var(--mono); font-size:0.6875rem; color:var(--text-dim); letter-spacing:0.3px;">No legible execution state</li>
+          <li style="font-family:var(--mono); font-size:0.6875rem; color:var(--text-dim); letter-spacing:0.3px;">No graceful failure exit</li>
+          <li style="font-family:var(--mono); font-size:0.6875rem; color:var(--text-dim); letter-spacing:0.3px;">No observer mode for the VM</li>
+        </ul>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -479,10 +512,11 @@ footer a:hover { text-decoration: underline; }
         <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
         <div class="step-body">
           <div class="step-tag">Initial State</div>
-          <div class="step-title">The SAI home screen before anything begins</div>
+          <div class="step-title">High learning load before the first task</div>
+          <p>The homepage tries to guide users with example tasks — the right instinct. But presenting too many at once creates cognitive overload rather than clarity. On top of that, the layout immediately exposes a virtual desktop panel on the right. For a first-time user, there's no explanation of what the VM is, why it's there, or what they're supposed to do with it. Two unfamiliar concepts compete for attention before anything has even started.</p>
           <figure class="zoomable" style="margin-top:12px;">
-            <img src="report_assets/audit/01_home_suggestions.png" alt="SAI home screen with suggested tasks" onclick="openLightbox(this)">
-            <figcaption>The suggested tasks give no indication of how the agent handles multi-step workflows or what the user should expect during execution.</figcaption>
+            <img src="report_assets/audit/01_home_suggestions.png" alt="SAI home screen with suggested tasks and VM panel" onclick="openLightbox(this)">
+            <figcaption></figcaption>
           </figure>
         </div>
       </div>
@@ -498,38 +532,9 @@ footer a:hover { text-decoration: underline; }
       <div class="journey-step friction">
         <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
         <div class="step-body">
-          <div class="step-tag">First friction point</div>
-          <div class="step-title">Google Sheets access requested — in the middle of execution</div>
-          <p>It's unclear whether the task has paused or is still running in parallel.</p>
-          <figure class="zoomable">
-            <img src="report_assets/audit/02_executing_sheets_permission.png" alt="Sheets permission dialog mid-execution" onclick="openLightbox(this)">
-            <figcaption>The agent asks for Sheets access mid-execution. The user doesn't know if work has paused or is still running.</figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <div class="journey-step friction">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-body">
-          <div class="step-tag">Authentication handoff</div>
-          <div class="step-title">User signs into VM — but the agent asks for more permissions</div>
-          <figure class="zoomable">
-            <img src="report_assets/audit/03_vm_signin_js_permission.png" alt="VM sign-in confirmed, JS execution permission requested" onclick="openLightbox(this)">
-            <figcaption>"I have signed in to VM" — but immediately followed by another permission request, creating a disjointed handoff experience.</figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <div class="journey-step friction">
-        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
-        <div class="step-body">
-          <div class="step-tag">Incomplete output</div>
-          <div class="step-title">The sheet is produced without images — despite images being in the original brief</div>
-          <p>SAI produced the sheet without images and gave no explanation for the omission.</p>
-          <figure class="zoomable">
-            <img src="report_assets/audit/04_agent_requests_images.png" alt="User follows up on missing images" onclick="openLightbox(this)">
-            <figcaption>The user has to re-state a requirement that was already in the original task. SAI produced the sheet without images and gave no explanation for the omission.</figcaption>
-          </figure>
+          <div class="step-tag">Accidental takeover</div>
+          <div class="step-title">User clicks into VM to check progress — and interrupts the agent by accident</div>
+          <p>Clicking into the VM to see what the agent is doing transfers control to the user. The agent pauses. There's no observer mode — any attempt to watch could accidentally take over.</p>
         </div>
       </div>
 
@@ -537,10 +542,10 @@ footer a:hover { text-decoration: underline; }
         <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
         <div class="step-body">
           <div class="step-tag">Loss of visibility</div>
-          <div class="step-title">"Are you still working?"</div>
+          <div class="step-title">"Are you still working?" — User loses transparency of the progress</div>
+          <p>The execution stream updates constantly, but its contents have no hierarchy. Process logs, agent reasoning, and required actions all look identical — a single animated line of text with no way to distinguish what the agent is doing from what it needs. There's no high-level progress summary, no stage indicator, no sense of how far along the task is. The user is left staring at a stream they can't read, repeatedly wondering whether anything is actually happening.</p>
           <figure class="zoomable">
-            <img src="report_assets/audit/05_user_asks_are_you_working.png" alt="User asks if agent is still working" onclick="openLightbox(this)">
-            <figcaption>The user has no way to tell if the agent is still running. The only option is to ask it directly.</figcaption>
+            <img src="report_assets/audit/09_stream_no_hierarchy.png" alt="Execution stream with no visual hierarchy" onclick="openLightbox(this)">
           </figure>
         </div>
       </div>
@@ -548,12 +553,11 @@ footer a:hover { text-decoration: underline; }
       <div class="journey-step critical">
         <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
         <div class="step-body">
-          <div class="step-tag">Wrong environment</div>
-          <div class="step-title">Google auth dialog appears on the user's desktop — not inside the VM</div>
-          <p>The agent had no way to signal what it needed or surface the right credential interface.</p>
+          <div class="step-tag">Unexpected auth environment</div>
+          <div class="step-title">Google auth appears on the desktop — the user expected it to stay in the VM</div>
+          <p>The task was running entirely inside the agent's virtual machine. When Google Sheets access was needed, the auth prompt appeared as a native dialog on the user's local desktop — completely outside the VM. The user assumed the agent would handle everything remotely, so this was unexpected. They denied it.</p>
           <figure class="zoomable">
-            <img src="report_assets/audit/05b_google_account_selector.png" alt="Google account selector appeared on host machine" onclick="openLightbox(this)">
-            <figcaption>A native Google account picker appeared on the user's local desktop — outside the VM where the agent was actually working.</figcaption>
+            <img src="report_assets/audit/05b_google_account_selector.png" alt="Google account picker appeared on local desktop" onclick="openLightbox(this)">
           </figure>
         </div>
       </div>
@@ -561,12 +565,23 @@ footer a:hover { text-decoration: underline; }
       <div class="journey-step critical">
         <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
         <div class="step-body">
-          <div class="step-tag">No recovery</div>
-          <div class="step-title">User denies. The dialog comes back three more times.</div>
-          <p>The agent had no mechanism to detect the denial, no fallback, and no way to tell the user what it needed to proceed.</p>
+          <div class="step-tag">No graceful fallback</div>
+          <div class="step-title">User denies. The same prompt keeps coming back.</div>
+          <p>After the denial, the agent didn't pause or ask how to proceed. The auth prompt kept reappearing. The user had to explicitly type into the chat — at least twice — asking to sign in through the VM instead. Only then did the agent accept the instruction and open the auth flow inside the VM.</p>
           <figure class="zoomable">
-            <img src="report_assets/audit/05a_sheets_access_repeated.png" alt="Sheets access dialog appearing repeatedly" onclick="openLightbox(this)">
-            <figcaption>The same auth prompt reappeared four times in total. Each time, the user had to manually dismiss it with no explanation from the agent.</figcaption>
+            <img src="report_assets/audit/05a_sheets_access_repeated.png" alt="Sheets access dialog repeating after denial" onclick="openLightbox(this)">
+          </figure>
+        </div>
+      </div>
+
+      <div class="journey-step friction">
+        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-tag">Opaque permission request</div>
+          <div class="step-title">The agent asks to run code — but the user can't tell if it's safe</div>
+          <p>A "Browser JS Execution — Safety Check" dialog appears, showing raw JavaScript code. For a non-technical user, there's no way to evaluate what this code does, why the agent needs it, or whether allowing it is safe. The permission UI is written for developers, not for the person being asked to approve it.</p>
+          <figure class="zoomable">
+            <img src="report_assets/audit/03_vm_signin_js_permission.png" alt="Browser JS execution safety check with raw code" onclick="openLightbox(this)">
           </figure>
         </div>
       </div>
@@ -576,84 +591,44 @@ footer a:hover { text-decoration: underline; }
         <div class="step-body">
           <div class="step-tag">Hard stop</div>
           <div class="step-title">"I've reached the maximum number of steps"</div>
-          <p>No summary of what was accomplished, no partial output, no path forward except starting over.</p>
+          <p>The agent stops mid-task with a single line: "Please let me know if you'd like me to continue or try a different approach." No summary of what was completed, no partial output handed over, no indication of how close it was to finishing. The user is left with nothing actionable — confused about what just happened and with no clear path forward except starting over from scratch.</p>
           <figure class="zoomable">
             <img src="report_assets/audit/06_step_limit_reached.png" alt="Step limit reached — hard stop" onclick="openLightbox(this)">
-            <figcaption>"I've reached the maximum number of steps. Please let me know if you'd like me to continue or try a different approach." No context. No summary. No recovery.</figcaption>
           </figure>
         </div>
       </div>
 
-      <div class="journey-step critical">
+      <div class="journey-step friction">
         <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
         <div class="step-body">
-          <div class="step-tag">Second attempt</div>
-          <div class="step-title">Starting over hits the same wall</div>
-          <p>A second task session runs the next day. The agent makes more progress — producing research documents and a briefing — but once again hits the step limit before completing the Google Sheet. The same hard stop, the same lack of recovery, the same outcome.</p>
+          <div class="step-tag">Incomplete output</div>
+          <div class="step-title">The sheet is delivered — but without the images the brief required</div>
+          <p>The original prompt explicitly asked for images of the selected items. The agent produced the spreadsheet without them and gave no explanation for the omission. The user had to ask again — restating a requirement that was already there from the start.</p>
           <figure class="zoomable">
-            <img src="report_assets/audit/08_second_attempt_step_limit.png" alt="Second attempt also hits step limit" onclick="openLightbox(this)">
-            <figcaption>The second attempt produces more partial output but ends identically — a step limit hit with no handoff to the user.</figcaption>
+            <img src="report_assets/audit/10_missing_images.png" alt="Spreadsheet delivered without images" onclick="openLightbox(this)">
           </figure>
         </div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- 03 UX BLOCKERS -->
-<section id="blockers">
-  <div class="container">
-    <h2><span class="num">03</span> The UX Blockers</h2>
-    <p class="section-intro">Three structural patterns in the interface made the task unmanageable. These aren't edge cases — they surface on every long-running task.</p>
-
-    <div class="blocker">
-      <div class="blocker-id">Blocker 01</div>
-      <h3>No pre-task alignment — the user can't shape what the agent will do</h3>
-      <p class="blocker-body">Execution begins the moment the task is submitted. No plan review, no step preview. When the agent chooses a strategy the user wouldn't have approved — spending steps on image collection before completing the core data — there was no point where the user could have caught it.</p>
-    </div>
-
-    <div class="blocker">
-      <div class="blocker-id">Blocker 02</div>
-      <h3>No legible execution state — working, waiting, and failing look identical</h3>
-      <p class="blocker-body">The interface presents all activity as a single stream of log entries. Whether the agent is actively running, paused waiting for input, encountering errors, or retrying failed steps — the visual presentation is identical. The user has no ambient signal of status, which means they can't tell when to act and when to wait.</p>
-    </div>
-
-    <div class="blocker">
-      <div class="blocker-id">Blocker 03</div>
-      <h3>No graceful handoff at failure — the only exit is a hard stop</h3>
-      <p class="blocker-body">When the agent hits its step limit or encounters an unresolvable error, the task simply ends. There's no partial output summary, no checkpoint the user can resume from, no way to hand off remaining steps. Starting over loses all prior context. This makes every long-running task feel fragile — one step limit reached, and all work is lost.</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- 04 TWO CORE PROBLEMS -->
-<section id="two-problems" style="border-bottom:none;">
-  <div class="container">
-    <h2><span class="num">04</span> Two Problems Worth Solving</h2>
-    <p class="section-intro">The three blockers share two root causes.</p>
-
-    <div class="two-col">
-      <div class="prob-card a">
-        <span class="prob-label">Problem 01</span>
-        <h3>The user is locked out of the plan</h3>
-        <p>There's no designed moment where the user and agent align on approach before execution starts. Without this, mismatches between user intent and agent strategy are only discovered after steps have been wasted — or after a hard stop.</p>
-        <a href="report_redesign.html" class="prob-link">How the redesign addresses this →</a>
+      <div class="journey-step">
+        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-tag">Final output</div>
+          <div class="step-title">Task completed — with caveats</div>
+          <p>The agent ultimately produced a Google Sheet in the cloud — a genuinely complex multi-step task involving research, curation, and remote file creation. The output is passable: items are listed, pricing is included. But the product selection feels generic and the analysis lacks the depth needed for real import decisions. The capability is there; the quality of judgement is not yet at the level where you'd act on it without review.</p>
+          <figure class="zoomable">
+            <img src="report_assets/audit/11_final_output.png" alt="Final Google Sheet output" onclick="openLightbox(this)">
+          </figure>
+        </div>
       </div>
-      <div class="prob-card b">
-        <span class="prob-label">Problem 02</span>
-        <h3>There's no designed touchpoint for human intervention</h3>
-        <p>The agent doesn't have a model for "pause and ask." When it needs credentials, clarification, or approval mid-task, it either retries silently or stops entirely. There's no interaction pattern for the user to step in, help, and let the agent continue.</p>
-        <a href="report_redesign.html" class="prob-link">How the redesign addresses this →</a>
-      </div>
-    </div>
 
-    <div class="highlight">
-      <p><strong>The redesign isn't about adding more UI.</strong> It introduces two specific moments of human involvement — one before the agent acts, one when it needs help — without undermining the value of automation.</p>
+
     </div>
   </div>
 </section>
+
+
+
 
 <footer><div class="container">
   <p>YuRong Cheng &mdash; Simular AI Product Design Assignment &mdash; April 2026</p>
