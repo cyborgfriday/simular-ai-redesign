@@ -1,3 +1,8 @@
 node_modules/
 .DS_Store
 .vercel
+.kiro/
+
+# Large video files (too large for GitHub)
+Tool audit screenshots/**/*.mov
+Tool audit screenshots/**/*.mp4

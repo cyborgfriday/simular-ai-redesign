@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Card Design Evolution — Simular AI Redesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #faf9f7;
+  --surface: #ffffff;
+  --surface2: #f3f2ef;
+  --border: #e8e6e1;
+  --text: #2c2c2c;
+  --text-dim: #7a7670;
+  --accent: #b45309;
+  --accent-bg: rgba(180,83,9,0.05);
+  --radius: 10px;
+  --serif: 'Lora', 'Georgia', serif;
+  --sans: 'DM Sans', -apple-system, system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', monospace;
+  --card-mono: 'Geist Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 15.5px;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 1340px; margin: 0 auto; padding: 0 40px; }
+
+/* ── Lightbox ── */
+.lightbox-overlay {
+  display: none; position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.88); backdrop-filter: blur(8px);
+  cursor: zoom-out; align-items: center; justify-content: center;
+}
+.lightbox-overlay.active { display: flex; }
+.lightbox-overlay img { max-width: 94vw; max-height: 92vh; border-radius: 8px; object-fit: contain; }
+.lightbox-close {
+  position: fixed; top: 20px; right: 24px; width: 40px; height: 40px;
+  border-radius: 50%; background: rgba(255,255,255,0.15); border: none;
+  color: #fff; font-size: 22px; cursor: pointer; display: flex;
+  align-items: center; justify-content: center; z-index: 10000; transition: background 0.2s;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.3); }
+
+/* ── Hero ── */
+.hero { padding: 96px 0 64px; border-bottom: 1px solid var(--border); }
+.hero .breadcrumb { font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing:.08em; margin-bottom: 24px; }
+.hero .breadcrumb a { color: var(--accent); text-decoration: none; }
+.hero .breadcrumb span { color: #ccc; margin: 0 6px; }
+.hero h1 { font-family: var(--serif); font-size: 2.8rem; font-weight: 400; line-height: 1.12; margin-bottom: 18px; letter-spacing: -.5px; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero .lead { font-size: 1rem; color: var(--text-dim); max-width: 560px; line-height: 1.8; }
+
+/* ── Nav ── */
+nav { position: sticky; top: 0; z-index: 100; background: rgba(250,249,247,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 10px 0; }
+nav .container { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+nav a { white-space: nowrap; padding: 5px 12px; border-radius: 6px; text-decoration: none; color: var(--text-dim); font-size: 13px; font-weight: 450; transition: all .18s; }
+nav a:hover { color: var(--text); background: var(--surface2); }
+
+/* ── Component section ── */
+.comp-section { padding: 80px 0; border-bottom: 1px solid var(--border); }
+.comp-section:last-of-type { border-bottom: none; }
+.section-eyebrow { font-family: var(--mono); font-size: 10.5px; font-weight: 500; color: var(--accent); letter-spacing:.14em; text-transform: uppercase; margin-bottom: 10px; }
+.section-title { font-family: var(--serif); font-size: 2rem; font-weight: 400; letter-spacing: -.3px; margin-bottom: 12px; }
+
+/* ── Version grid (2-column) ── */
+.versions { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+
+/* Each version: card on top, annotation below */
+.ver-row { display: flex; flex-direction: column; gap: 14px; position: relative; }
+
+/* Card column */
+.ver-card-col { display: flex; flex-direction: column; gap: 0; }
+.ver-header { display: none; }
+.ver-badge {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  letter-spacing: .06em; padding: 2px 8px; border-radius: 4px; text-transform: uppercase;
+  flex-shrink: 0;
+}
+.ver-v1 { background: #f0efed; border: 1px solid var(--border); color: #888; }
+.ver-v2 { background: rgba(29,78,216,.06); border: 1px solid rgba(29,78,216,.2); color: #1d4ed8; }
+.ver-v3 { background: rgba(109,40,217,.06); border: 1px solid rgba(109,40,217,.2); color: #6d28d9; }
+.ver-v4 { background: rgba(180,83,9,.07); border: 1px solid rgba(180,83,9,.22); color: #b45309; }
+.ver-name { font-size: 14px; font-weight: 600; color: var(--text); }
+
+.card-preview {
+  background: #0d0d0d;
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,.06);
+  box-shadow: 0 2px 16px rgba(0,0,0,.1);
+}
+.ver-row.current .card-preview {
+  border-color: rgba(180,83,9,.25);
+  box-shadow: 0 2px 20px rgba(0,0,0,.1), 0 0 0 1px rgba(180,83,9,.12);
+}
+
+/* Annotation below card, compact */
+.ver-anno { padding-top: 0; }
+.anno-version-name { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; color: var(--text); margin-bottom: 10px; letter-spacing: -0.2px; }
+.anno-body { font-size: 13.5px; color: var(--text-dim); line-height: 1.75; }
+.anno-body p { margin-bottom: 10px; }
+.anno-body p:last-child { margin-bottom: 0; }
+.anno-body strong { color: var(--text); font-weight: 550; }
+.anno-body em { font-style: italic; }
+.anno-verdict {
+  display: flex; gap: 8px; align-items: flex-start;
+  padding: 10px 12px; border-radius: 7px; margin-top: 12px;
+  background: var(--surface2); border: 1px solid var(--border);
+  font-size: 13px; color: var(--text-dim); line-height: 1.6;
+}
+.anno-verdict .vd-label {
+  font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 3px; flex-shrink: 0; margin-top: 1px;
+}
+.vd-challenge { background: rgba(161,98,7,.08); border: 1px solid rgba(161,98,7,.2); color: #a16207; }
+.vd-resolved { background: rgba(21,128,61,.08); border: 1px solid rgba(21,128,61,.2); color: #15803d; }
+
+/* Connector — hidden in 2-col grid */
+.ver-connector { display: none; }
+
+@media (max-width: 960px) {
+  .versions { grid-template-columns: 1fr; }
+}
+
+/* ═════════════════════════════════════
+   DARK CARD STYLES
+═════════════════════════════════════ */
+
+/* ── V1 Plan Card ── */
+.d-v1-plan { background:#111; border:1px solid #252525; border-radius:12px; overflow:hidden; font-size:13px; }
+.d-v1-ph { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-bottom:1px solid #1e1e1e; }
+.d-v1-ph-l { display:flex; align-items:center; gap:8px; }
+.d-v1-ph-lbl { font-family:var(--card-mono); font-size:11px; color:#555; text-transform:uppercase; letter-spacing:.1em; }
+.d-v1-ph-ct  { font-family:var(--card-mono); font-size:11px; color:#444; }
+.d-v1-step { display:flex; align-items:flex-start; gap:10px; padding:10px 16px; border-bottom:1px solid #1a1a1a; }
+.d-v1-step:last-of-type { border-bottom:none; }
+.d-v1-num { font-family:var(--card-mono); font-size:11px; color:#4a4a4a; flex-shrink:0; margin-top:2px; }
+.d-v1-txt { font-size:13px; color:#999; line-height:1.5; flex:1; }
+.d-v1-circle { width:14px; height:14px; border-radius:50%; border:2px solid #383838; flex-shrink:0; margin-top:2px; }
+.d-v1-handoff { display:flex; align-items:flex-start; gap:8px; margin-top:8px; padding:8px 10px; border-radius:6px; background:rgba(245,158,11,.05); border:1px solid rgba(245,158,11,.25); }
+.d-v1-hf-txt { font-size:11.5px; color:rgba(251,191,36,.75); line-height:1.4; }
+.d-v1-footer { display:flex; align-items:center; gap:8px; padding:12px 16px; border-top:1px solid #1e1e1e; }
+.d-v1-btn-g { padding:7px 16px; border-radius:8px; border:1px solid #2e2e2e; font-size:13px; color:#888; background:transparent; cursor:pointer; transition:.15s; }
+.d-v1-btn-g:hover { border-color:#404040; color:#bbb; }
+.d-v1-btn-p { padding:7px 16px; border-radius:8px; font-size:13px; color:#0a0a0a; font-weight:600; background:#10b981; border:none; cursor:pointer; transition:.15s; }
+.d-v1-btn-p:hover { background:#34d399; }
+
+/* ── V2 Plan Card ── */
+.d-v2-plan { background:#1c1c1c; border:1px solid #4a4a4a; border-radius:12px; overflow:hidden; font-size:13px; }
+.d-v2-ph { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-bottom:1px solid #2e2e2e; }
+.d-v2-ph-l { display:flex; align-items:center; gap:8px; }
+.d-v2-ph-lbl { font-family:var(--card-mono); font-size:11px; color:#999; text-transform:uppercase; letter-spacing:.1em; }
+.d-v2-badge { font-family:var(--card-mono); font-size:10px; color:#60a5fa; background:rgba(59,130,246,.1); border:1px solid rgba(59,130,246,.3); padding:2px 6px; border-radius:4px; }
+.d-v2-step { padding:10px 16px; border-bottom:1px solid #2e2e2e; }
+.d-v2-step:last-of-type { border-bottom:none; }
+.d-v2-step-in { display:flex; align-items:flex-start; gap:12px; }
+.d-v2-txt-done { font-size:13px; color:#666; text-decoration:line-through; line-height:1.5; flex:1; }
+.d-v2-txt-active { font-size:13px; color:#e0e0e0; line-height:1.5; flex:1; }
+.d-v2-txt-pend  { font-size:13px; color:#b0b0b0; line-height:1.5; flex:1; }
+.d-v2-square { width:13px; height:13px; border-radius:2px; border:1.5px solid #888; flex-shrink:0; margin-top:2px; }
+.d-v2-run-badge { font-family:var(--card-mono); font-size:10px; font-weight:600; color:#60a5fa; background:rgba(59,130,246,.1); border:1px solid rgba(59,130,246,.3); padding:3px 8px; border-radius:4px; flex-shrink:0; }
+.d-v2-handoff { display:flex; align-items:flex-start; gap:8px; margin-top:8px; padding:8px 12px; border-radius:8px; background:rgba(59,130,246,.08); border:1px solid rgba(59,130,246,.3); }
+.d-v2-hf-txt { font-size:11.5px; color:rgba(147,197,253,1); line-height:1.5; }
+.d-v2-footer { display:flex; align-items:center; gap:8px; padding:12px 16px 14px; border-top:1px solid #2e2e2e; }
+.d-v2-btn-a { display:flex; align-items:center; gap:8px; padding:7px 16px; border-radius:8px; font-size:13px; font-weight:600; color:#040f0a; background:#10b981; border:none; cursor:pointer; box-shadow:0 2px 8px rgba(16,185,129,.25); transition:.15s; }
+.d-v2-btn-a:hover { background:#34d399; box-shadow:0 3px 12px rgba(16,185,129,.35); }
+.d-v2-btn-m { display:flex; align-items:center; gap:8px; padding:7px 16px; border-radius:8px; font-size:13px; color:#b0b0b0; background:transparent; border:1px solid #888; cursor:pointer; transition:.15s; }
+.d-v2-btn-m:hover { border-color:#aaa; color:#ddd; }
+
+/* ── V4 (current) Plan Card ── */
+.d-v4-plan { background:rgba(139,92,246,.06); border:1px solid rgba(139,92,246,.22); border-radius:12px; overflow:hidden; font-size:13px; }
+.d-v4-ph { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:rgba(139,92,246,.12); border-bottom:1px solid rgba(139,92,246,.22); }
+.d-v4-ph-l { display:flex; align-items:center; gap:10px; }
+.d-v4-icon-box { width:24px; height:24px; border-radius:6px; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.28); }
+.d-v4-ph-title { font-size:14px; font-weight:600; color:#ede9fe; letter-spacing:-.2px; }
+.d-v4-ph-count { font-family:var(--card-mono); font-size:11px; color:rgba(167,139,250,.5); letter-spacing:.04em; }
+.d-v4-step { padding:6px 16px; }
+.d-v4-step.active { background:rgba(139,92,246,.08); padding:10px 16px; }
+.d-v4-step-in { display:flex; align-items:flex-start; gap:12px; }
+.d-v4-dot { width:8px; height:8px; border-radius:50%; background:#6b5e8a; flex-shrink:0; margin-top:5px; }
+.d-v4-pulse { width:9px; height:9px; border-radius:50%; background:#a78bfa; flex-shrink:0; margin-top:4px; box-shadow:0 0 6px rgba(167,139,250,.5); animation:pulseDot 1.6s ease-in-out infinite; }
+.d-v4-check { flex-shrink:0; margin-top:1px; }
+.d-v4-txt-pend { font-size:13.5px; color:#cdc4f0; line-height:1.6; flex:1; }
+.d-v4-txt-active { font-size:13.5px; color:#f0ecff; line-height:1.6; flex:1; }
+.d-v4-txt-done { font-size:13.5px; color:#7c8594; line-height:1.6; flex:1; }
+.d-v4-run-badge { font-family:var(--card-mono); font-size:10.5px; font-weight:600; color:#a78bfa; background:rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.3); padding:3px 8px; border-radius:4px; flex-shrink:0; }
+.d-v4-handoff { display:flex; align-items:flex-start; gap:8px; margin-top:6px; margin-left:2px; padding-left:12px; border-left:1px solid rgba(167,139,250,.35); }
+.d-v4-hf-txt { font-size:11.5px; color:#b8aee8; line-height:1.5; }
+.d-v4-hf-label { font-weight:600; color:#c4b5fd; }
+.d-v4-footer { display:flex; align-items:center; justify-content:flex-end; gap:10px; padding:12px 16px; border-top:1px solid rgba(139,92,246,.15); }
+.d-v4-btn-a { display:flex; align-items:center; gap:8px; padding:7px 14px; border-radius:8px; font-size:13px; font-weight:600; color:#1e1b4b; background:rgba(255,255,255,.82); border:none; cursor:pointer; box-shadow:0 2px 12px rgba(255,255,255,.08); transition:.15s; }
+.d-v4-btn-a:hover { background:rgba(237,233,254,.92); box-shadow:0 3px 16px rgba(255,255,255,.14); }
+.d-v4-btn-m { display:flex; align-items:center; gap:8px; padding:7px 14px; border-radius:8px; font-size:13px; color:#9d8ec8; background:rgba(139,92,246,.08); border:1px solid rgba(139,92,246,.25); cursor:pointer; transition:.15s; }
+.d-v4-btn-m:hover { border-color:rgba(139,92,246,.45); color:#c4b5fd; background:rgba(139,92,246,.14); }
+
+/* ── V1 Action Card ── */
+.d-v1-action { background:rgba(245,158,11,.05); border:1px solid rgba(245,158,11,.3); border-radius:12px; overflow:hidden; font-size:13px; }
+.d-v1-ab { padding:20px; }
+.d-v1-ah { display:flex; align-items:center; gap:8px; margin-bottom:16px; }
+.d-v1-amber-dot { width:8px; height:8px; border-radius:50%; background:#fbbf24; flex-shrink:0; }
+.d-v1-al { font-family:var(--card-mono); font-size:11px; font-weight:600; color:#fbbf24; text-transform:uppercase; letter-spacing:.15em; }
+.d-v1-row { display:flex; align-items:flex-start; gap:10px; margin-bottom:11px; font-size:13.5px; color:#bbb; line-height:1.6; }
+.d-v1-rl { color:#777; font-weight:500; }
+.d-v1-wait { display:flex; align-items:center; gap:8px; margin-top:14px; font-size:12px; color:#555; }
+.d-v1-af { padding:12px 20px 20px; border-top:1px solid rgba(245,158,11,.1); display:flex; gap:8px; }
+.d-v1-btn-gc { padding:7px 14px; border-radius:8px; border:1px solid #2e2e2e; font-size:13px; color:#888; background:transparent; cursor:pointer; transition:.15s; }
+.d-v1-btn-gc:hover { border-color:#404040; color:#bbb; }
+.d-v1-btn-pc { padding:7px 14px; border-radius:8px; font-size:13px; color:#0a0a0a; font-weight:600; background:#10b981; border:none; cursor:pointer; transition:.15s; }
+.d-v1-btn-pc:hover { background:#34d399; }
+
+/* ── V4 Action Card ── */
+.d-v4-action { background:rgba(37,99,235,.06); border:1px solid rgba(59,130,246,.22); border-radius:12px; overflow:hidden; font-size:13px; }
+.d-v4-aph { display:flex; align-items:center; padding:10px 16px; border-bottom:1px solid rgba(59,130,246,.15); }
+.d-v4-aph-l { display:flex; align-items:center; gap:10px; flex:1; }
+.d-v4-a-icon { width:24px; height:24px; border-radius:6px; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:rgba(59,130,246,.15); border:1px solid rgba(59,130,246,.28); }
+.d-v4-a-title { font-size:14px; font-weight:600; color:#dbeafe; letter-spacing:-.2px; }
+.d-v4-abody { padding:16px 16px 18px; }
+.d-v4-adesc { font-size:13.5px; line-height:1.6; color:#bfdbfe; }
+.d-v4-adesc strong { color:#dbeafe; }
+.d-v4-sec { display:flex; align-items:center; gap:6px; margin-top:10px; }
+.d-v4-sec-txt { font-size:12px; color:#a8bfcc; line-height:1.4; }
+
+@keyframes pulseDot {
+  0%, 100% { opacity:1; transform:scale(1); }
+  50% { opacity:.5; transform:scale(.7); }
+}
+@keyframes spin {
+  from { transform:rotate(0deg); transform-origin:7.5px 7.5px; }
+  to { transform:rotate(360deg); transform-origin:7.5px 7.5px; }
+}
+
+/* ── Footer ── */
+footer { padding: 48px 0; text-align: center; color: var(--text-dim); font-size: 13px; border-top: 1px solid var(--border); }
+footer a { color: var(--accent); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+@media (max-width: 820px) {
+  .ver-row { grid-template-columns: 1fr; }
+  .ver-anno { padding-top: 0; }
+  .hero h1 { font-size: 2.1rem; }
+  .container { padding: 0 20px; }
+}
+
+/* ── Site-level page nav ── */
+.site-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 200;
+}
+.site-nav .inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px;
+}
+.site-nav .brand {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  color: var(--text-dim); text-decoration: none; white-space: nowrap;
+}
+.site-nav .brand:hover { color: var(--text); }
+.site-nav .pages {
+  display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none;
+}
+.site-nav .pages::-webkit-scrollbar { display: none; }
+.site-nav .pages a {
+  white-space: nowrap; padding: 6px 14px; border-radius: 6px;
+  text-decoration: none; color: var(--text-dim); font-size: 13px;
+  font-weight: 450; transition: all 0.15s;
+}
+.site-nav .pages a:hover { color: var(--text); background: var(--surface2); }
+.site-nav .pages a.active {
+  color: var(--text); background: var(--surface2); font-weight: 550;
+}
+@media (max-width: 600px) {
+  .site-nav .brand { display: none; }
+  .site-nav .inner { justify-content: center; }
+}
+
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="inner">
+    <a class="brand" href="report_audit.html">Simular SAI &mdash; Product Design</a>
+    <div class="pages">
+    <a href="report_audit.html" class="">Product Audit</a>
+    <a href="report_redesign.html" class="">Redesign</a>
+    <a href="design-evolution.html" class="active">Design Evolution</a>
+    <a href="report_prototype.html" class="">Live Prototype</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ════ HERO ════ -->
+<div class="hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/">Simular AI Redesign</a>
+      <span>/</span>
+      <span>Card Design Evolution</span>
+    </div>
+    <h1>Cards as <em>Communication</em></h1>
+    <p class="lead">Three UI cards, three redesign stories. Each revision clarifies what the card needs to say — and how.</p>
+  </div>
+</div>
+
+<!-- ════ CONTEXT SCREENSHOTS ════ -->
+<div style="border-bottom: 1px solid var(--border); padding: 48px 0;">
+  <div class="container">
+    <p style="font-family: var(--mono); font-size: 10.5px; font-weight: 500; color: var(--text-dim); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 20px;">Interface Context</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <figure style="margin: 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border);">
+        <img src="report_assets/Redesign/after_08_browser_article.png" alt="Execution Plan card in prototype interface" style="width: 100%; display: block; cursor: zoom-in;" onclick="openLightbox(this)">
+        <figcaption style="padding: 14px 18px; border-top: 1px solid var(--border);">
+          <div style="font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--text); margin-bottom: 4px;">Execution Plan Card</div>
+          <div style="font-size: 13px; color: var(--text-dim);">Shown in the chat panel before the agent starts. The user reviews and approves the plan here.</div>
+        </figcaption>
+      </figure>
+      <figure style="margin: 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border);">
+        <img src="report_assets/Redesign/after_14_auth_signin.png" alt="Auth sign-in handoff card in prototype interface" style="width: 100%; display: block; cursor: zoom-in;" onclick="openLightbox(this)">
+        <figcaption style="padding: 14px 18px; border-top: 1px solid var(--border);">
+          <div style="font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--text); margin-bottom: 4px;">Sign-in Required Card</div>
+          <div style="font-size: 13px; color: var(--text-dim);">Shown mid-task when the agent needs user credentials to continue. Resumes automatically after sign-in.</div>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <div class="container">
+    <a href="#plan">Execution Plan</a>
+    <a href="#updated-plan">Updated Plan</a>
+    <a href="#signin">Sign-in Required</a>
+  </div>
+</nav>
+
+
+<!-- ════ SECTION 1: Execution Plan Card ════ -->
+<section class="comp-section" id="plan">
+<div class="container">
+  <div class="section-eyebrow">Component 01</div>
+  <h2 class="section-title">Execution Plan Card</h2>
+  <p style="font-size:14.5px; color:var(--text-dim); margin-bottom:40px; max-width:680px; line-height:1.75;">The agent's proposal before anything runs. One job: enough clarity to approve confidently.</p>
+
+  <div class="versions">
+
+    <!-- V2 -->
+    <div class="ver-row">
+      <div class="ver-card-col">
+        <div class="ver-header">
+          <span class="ver-badge ver-v2">V2</span>
+          <span class="ver-name">Blue progress theme</span>
+        </div>
+        <div class="card-preview">
+          <div class="d-v2-plan">
+            <div class="d-v2-ph">
+              <div class="d-v2-ph-l">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3e3e3e" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <span class="d-v2-ph-lbl">Execution Plan</span>
+              </div>
+              <span style="display:inline-flex;align-items:center;gap:5px;font-family:var(--card-mono);font-size:10px;color:#fbbf24;letter-spacing:.07em;text-transform:uppercase;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.28);padding:3px 9px;border-radius:99px;"><span style="width:6px;height:6px;border-radius:50%;background:#fbbf24;flex-shrink:0;display:inline-block;"></span>Pending</span>
+            </div>
+            <div style="padding:4px 0">
+              <div class="d-v2-step"><div class="d-v2-step-in"><div class="d-v2-square"></div><span class="d-v2-txt-pend">Research Nordic &amp; Japanese home accessory brands and trends.</span></div></div>
+              <div class="d-v2-step"><div class="d-v2-step-in"><div class="d-v2-square"></div><span class="d-v2-txt-pend">Curate 20 products with market analysis, pricing, and images.</span></div></div>
+              <div class="d-v2-step"><div class="d-v2-step-in">
+                <div class="d-v2-square"></div>
+                <div style="flex:1">
+                  <span class="d-v2-txt-pend">Sign in to Google in the VM browser.</span>
+                  <div class="d-v2-handoff">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin-top:1px"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0m0 10V5a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v7"/><path d="M6 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-5"/></svg>
+                    <span class="d-v2-hf-txt">I'll pause here for you to sign in to Google in the browser on the right.</span>
+                  </div>
+                </div>
+              </div></div>
+              <div class="d-v2-step" style="border-bottom:none"><div class="d-v2-step-in"><div class="d-v2-square"></div><span class="d-v2-txt-pend">Create &amp; populate Google Sheet with research data.</span></div></div>
+            </div>
+            <div class="d-v2-footer">
+              <button class="d-v2-btn-a"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Approve &amp; Start</button>
+              <button class="d-v2-btn-m">Modify Plan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ver-anno">
+        <div class="anno-version-name">V2: Explicit status label, but the card still blends in</div>
+        <div class="anno-body">
+          <p>The "Pending" pill makes the approval-waiting state visible. Blue handles the handoff — it doesn't read as an error.</p>
+          <p>Two problems. The near-black background gives the card almost no visual separation from the chat — it disappears into the interface. And the approve button is green while the rest of the card is blue. The Final adds a purple tinted border (the card now stands out against the chat), and uses purple for handoff, border, and button — one colour throughout.</p>
+        </div>
+        <div class="anno-verdict">
+          <span class="vd-label vd-challenge">Issue</span>
+          Card not visible against the dark interface; approve button colour doesn't match the blue handoff theme.
+        </div>
+      </div>
+    </div>
+
+    <!-- Final -->
+    <div class="ver-row">
+      <div class="ver-card-col">
+        <div class="ver-header">
+          <span class="ver-badge ver-v4">Final</span>
+          <span class="ver-name">Current design</span>
+        </div>
+        <!-- State 1: Proposed (awaiting approval) -->
+        <p style="font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Proposed plan for approval</p>
+        <div class="card-preview">
+          <div class="d-v4-plan">
+            <div class="d-v4-ph">
+              <div class="d-v4-ph-l">
+                <div class="d-v4-icon-box">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <span class="d-v4-ph-title">Proposed Execution Plan</span>
+              </div>
+              <span class="d-v4-ph-count">4 steps</span>
+            </div>
+            <div style="padding:4px 0">
+              <div class="d-v4-step"><div class="d-v4-step-in"><div class="d-v4-dot"></div><span class="d-v4-txt-pend">Research Nordic &amp; Japanese home accessory brands and trends.</span></div></div>
+              <div class="d-v4-step"><div class="d-v4-step-in"><div class="d-v4-dot"></div><span class="d-v4-txt-pend">Curate 20 products with market analysis, pricing, and images.</span></div></div>
+              <div class="d-v4-step"><div class="d-v4-step-in">
+                <div class="d-v4-dot"></div>
+                <div style="flex:1">
+                  <span class="d-v4-txt-pend">Sign in to Google in the VM browser.</span>
+                  <div class="d-v4-handoff">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9d8ec8" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;margin-top:2px"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0m0 10V5a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v7"/><path d="M6 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-5"/></svg>
+                    <span class="d-v4-hf-txt"><span class="d-v4-hf-label">Handoff: </span>I'll pause here for you to sign in to Google in the browser on the right.</span>
+                  </div>
+                </div>
+              </div></div>
+              <div class="d-v4-step" style="padding-bottom:8px"><div class="d-v4-step-in"><div class="d-v4-dot"></div><span class="d-v4-txt-pend">Create &amp; populate Google Sheet with research data.</span></div></div>
+            </div>
+            <div class="d-v4-footer">
+              <button class="d-v4-btn-m">Modify Plan</button>
+              <button class="d-v4-btn-a">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Approve &amp; Execute
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- State 2: Running (after approval) -->
+        <p style="font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin:16px 0 8px;">Running the plan</p>
+        <div class="card-preview">
+          <div class="d-v4-plan">
+            <div class="d-v4-ph">
+              <div class="d-v4-ph-l">
+                <div class="d-v4-icon-box">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <span class="d-v4-ph-title">Execution Plan</span>
+              </div>
+              <span class="d-v4-ph-count" style="color:#a78bfa;">1/4</span>
+            </div>
+            <div style="padding:4px 0">
+              <div class="d-v4-step"><div class="d-v4-step-in">
+                <div class="d-v4-check" style="margin-top:1px;"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="7" fill="rgba(139,92,246,.15)" stroke="rgba(139,92,246,.4)" stroke-width="1"/><polyline points="4.5,7.5 6.5,9.5 10.5,5.5" stroke="#8b5cf6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <span class="d-v4-txt-done">Research Nordic &amp; Japanese home accessory brands and trends.</span>
+              </div></div>
+              <div class="d-v4-step active"><div class="d-v4-step-in">
+                <div class="d-v4-pulse"></div>
+                <span class="d-v4-txt-active" style="flex:1">Curate 20 products with market analysis, pricing, and images.</span>
+                <span class="d-v4-run-badge">Running</span>
+              </div></div>
+              <div class="d-v4-step"><div class="d-v4-step-in">
+                <div class="d-v4-dot"></div>
+                <div style="flex:1">
+                  <span class="d-v4-txt-pend">Sign in to Google in the VM browser.</span>
+                  <div class="d-v4-handoff">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9d8ec8" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;margin-top:2px"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0m0 10V5a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v7"/><path d="M6 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-5"/></svg>
+                    <span class="d-v4-hf-txt"><span class="d-v4-hf-label">Handoff: </span>I'll pause here for you to sign in to Google in the browser on the right.</span>
+                  </div>
+                </div>
+              </div></div>
+              <div class="d-v4-step" style="padding-bottom:8px"><div class="d-v4-step-in"><div class="d-v4-dot"></div><span class="d-v4-txt-pend">Create &amp; populate Google Sheet with research data.</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ver-anno">
+        <div class="anno-version-name">Final: One colour, one system</div>
+        <div class="anno-body">
+          <p>Purple isn't used for errors, warnings, or success states anywhere in the interface — so using it for the handoff note, card border, and approve button creates no confusion. Every element in the card points to the same colour.</p>
+          <p>The slow pulse replaces a spinner. A spinner implies "wait, don't do anything." The pulse shows the agent is working without demanding the user's attention.</p>
+        </div>
+        <div class="anno-verdict">
+          <span class="vd-label vd-resolved">Resolved</span>
+          One colour for all card elements — handoff, border, and action button match.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end .versions -->
+</div>
+</section>
+
+
+<!-- ════ SECTION 2: Updated Plan Card ════ -->
+<section class="comp-section" id="updated-plan">
+<div class="container">
+  <div class="section-eyebrow">Component 02 — Modifier Flow</div>
+  <h2 class="section-title">Updated Execution Plan</h2>
+  <p style="font-size:14.5px; color:var(--text-dim); margin-bottom:40px; max-width:680px; line-height:1.75;">Shown after the user modifies the plan. They've already read it once — one job: make what changed immediately visible.</p>
+
+  <div class="versions">
+
+    <!-- V2 -->
+    <div class="ver-row">
+      <div class="ver-card-col">
+        <div class="ver-header">
+          <span class="ver-badge ver-v2">V2</span>
+          <span class="ver-name">Card-level badge</span>
+        </div>
+        <div class="card-preview">
+          <div class="d-v2-plan">
+            <div class="d-v2-ph">
+              <div class="d-v2-ph-l">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3e3e3e" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <span class="d-v2-ph-lbl">Execution Plan (Updated)</span>
+                <span class="d-v2-badge">updated</span>
+              </div>
+              <span style="display:inline-flex;align-items:center;gap:5px;font-family:var(--card-mono);font-size:10px;color:#fbbf24;letter-spacing:.07em;text-transform:uppercase;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.28);padding:3px 9px;border-radius:99px;"><span style="width:6px;height:6px;border-radius:50%;background:#fbbf24;flex-shrink:0;display:inline-block;"></span>Pending</span>
+            </div>
+            <div style="padding:4px 0">
+              <div class="d-v2-step"><div class="d-v2-step-in"><div class="d-v2-square"></div><span class="d-v2-txt-pend">Research Nordic &amp; Japanese home accessory brands and trends.</span></div></div>
+              <div class="d-v2-step"><div class="d-v2-step-in"><div class="d-v2-square"></div><span class="d-v2-txt-pend">Curate 20 products with market analysis, pricing, and images.</span></div></div>
+              <div class="d-v2-step"><div class="d-v2-step-in">
+                <div class="d-v2-square"></div>
+                <div style="flex:1">
+                  <span class="d-v2-txt-pend" style="color:#e0e0e0">Open Google Sheets in Simular's cloud computer and populate the spreadsheet.</span>
+                  <div class="d-v2-handoff">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin-top:1px"><path d="M2 20h20M6 20V10m4 10V4m4 16V8m4 12V14"/></svg>
+                    <span class="d-v2-hf-txt">I'll pause here for you to sign in to Google in the browser on the right.</span>
+                  </div>
+                </div>
+              </div></div>
+              <div class="d-v2-step" style="border-bottom:none"><div class="d-v2-step-in"><div class="d-v2-square"></div><span class="d-v2-txt-pend">Deliver the completed market research spreadsheet.</span></div></div>
+            </div>
+            <div class="d-v2-footer">
+              <button class="d-v2-btn-a"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Approve</button>
+              <button class="d-v2-btn-m">Modify Plan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ver-anno">
+        <div class="anno-version-name">V2: Shows something changed — not what</div>
+        <div class="anno-body">
+          <p>Three indicators in the header: a "Pending" pill, an "updated" badge, and brighter white text on the changed step. The intent: make the change visible without the user having to search for it.</p>
+          <p>In practice, the header is crowded and none of the labels point to which step changed. White vs. light grey is easy to miss on a dark background. The Final removes the header labels and puts an amber left-border directly on the changed step — one marker, at the step itself.</p>
+        </div>
+        <div class="anno-verdict">
+          <span class="vd-label vd-challenge">Issue</span>
+          Three indicators in the header, none pointing to the step that changed.
+        </div>
+      </div>
+    </div>
+
+    <!-- Final -->
+    <div class="ver-row">
+      <div class="ver-card-col">
+        <div class="ver-header">
+          <span class="ver-badge ver-v4">Final</span>
+          <span class="ver-name">Step-level highlight</span>
+        </div>
+        <div class="card-preview">
+          <div class="d-v4-plan">
+            <div class="d-v4-ph">
+              <div class="d-v4-ph-l">
+                <div class="d-v4-icon-box">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <span class="d-v4-ph-title">Proposed Execution Plan</span>
+              </div>
+              <span class="d-v4-ph-count">4 steps</span>
+            </div>
+            <div style="padding:4px 0">
+              <div class="d-v4-step"><div class="d-v4-step-in"><div class="d-v4-dot"></div><span class="d-v4-txt-pend">Research Nordic &amp; Japanese home accessory brands and trends.</span></div></div>
+              <div class="d-v4-step"><div class="d-v4-step-in"><div class="d-v4-dot"></div><span class="d-v4-txt-pend">Curate 20 products with market analysis, pricing, and images.</span></div></div>
+              <!-- Changed step -->
+              <div class="d-v4-step" style="border-left:2px solid rgba(251,191,36,.45);padding:10px 16px;">
+                <div class="d-v4-step-in">
+                  <div class="d-v4-dot"></div>
+                  <div style="flex:1">
+                    <span class="d-v4-txt-pend" style="color:#fef3c7">Open Google Sheets in Simular's cloud computer and populate the spreadsheet.</span>
+                    <div class="d-v4-handoff">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9d8ec8" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;margin-top:2px"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0m0 10V5a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v7"/><path d="M6 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-5"/></svg>
+                      <span class="d-v4-hf-txt"><span class="d-v4-hf-label">Handoff: </span>I'll pause here for you to sign in to Google in the browser on the right.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-v4-step" style="padding-bottom:8px"><div class="d-v4-step-in"><div class="d-v4-dot"></div><span class="d-v4-txt-pend">Deliver the completed market research spreadsheet.</span></div></div>
+            </div>
+            <div class="d-v4-footer">
+              <button class="d-v4-btn-m">Modify Plan</button>
+              <button class="d-v4-btn-a">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Approve &amp; Execute
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ver-anno">
+        <div class="anno-version-name">Final: Highlight on the changed step itself</div>
+        <div class="anno-body">
+          <p>An amber left-border marks the changed step directly. Unchanged steps are visually identical to before — so the user immediately sees what's different without scanning.</p>
+          <p>Amber is used elsewhere in the interface to mean "this needs your attention." Here it means: this is the step you just modified — check it looks right before approving.</p>
+        </div>
+        <div class="anno-verdict">
+          <span class="vd-label vd-resolved">Resolved</span>
+          Highlight moved from the card header to the step that changed.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+
+<!-- ════ SECTION 3: Sign-in Card ════ -->
+<section class="comp-section" id="signin">
+<div class="container">
+  <div class="section-eyebrow">Component 03</div>
+  <h2 class="section-title">Sign-in Required Card</h2>
+  <p style="font-size:14.5px; color:var(--text-dim); margin-bottom:40px; max-width:680px; line-height:1.75;">Shown when the agent pauses mid-task. The challenge: a clear directive — what to do, where — without making a routine sign-in feel like a crisis.</p>
+
+  <div class="versions">
+
+    <!-- V1 -->
+    <div class="ver-row">
+      <div class="ver-card-col">
+        <div class="ver-header">
+          <span class="ver-badge ver-v1">V1</span>
+          <span class="ver-name">Action Required</span>
+        </div>
+        <div class="card-preview">
+          <div class="d-v1-action">
+            <div class="d-v1-ab">
+              <div class="d-v1-ah">
+                <div class="d-v1-amber-dot"></div>
+                <span class="d-v1-al">Action Required</span>
+              </div>
+              <div class="d-v1-row">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(245,158,11,.5)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin-top:3px"><polyline points="9 18 15 12 9 6"/></svg>
+                <div><span class="d-v1-rl">Action: </span>Please log in to your Google account in the VM on the right.</div>
+              </div>
+              <div class="d-v1-row">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(245,158,11,.5)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin-top:3px"><polyline points="9 18 15 12 9 6"/></svg>
+                <div><span class="d-v1-rl">Impact: </span>This allows me to create and populate the market research spreadsheet directly.</div>
+              </div>
+              <div class="d-v1-row" style="margin-bottom:0">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(245,158,11,.5)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin-top:3px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <div><span class="d-v1-rl">Security: </span>Your credentials remain isolated in this secure VM session. Simular does not store your password.</div>
+              </div>
+              <div class="d-v1-wait">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>Waiting for successful login... <span style="color:#3a3a3a">(System will auto-resume)</span></span>
+              </div>
+            </div>
+            <div class="d-v1-af">
+              <button class="d-v1-btn-gc">Cancel</button>
+              <button class="d-v1-btn-pc">Simulate Login Success</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ver-anno">
+        <div class="anno-version-name">V1: Right idea, wrong format and colour</div>
+        <div class="anno-body">
+          <p>Intent: direct the user to the browser panel on the right, explain why, reassure on security.</p>
+          <p>Three problems: the labelled-row layout reads like a form to fill in, not an instruction to act on. Amber is conventionally used for errors — the user's first read is that something went wrong. The Cancel / Simulate Login Success buttons ask the user to do something the system can detect automatically.</p>
+        </div>
+        <div class="anno-verdict">
+          <span class="vd-label vd-challenge">Issue</span>
+          Amber colour reads as an error; labelled rows slow the user down; buttons for an action that needs no confirmation.
+        </div>
+      </div>
+    </div>
+
+    <!-- Final -->
+    <div class="ver-row">
+      <div class="ver-card-col">
+        <div class="ver-header">
+          <span class="ver-badge ver-v4">Final</span>
+          <span class="ver-name">Sign in here</span>
+        </div>
+        <div class="card-preview">
+          <div class="d-v4-action">
+            <div class="d-v4-aph">
+              <div class="d-v4-aph-l">
+                <div class="d-v4-a-icon">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0m0 10V5a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v7"/><path d="M6 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-5"/></svg>
+                </div>
+                <span class="d-v4-a-title">Sign in to Google in Simular's Browser on the right</span>
+              </div>
+            </div>
+            <div class="d-v4-abody">
+              <p class="d-v4-adesc">Switch to the <strong>Browser tab on the right</strong> and sign in — I'll detect it automatically and continue from there.</p>
+              <div class="d-v4-sec">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(167,139,250,.9)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span class="d-v4-sec-txt">Credentials are isolated in this session and never stored.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ver-anno">
+        <div class="anno-version-name">Final: The title is the instruction</div>
+        <div class="anno-body">
+          <p><strong>"Sign in to Google in Simular's Browser on the right"</strong> — names the action and the location. The user knows exactly what to do and where, before reading another word.</p>
+          <p>Body is one sentence: the agent resumes automatically after sign-in. The security note is there for users who want it — it doesn't block the main message. Blue instead of amber: it reads as information, not a warning.</p>
+        </div>
+        <div class="anno-verdict">
+          <span class="vd-label vd-resolved">Resolved</span>
+          Action and location in the title — nothing to read before acting.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+  <div class="container">
+    <a href="https://www.linkedin.com/in/yrcheng/" target="_blank">© 2026 YR CHENG REDESIGN</a>
+    &nbsp;·&nbsp; Simular AI Redesign Proposal &nbsp;·&nbsp;
+    <a href="/">View Prototype →</a>
+  </div>
+</footer>
+<script>
+function openLightbox(imgEl) {
+  const overlay = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = imgEl.src;
+  document.getElementById('lightbox-img').alt = imgEl.alt;
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+</script>
+
+</body>
+</html>
