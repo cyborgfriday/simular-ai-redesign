@@ -70,7 +70,7 @@ figure.zoomable img:hover { opacity: 0.92; }
   border-bottom: 1px solid var(--border);
 }
 .hero .badge {
-  display: inline-block; padding: 5px 14px; border-radius: 4px;
+  display: inline-block; padding: 8px 16px; border-radius: 4px;
   border: 1px solid var(--border); color: var(--text-dim);
   font-family: var(--mono); font-size: 0.625rem; font-weight: 500;
   letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px;
@@ -100,11 +100,11 @@ section { padding: 72px 0; border-bottom: 1px solid var(--border); }
 section:last-of-type { border-bottom: none; }
 h2 {
   font-family: var(--serif); font-size: 1.875rem; font-weight: 400;
-  line-height: 1.2; margin-bottom: 10px; color: var(--text); letter-spacing: -0.025em;
+  line-height: 1.2; margin-bottom: 12px; color: var(--text); letter-spacing: -0.025em;
 }
 h2 .num {
   font-family: var(--mono); color: var(--text-dim); font-size: 0.55em;
-  margin-right: 10px; font-weight: 500; vertical-align: 2px;
+  margin-right: 12px; font-weight: 500; vertical-align: 2px;
 }
 h3 {
   font-family: var(--serif); font-size: 1.375rem; font-weight: 400;
@@ -120,13 +120,13 @@ p { margin-bottom: 16px; color: var(--text-dim); }
 }
 .card-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px; margin: 28px 0;
+  gap: 16px; margin: 32px 0;
 }
 .card h4 { margin-top: 0; }
 .card .label, .label {
-  display: inline-block; padding: 2px 9px; border-radius: 4px;
+  display: inline-block; padding: 4px 10px; border-radius: 4px;
   font-family: var(--mono); font-size:0.625rem; font-weight: 500;
-  letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 14px;
+  letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 16px;
 }
 .label-red { background: rgba(185,28,28,0.06); color: var(--red); }
 .label-amber { background: rgba(161,98,7,0.06); color: var(--amber); }
@@ -136,13 +136,13 @@ p { margin-bottom: 16px; color: var(--text-dim); }
 
 /* ── Figures ── */
 figure {
-  margin: 28px 0; border-radius: var(--radius); overflow: hidden;
+  margin: 32px 0; border-radius: var(--radius); overflow: hidden;
   border: 1px solid var(--border); background: var(--surface);
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 figure img { width: 100%; display: block; }
 figcaption {
-  padding: 14px 18px; font-size: 0.8125rem; color: var(--text-dim);
+  padding: 16px 20px; font-size: 0.8125rem; color: var(--text-dim);
   border-top: 1px solid var(--border); line-height: 1.65; font-style: italic;
 }
 
@@ -155,25 +155,25 @@ figcaption {
   aspect-ratio: 16/9; object-fit: cover; object-position: top left;
 }
 .comparison .col-label {
-  display: inline-block; padding: 3px 10px; border-radius: 4px;
+  display: inline-block; padding: 4px 12px; border-radius: 4px;
   font-family: var(--mono); font-size:0.625rem; font-weight: 500;
-  letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 10px;
+  letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 12px;
 }
 .before-label { background: rgba(185,28,28,0.06); color: var(--red); }
 .after-label { background: rgba(21,128,61,0.06); color: var(--green); }
 .comparison figure { margin: 0; }
-.comparison .col p { font-size: 0.8125rem; color: var(--text-dim); margin-top: 10px; line-height: 1.65; }
+.comparison .col p { font-size: 0.8125rem; color: var(--text-dim); margin-top: 12px; line-height: 1.65; }
 
 /* ── Spectrum ── */
 .spectrum {
-  display: flex; margin: 36px 0; border-radius: var(--radius);
+  display: flex; margin: 40px 0; border-radius: var(--radius);
   overflow: hidden; border: 1px solid var(--border);
 }
 .spectrum-item { flex: 1; padding: 24px 20px; text-align: center; }
 .spectrum-item:nth-child(1) { background: rgba(180,83,9,0.05); }
 .spectrum-item:nth-child(2) { background: rgba(29,78,216,0.04); }
 .spectrum-item:nth-child(3) { background: rgba(21,128,61,0.04); }
-.spectrum-item .label { margin-bottom: 10px; }
+.spectrum-item .label { margin-bottom: 12px; }
 .spectrum-item p { font-size: 0.8125rem; color: var(--text-dim); margin: 0; line-height: 1.65; }
 
 /* ── Problem tree ── */
@@ -187,7 +187,7 @@ figcaption {
 /* ── Highlight callout ── */
 .highlight {
   background: var(--accent-bg); border-left: 2px solid var(--accent);
-  padding: 22px 28px; border-radius: 0 var(--radius) var(--radius) 0; margin: 28px 0;
+  padding: 24px 28px; border-radius: 0 var(--radius) var(--radius) 0; margin: 32px 0;
 }
 .highlight p { margin: 0; line-height: 1.75; }
 .highlight strong { color: var(--accent); }
@@ -196,7 +196,7 @@ figcaption {
 .prototype-cta {
   display: flex; align-items: center; gap: 24px; background: var(--surface);
   border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 28px 32px; margin: 36px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  padding: 28px 32px; margin: 40px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 .prototype-cta .cta-text { flex: 1; }
 .prototype-cta .cta-text h4 { margin: 0 0 4px; color: var(--text); }
@@ -223,11 +223,11 @@ tr:hover td { background: rgba(0,0,0,0.015); }
 /* ── Proto screen ── */
 .proto-screen {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 22px 24px; margin: 18px 0;
+  border-radius: var(--radius); padding: 24px; margin: 20px 0;
 }
 .proto-screen .screen-title {
   font-family: var(--mono); font-weight: 500; color: var(--accent);
-  margin-bottom: 10px; font-size:0.75rem; letter-spacing: 0.3px; text-transform: uppercase;
+  margin-bottom: 12px; font-size:0.75rem; letter-spacing: 0.3px; text-transform: uppercase;
 }
 .proto-screen .screen-elements {
   font-size:0.875rem; color: var(--text-dim); line-height: 1.7;
@@ -243,7 +243,7 @@ tr:hover td { background: rgba(0,0,0,0.015); }
 
 /* ── Strategy grid ── */
 .strategy-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0;
 }
 .strategy-card {
   background: var(--surface); border: 1px solid var(--border);
@@ -256,9 +256,9 @@ tr:hover td { background: rgba(0,0,0,0.015); }
 }
 .strategy-card h4 { margin-top: 0; padding-right: 36px; }
 .strategy-card p { font-size:0.875rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 0; }
-.strategy-card .finding-tags { margin-top: 10px; }
+.strategy-card .finding-tags { margin-top: 12px; }
 .strategy-card .finding-tags span {
-  display: inline-block; padding: 1px 7px; border-radius: 3px;
+  display: inline-block; padding: 2px 8px; border-radius: 3px;
   font-family: var(--mono); font-size:0.625rem; font-weight: 500;
   background: var(--accent-bg); color: var(--accent); margin-right: 4px;
 }
