@@ -338,24 +338,25 @@ nav:not(.site-nav) a:hover {
 </header>
 
 <!-- ════ CONTEXT SCREENSHOTS ════ -->
-<div style="border-bottom: 1px solid var(--border); padding: 48px 0;">
+<div style="border-bottom: 1px solid var(--border); padding: 56px 0;">
   <div class="container">
-    <p style="font-family: var(--mono); font-size: 10.5px; font-weight: 500; color: var(--text-dim); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 20px;">Interface Context</p>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-      <figure style="margin: 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border);">
-        <img src="report_assets/Redesign/after_08_browser_article.png" alt="Execution Plan card in prototype interface" style="width: 100%; display: block; cursor: zoom-in;" onclick="openLightbox(this)">
-        <figcaption style="padding: 14px 18px; border-top: 1px solid var(--border);">
-          <div style="font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--text); margin-bottom: 4px;">Execution Plan Card</div>
-          <div style="font-size: 13px; color: var(--text-dim);">Shown in the chat panel before the agent starts. The user reviews and approves the plan here.</div>
-        </figcaption>
-      </figure>
-      <figure style="margin: 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border);">
-        <img src="report_assets/Redesign/after_14_auth_signin.png" alt="Auth sign-in handoff card in prototype interface" style="width: 100%; display: block; cursor: zoom-in;" onclick="openLightbox(this)">
-        <figcaption style="padding: 14px 18px; border-top: 1px solid var(--border);">
-          <div style="font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--text); margin-bottom: 4px;">Sign-in Required Card</div>
-          <div style="font-size: 13px; color: var(--text-dim);">Shown mid-task when the agent needs user credentials to continue. Resumes automatically after sign-in.</div>
-        </figcaption>
-      </figure>
+    <p style="font-family: var(--mono); font-size: 10.5px; font-weight: 500; color: var(--text-dim); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px;">Interface Context</p>
+    <h2 style="font-family: var(--serif); font-size: 1.75rem; font-weight: 400; letter-spacing: -0.025em; color: var(--text); margin-bottom: 40px; line-height: 1.2;">Cards in the Chat Panel</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+      <div>
+        <h3 style="font-family: var(--serif); font-size: 1.25rem; font-weight: 500; letter-spacing: -0.02em; color: var(--text); margin: 0 0 8px;">Execution Plan Card</h3>
+        <p style="font-size: 14px; color: var(--text-dim); margin: 0 0 20px; line-height: 1.7;">Appears in the chat panel before the agent starts. The user reviews each step and approves — or modifies — the plan before anything runs.</p>
+        <figure style="margin: 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border);">
+          <img src="report_assets/Redesign/after_08_browser_article.png" alt="Execution Plan card in prototype interface" style="width: 100%; display: block; cursor: zoom-in;" onclick="openLightbox(this)">
+        </figure>
+      </div>
+      <div>
+        <h3 style="font-family: var(--serif); font-size: 1.25rem; font-weight: 500; letter-spacing: -0.02em; color: var(--text); margin: 0 0 8px;">Sign-in Required Card</h3>
+        <p style="font-size: 14px; color: var(--text-dim); margin: 0 0 20px; line-height: 1.7;">Surfaces mid-task when the agent needs user credentials to continue. Once the user signs in, the agent resumes automatically — no manual re-trigger needed.</p>
+        <figure style="margin: 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border);">
+          <img src="report_assets/Redesign/after_14_auth_signin.png" alt="Auth sign-in handoff card in prototype interface" style="width: 100%; display: block; cursor: zoom-in;" onclick="openLightbox(this)">
+        </figure>
+      </div>
     </div>
   </div>
 </div>
