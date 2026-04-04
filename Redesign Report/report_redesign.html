@@ -425,6 +425,8 @@ footer a:hover { text-decoration: underline; }
       </div>
     </div>
 
+
+    <div style="margin-top:72px;padding-top:64px;border-top:1px solid var(--border);"></div>
     <!-- ─── HIGHLIGHT 2 ─── -->
     <h3><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">02</span>Authentication Handoff &amp; Graceful Fallback</h3>
     <div style="margin-bottom:32px;margin-top:12px;padding-left:46px;"><span style="font-family:var(--mono);font-size:0.625rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:10px;">Principles applied</span><div style="display:flex;gap:6px;flex-wrap:wrap;"><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);background:rgba(29,78,216,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Boundary Awareness</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--green);background:rgba(21,128,61,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Controllability</span></div><div style="margin-top:10px;display:flex;align-items:baseline;gap:10px;"><span style="font-family:var(--mono);font-size:0.5625rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--red);opacity:0.75;">Audit gap</span><span style="font-family:var(--sans);font-size:0.8125rem;color:var(--text-dim);">Auth popup outside VM; denial triggers silent retry loop</span></div></div>
@@ -446,6 +448,8 @@ footer a:hover { text-decoration: underline; }
     <figure class="zoomable" style="max-width:560px;"><img src="report_assets/Redesign/after_21_auth_cancelled_crop.png" alt="Graceful fallback: agent responds immediately when login is cancelled" loading="lazy" onclick="openLightbox(this)"></figure>
     <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;">When login is cancelled, the agent doesn't stall — it surfaces a recovery message with options to retry, modify the task, or skip the step entirely.</p>
 
+
+    <div style="margin-top:72px;padding-top:64px;border-top:1px solid var(--border);"></div>
     <!-- ─── HIGHLIGHT 3 ─── -->
     <h3><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">03</span>Workspace Transparency &amp; Safe Control</h3>
     <div style="margin-bottom:32px;margin-top:12px;padding-left:46px;"><span style="font-family:var(--mono);font-size:0.625rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:10px;">Principles applied</span><div style="display:flex;gap:6px;flex-wrap:wrap;"><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);background:rgba(29,78,216,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Boundary Awareness</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--green);background:rgba(21,128,61,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Controllability</span></div><div style="margin-top:10px;display:flex;align-items:baseline;gap:10px;"><span style="font-family:var(--mono);font-size:0.5625rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--red);opacity:0.75;">Audit gap</span><span style="font-family:var(--sans);font-size:0.8125rem;color:var(--text-dim);">Clicking into VM transfers control by accident</span></div></div>
@@ -476,6 +480,8 @@ footer a:hover { text-decoration: underline; }
       </div>
     </div>
 
+
+    <div style="margin-top:72px;padding-top:64px;border-top:1px solid var(--border);"></div>
     <!-- ─── HIGHLIGHT 4 ─── -->
     <h3><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">04</span>Post-Completion: Structured Delivery</h3>
     <div style="margin-bottom:32px;margin-top:12px;padding-left:46px;"><span style="font-family:var(--mono);font-size:0.625rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:10px;">Principles applied</span><div style="display:flex;gap:6px;flex-wrap:wrap;"><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);background:rgba(180,83,9,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Legibility</span></div><div style="margin-top:10px;display:flex;align-items:baseline;gap:10px;"><span style="font-family:var(--mono);font-size:0.5625rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--red);opacity:0.75;">Audit gap</span><span style="font-family:var(--sans);font-size:0.8125rem;color:var(--text-dim);">Output buried in text; no structured handoff after completion</span></div></div>
@@ -493,6 +499,8 @@ footer a:hover { text-decoration: underline; }
       </div>
     </div>
 
+
+    <div style="margin-top:72px;padding-top:64px;border-top:1px solid var(--border);"></div>
     <!-- ─── HIGHLIGHT 5 ─── -->
     <h3><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">05</span>Task Progress Sidebar</h3>
     <div style="margin-bottom:32px;margin-top:12px;padding-left:46px;"><span style="font-family:var(--mono);font-size:0.625rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:10px;">Principles applied</span><div style="display:flex;gap:6px;flex-wrap:wrap;"><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);background:rgba(180,83,9,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Legibility</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--green);background:rgba(21,128,61,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Controllability</span></div><div style="margin-top:10px;display:flex;align-items:baseline;gap:10px;"><span style="font-family:var(--mono);font-size:0.5625rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--red);opacity:0.75;">Audit gap</span><span style="font-family:var(--sans);font-size:0.8125rem;color:var(--text-dim);">Running, stuck, and failed states all look identical</span></div></div>
@@ -511,6 +519,8 @@ footer a:hover { text-decoration: underline; }
     </div>
 
 
+
+    <div style="margin-top:72px;padding-top:64px;border-top:1px solid var(--border);"></div>
     <!-- ─── HIGHLIGHT 6 ─── -->
     <h3><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">06</span>Progressive Reveal</h3>
     <div style="margin-bottom:32px;margin-top:12px;padding-left:46px;"><span style="font-family:var(--mono);font-size:0.625rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:10px;">Principles applied</span><div style="display:flex;gap:6px;flex-wrap:wrap;"><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);background:rgba(180,83,9,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Legibility</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--amber);background:rgba(161,98,7,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Progressive Disclosure</span></div><div style="margin-top:10px;display:flex;align-items:baseline;gap:10px;"><span style="font-family:var(--mono);font-size:0.5625rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--red);opacity:0.75;">Audit gap</span><span style="font-family:var(--sans);font-size:0.8125rem;color:var(--text-dim);">Homepage front-loads VM before user has typed anything</span></div></div>
