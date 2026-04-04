@@ -349,34 +349,90 @@ footer a:hover { text-decoration: underline; }
 
 <header class="hero">
   <div class="container">
-    <span class="badge accent">Simular SAI · Live Prototype</span>
     <h1>Live <em>Prototype</em></h1>
     <p class="subtitle">Try the redesigned human-in-the-loop interaction flow — execution plan review, mid-task modification, and sign-in handoff.</p>
-    <div class="meta">
-      <span>YuRong Cheng</span>
-      <span>April 2026</span>
-    </div>
     <div style="margin-top: 32px;">
       <a href="https://simular-redesign.yrcheng.tech/prototype" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:12px 28px;background:var(--text);color:var(--bg);text-decoration:none;border-radius:8px;font-weight:550;font-size:0.9375rem;transition:all 0.2s;">Open Prototype &#8594;</a>
     </div>
   </div>
 </header>
 
-<section style="border-bottom: 1px solid var(--border);">
-  <div class="container">
-    <h2><span class="num">→</span> Before You Try</h2>
-    <p class="section-intro">The prototype is a realistic simulation of the redesigned SAI interface. Here are a few things to know before jumping in.</p>
+<section style="background: var(--surface2); padding: 72px 0;">
+  <div class="container" style="max-width: 760px;">
 
-    <ul style="color: var(--text-dim); line-height: 1.75; padding-left: 1.25rem; margin: 0 0 32px; display: flex; flex-direction: column; gap: 8px;">
-      <li>Use <strong>Approve Plan</strong>, <strong>Modify Plan</strong>, and <strong>Sign In</strong> buttons to advance states.</li>
-      <li>Covers task submission, plan review, mid-task modification, and auth handoff. Execution itself is not simulated.</li>
-      <li>Some interactions are locked — intentional, not broken.</li>
-    </ul>
+    <!-- Section title -->
+    <h2 style="margin-bottom: 32px;">A Note on This Prototype</h2>
 
-    <div class="highlight">
-      <p><strong>Suggested flow:</strong> Submit a task → Review the execution plan → Modify a step → Approve → Handle the sign-in handoff.</p>
+    <!-- Designer identity row -->
+    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 36px;">
+      <img
+        src="report_assets/me_sq.jpeg"
+        alt="YuRong Cheng"
+        style="width: 52px; height: 52px; border-radius: 50%; object-fit: cover; object-position: center top; flex-shrink: 0; border: 1.5px solid var(--border);"
+      >
+      <div>
+        <div style="font-family: var(--serif); font-size: 1rem; color: var(--text); line-height: 1;">YuRong Cheng</div>
+      </div>
     </div>
 
+    <!-- Note body -->
+    <div style="font-size: 0.9375rem; color: var(--text-dim); line-height: 1.85;">
+      <p style="margin-bottom: 18px;">This prototype was built in code, not Figma, using Claude Code. Every interaction was implemented and iterated by hand: the typing animations, the slow pulse on the plan card, the way the split view slides in only after you approve the plan, the amber highlight on a modified step.</p>
+      <p style="margin-bottom: 18px;">It took longer than a static mockup. I did it because some things only become real when you can actually feel the timing. Having something live also made early testing more honest: people around me could actually use it, not just look at it.</p>
+      <p style="margin-bottom: 18px;">The prototype covers two core flows: plan confirmation and auth handoff. Building them in code surfaces ideas that wireframes never do. Some of those ideas made it in. Others did not, but they are noted and form a foundation worth building on. You can see how some of the UI components evolved across iterations in the <a href="design-evolution.html" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(180,83,9,0.3);">Design Evolution page</a>.</p>
+      <p style="margin-bottom: 18px;">One thing this prototype does not fully address is the conversation layer itself: giving the agent's messages more hierarchy, and creating clearer visual distinction between information and actions. This is a much deeper problem than it appears, and one I genuinely look forward to exploring further.</p>
+      <p style="margin-bottom: 0;">What you can feel here is the part that matters most: what it is like when an agent asks for your input before it acts, and what it is like when it pauses and hands control back to you cleanly.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <p class="eyebrow">What's in the Demo</p>
+    <h2>Two Flows to Try</h2>
+    <p class="section-intro">Take your time with it. The typing animations are intentional and paced to feel like the agent is actually thinking.</p>
+
+    <!-- How to use strip -->
+    <div style="display: flex; gap: 32px; flex-wrap: wrap; padding: 16px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 32px;">
+      <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.8125rem; color: var(--text-dim); line-height: 1.6;">
+        <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text); background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 7px; white-space: nowrap; flex-shrink: 0; margin-top: 1px;">→</span>
+        <span>Press to skip typing animations if you'd prefer to move faster</span>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.8125rem; color: var(--text-dim); line-height: 1.6;">
+        <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text); background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 7px; white-space: nowrap; flex-shrink: 0; margin-top: 1px;">Demo</span>
+        <span>Use the Demo shortcut in the input bar to jump directly to Flow 2</span>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.8125rem; color: var(--text-dim); line-height: 1.6;">
+        <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--text); background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 7px; white-space: nowrap; flex-shrink: 0; margin-top: 1px;">Note</span>
+        <span>Some buttons are disabled and fields are pre-filled to keep the demo on a controlled path</span>
+      </div>
+    </div>
+
+    <!-- Flow cards -->
+    <div class="card-grid">
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 12px;">
+        <span class="label label-blue">Flow 01</span>
+        <div style="font-family: var(--serif); font-size: 1.125rem; font-weight: 400; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">Execution Plan Confirmation</div>
+        <p style="font-size: 0.875rem; color: var(--text-dim); line-height: 1.75; margin: 0;">Before the agent runs, it presents a step-by-step execution plan for your review. Approve it as-is, or modify individual steps before anything begins. This is the primary human-in-the-loop checkpoint.</p>
+        <div style="margin-top: 4px; padding: 10px 14px; background: var(--surface2); border-radius: 6px; font-family: var(--mono); font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.2px; line-height: 1.6;">
+          <strong style="color: var(--text); font-weight: 500;">Start here.</strong> Submit the pre-filled task in the input bar to begin.
+        </div>
+      </div>
+
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 12px;">
+        <span class="label label-blue">Flow 02</span>
+        <div style="font-family: var(--serif); font-size: 1.125rem; font-weight: 400; color: var(--text); letter-spacing: -0.02em; line-height: 1.3;">Google Auth Handoff</div>
+        <p style="font-size: 0.875rem; color: var(--text-dim); line-height: 1.75; margin: 0;">Mid-task, the agent encounters a step requiring Google authentication. Rather than failing silently, it pauses, explains why it needs your help, and hands control back cleanly.</p>
+        <div style="margin-top: 4px; padding: 10px 14px; background: var(--surface2); border-radius: 6px; font-family: var(--mono); font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.2px; line-height: 1.6;">
+          <strong style="color: var(--text); font-weight: 500;">Skip ahead.</strong> Use the <strong style="color: var(--text); font-weight: 500;">Demo</strong> button in the input bar to jump directly to the auth handoff state.
+        </div>
+      </div>
+    </div>
+
+    <figure class="zoomable" style="max-width: 760px;" onclick="openLightbox(this.querySelector('img'))">
+      <img src="report_assets/prototype_demo_skip.png" alt="Demo shortcut: skip to Create Google Sheet step">
+      <figcaption>The Demo button in the input bar skips directly to the "Create Google Sheet" step — where the Google auth handoff interaction begins.</figcaption>
+    </figure>
   </div>
 </section>
 
