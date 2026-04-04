@@ -136,59 +136,137 @@ section:last-of-type { border-bottom: none; }
 
 **Alignment: LEFT-aligned** (not centered — reference `design-evolution.html`)
 
+### Standard hero structure
+
 ```html
-<div class="hero">
+<header class="hero">
   <div class="container">
-    <p class="eyebrow">Simular SAI · Redesign Report</p>
+    <span class="badge">Page Label</span>
     <h1>Page Title<br><em>optional italic line</em></h1>
     <p class="subtitle">One to two sentence lead. Max ~60 characters wide.</p>
+    <div class="meta">
+      <span>YuRong Cheng</span>
+      <span>April 2026</span>
+    </div>
   </div>
-</div>
+</header>
 ```
+
+### Badge rules (per page)
+
+| Page | Badge text | Badge style |
+|---|---|---|
+| `report_audit.html` | `Simular SAI · Product Audit` | default (grey) |
+| `report_redesign.html` | `Simular SAI · Redesign` | default (grey) |
+| `report_prototype.html` | `Simular SAI · Live Prototype` | default (grey) |
+| `design-evolution.html` | `Design Evolution` | **accent (orange)** — add class `accent` |
+
+For the accent badge on `design-evolution.html`:
+```html
+<span class="badge accent">Design Evolution</span>
+```
+```css
+.hero .badge.accent { color: var(--accent); border-color: rgba(180,83,9,0.25); }
+```
+
+### h1 italic `<em>` colour
+
+- All pages: `<em>` inside `.hero h1` uses **`color: var(--accent)`** (orange).
+- This applies to any italic fragment in the hero title (e.g. `Cards as <em>Communication</em>`).
+
+```css
+.hero h1 em { font-style: italic; color: var(--accent); }
+```
+
+### Full hero CSS
 
 ```css
 .hero {
   padding: 96px 0 64px;
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
   /* NO text-align: center */
 }
-.hero .subtitle {
-  font-size: 1rem;
-  color: var(--text-dim);
-  max-width: 560px;
-  line-height: 1.8;
+.eyebrow, .hero .badge {
+  font-family: var(--mono); font-size: 0.625rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-dim); display: block; margin-bottom: 16px;
 }
+.hero .badge {
+  display: inline-block; padding: 5px 14px; border-radius: 4px;
+  border: 1px solid var(--border); letter-spacing: 1px; margin-bottom: 24px;
+}
+.hero .badge.accent { color: var(--accent); border-color: rgba(180,83,9,0.25); }
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.25rem, 4vw + 0.5rem, 3.5rem);
+  font-weight: 400; line-height: 1.12;
+  margin-bottom: 20px; letter-spacing: -0.025em; color: var(--text);
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero .subtitle {
+  font-size: 1rem; color: var(--text-dim);
+  max-width: 560px; margin: 0 0 28px;
+  font-weight: 400; line-height: 1.8;
+}
+.hero .meta { display: flex; gap: 28px; font-size: 0.8125rem; color: var(--text-dim); }
+.hero .meta span { display: flex; align-items: center; gap: 6px; }
 ```
 
 ---
 
-## 5. Navigation Bar
+## 5. Navigation Bar (Shared — copy exactly)
 
-All four pages share the same nav structure and sizing:
+All four pages must use this **identical** CSS and HTML. Do not modify the structure or font sizes.
+
+### CSS (paste into `<style>`)
 
 ```css
-nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(250,249,247,0.92);
-  backdrop-filter: blur(16px);
+.site-nav {
+  background: var(--surface);
   border-bottom: 1px solid var(--border);
-  padding: 10px 0;
+  position: sticky; top: 0; z-index: 200;
 }
-nav .container { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
-nav a {
-  white-space: nowrap;
-  padding: 5px 12px;
-  border-radius: 6px;
-  text-decoration: none;
-  color: var(--text-dim);
-  font-size: 0.8125rem;
-  font-weight: 450;
-  transition: all 0.2s;
+.site-nav .inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px;
 }
-nav a:hover { color: var(--text); background: var(--surface2); }
+.site-nav .brand {
+  font-family: var(--mono); font-size: 0.625rem; font-weight: 500;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  color: var(--text-dim); text-decoration: none; white-space: nowrap;
+}
+.site-nav .brand:hover { color: var(--text); }
+.site-nav .pages { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+.site-nav .pages::-webkit-scrollbar { display: none; }
+.site-nav .pages a {
+  white-space: nowrap; padding: 6px 14px; border-radius: 6px;
+  text-decoration: none; color: var(--text-dim); font-size: 0.8125rem;
+  font-weight: 450; transition: all 0.15s;
+}
+.site-nav .pages a:hover { color: var(--text); background: var(--surface2); }
+.site-nav .pages a.active { color: var(--text); background: var(--surface2); font-weight: 550; }
+@media (max-width: 600px) { .site-nav .brand { display: none; } .site-nav .inner { justify-content: center; } }
 ```
 
-Nav links must include cross-page navigation to all four report pages.
+### HTML (paste just after `<body>`, before the hero)
+
+Set the correct `class="active"` on the link that matches the current page.
+
+```html
+<nav class="site-nav">
+  <div class="inner">
+    <a class="brand" href="report_audit.html">Simular &mdash; Product Redesign</a>
+    <div class="pages">
+      <a href="report_audit.html" class="">Product Audit</a>
+      <a href="report_redesign.html" class="">Redesign</a>
+      <a href="design-evolution.html" class="">Design Evolution</a>
+      <a href="report_prototype.html" class="">Live Prototype</a>
+    </div>
+  </div>
+</nav>
+```
 
 ---
 
@@ -232,12 +310,15 @@ Nav links must include cross-page navigation to all four report pages.
 | Context | Value |
 |---|---|
 | Section padding (top/bottom) | `72px 0` |
-| Hero padding | `96px 0 64px` |
-| Between h2 and content | `10px` (h2 margin-bottom) |
+| Hero padding | `56px 0 40px` |
+| Between h2 and content | `8px` (h2 margin-bottom) |
+| Between eyebrow and h2 | `8px` |
 | Between h3 and content | `16px` |
 | Between h4 and content | `10px` |
 | Between cards in a list | `24px` |
 | Card internal padding | `24px–32px` |
+
+**`design-evolution.html` exception:** uses `.comp-section { padding: 52px 0 }` instead of `72px 0` — tighter layout for card-comparison display.
 
 ---
 
