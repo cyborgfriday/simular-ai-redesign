@@ -383,17 +383,17 @@ footer a:hover { text-decoration: underline; }
     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px 56px; margin-top: 8px;">
 
       <div>
-        <h4 style="margin-top: 0; margin-bottom: 10px;">What was tested</h4>
-        <p style="font-size: 0.875rem; color: var(--text-dim); margin: 0; line-height: 1.75;">4 tasks across increasing complexity. Deep focus on a home decor marketing analysis — chaining autonomous research, judgement, Google auth, and file delivery. Evaluated from the perspective of a non-technical first-time user.</p>
-      </div>
-
-      <div>
         <h4 style="margin-top: 0; margin-bottom: 10px;">Key problems found</h4>
         <ul style="font-size: 0.875rem; color: var(--text-dim); list-style: none; padding: 0; margin: 0; line-height: 1;">
           <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>No visibility: running, stuck, and failed all look identical</li>
           <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>No designed touchpoint for user to intervene mid-task</li>
           <li style="padding: 5px 0; display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>Step limit ends with hard stop — no recovery, no partial output</li>
         </ul>
+      </div>
+
+      <div>
+        <h4 style="margin-top: 0; margin-bottom: 10px;">What was tested</h4>
+        <p style="font-size: 0.875rem; color: var(--text-dim); margin: 0; line-height: 1.75;">Tested against a non-technical SMB founder running a multi-step research and delivery task — the scenario that best surfaces where human-in-the-loop design breaks down.</p>
       </div>
 
       <div>
@@ -409,16 +409,6 @@ footer a:hover { text-decoration: underline; }
   </div>
 </section>
 
-<!-- 00 PREAMBLE: WHAT I TESTED -->
-<section id="overview" style="background: var(--surface); border-bottom: 1px solid var(--border);">
-  <div class="container">
-    <h2><span class="num">00</span> Scope of Testing</h2>
-    <p class="section-intro">SAI tested across four tasks: LinkedIn outreach, a financial market watch report, a research presentation, and a home decor marketing analysis. This audit focuses on the marketing analysis — the task that best surfaces what happens when an agent needs human involvement mid-execution.</p>
-
-    <p style="color: var(--text-dim); font-size: 0.875rem; margin-bottom: 0;">SAI completed most tasks. The pattern across all four: whenever the agent needed credentials, clarification, or recovery from an error, the interface had no designed way to handle it. <a href="report_redesign.html" style="color: var(--accent); font-weight: 550;">Redesign rationale →</a></p>
-  </div>
-</section>
-
 <!-- 01 FOCUS & PERSONA -->
 <section id="the-task">
   <div class="container">
@@ -426,110 +416,53 @@ footer a:hover { text-decoration: underline; }
 
     <p style="font-size:0.875rem; color:var(--text-dim); margin-bottom: 24px;">Technical users have scripting, APIs, and no-code alternatives. SAI's real opportunity is with users who don't. That's who this audit tests for.</p>
 
-    <!-- Persona Card -->
-    <div style="border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 28px 0; background: var(--surface);">
+    <!-- Persona strip -->
+    <div style="border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin: 24px 0; background: var(--surface);">
 
-      <!-- Header: identity -->
-      <div style="border-bottom: 1px solid var(--border);">
-        <div style="padding: 24px 28px;">
-          <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px;">
-            <span style="font-family: var(--serif); font-size: 1.375rem; color: var(--text);">Mei-Ling, 34</span>
-            <span style="font-family: var(--mono); font-size: 0.625rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px;">Proto-Persona · SMB Founder</span>
-          </div>
-          <p style="font-size: 0.875rem; color: var(--text-dim); margin: 0 0 12px; line-height: 1.6;">
-            Singapore · Launching a home decor curation brand · Solo founder, handles sourcing, content, operations, and logistics herself
-          </p>
-          <p style="font-size: 0.875rem; font-style: italic; color: var(--text); margin: 0; line-height: 1.6; border-left: 2px solid var(--border); padding-left: 14px;">
-            "I just need it to do the research for me. I don't have time to learn how it works under the hood — I just need to know it's actually doing what I asked."
-          </p>
-        </div>
+      <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px;">
+        <span style="font-family: var(--serif); font-size: 1.25rem; color: var(--text);">Julia Marsh</span>
+        <span style="font-family: var(--mono); font-size: 0.625rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px;">Proto-Persona · SMB Founder · Singapore</span>
       </div>
 
-      <!-- Body: 3 columns -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid var(--border);">
-
-        <div style="padding: 22px 24px; border-right: 1px solid var(--border);">
-          <div style="font-family: var(--mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-dim); margin-bottom: 14px;">Goals</div>
-          <ul style="font-size: 0.875rem; color: var(--text); margin: 0; padding-left: 16px; line-height: 2.1; list-style: none; padding: 0;">
-            <li style="padding: 3px 0; display: flex; gap: 8px;"><span style="color: var(--green); flex-shrink:0;">↗</span> Delegate time-consuming research and admin tasks</li>
-            <li style="padding: 3px 0; display: flex; gap: 8px;"><span style="color: var(--green); flex-shrink:0;">↗</span> Get a usable deliverable without doing the work herself</li>
-            <li style="padding: 3px 0; display: flex; gap: 8px;"><span style="color: var(--green); flex-shrink:0;">↗</span> Feel confident the output is accurate and trustworthy</li>
-            <li style="padding: 3px 0; display: flex; gap: 8px;"><span style="color: var(--green); flex-shrink:0;">↗</span> Stay in control without needing to micromanage</li>
-          </ul>
-        </div>
-
-        <div style="padding: 22px 24px; border-right: 1px solid var(--border);">
-          <div style="font-family: var(--mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-dim); margin-bottom: 14px;">Frustrations</div>
-          <ul style="font-size: 0.875rem; color: var(--text); margin: 0; padding-left: 16px; line-height: 2.1; list-style: none; padding: 0;">
-            <li style="padding: 3px 0; display: flex; gap: 8px;"><span style="color: var(--red); flex-shrink:0;">↘</span> Tools that ask technical questions she can't answer</li>
-            <li style="padding: 3px 0; display: flex; gap: 8px;"><span style="color: var(--red); flex-shrink:0;">↘</span> Not knowing if a task is running, stuck, or failed</li>
-            <li style="padding: 3px 0; display: flex; gap: 8px;"><span style="color: var(--red); flex-shrink:0;">↘</span> Unexpected permission requests mid-task with no explanation</li>
-            <li style="padding: 3px 0; display: flex; gap: 8px;"><span style="color: var(--red); flex-shrink:0;">↘</span> Starting over after losing all progress to an error</li>
-          </ul>
-        </div>
-
-        <div style="padding: 22px 24px;">
-          <div style="font-family: var(--mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-dim); margin-bottom: 14px;">Technology Profile</div>
-          <div style="font-size: 0.875rem; color: var(--text); line-height: 1.8;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-              <span style="color: var(--text-dim);">Everyday tools</span>
-              <span>Google Workspace, Canva, Instagram</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-              <span style="color: var(--text-dim);">AI exposure</span>
-              <span>ChatGPT (casual use)</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-              <span style="color: var(--text-dim);">Comfort with agents</span>
-              <span style="color: var(--amber); font-weight: 500;">Low — first time</span>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <span style="color: var(--text-dim);">Security comfort</span>
-              <span style="color: var(--red); font-weight: 500;">Cautious</span>
-            </div>
-          </div>
-        </div>
-
+      <div style="display: flex; gap: 24px; margin-bottom: 16px; flex-wrap: wrap;">
+        <span style="font-size: 0.8125rem; color: var(--text-dim);">Non-technical</span>
+        <span style="font-size: 0.8125rem; color: var(--text-dim);">First-time agent user</span>
+        <span style="font-size: 0.8125rem; color: var(--text-dim);">Cautious with permissions</span>
+        <span style="font-size: 0.8125rem; color: var(--text-dim);">Google Workspace · Canva · ChatGPT (casual)</span>
       </div>
 
-      <!-- Scenario -->
-      <div style="padding: 20px 28px; background: var(--surface2);">
-        <span style="font-family: var(--mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-dim);">Context &amp; Scenario</span>
-        <p style="font-size: 0.875rem; color: var(--text-dim); margin: 8px 0 0; line-height: 1.7;">Mei-Ling has a product curation call on Thursday. She's heard about SAI from a founder community and tries it. She types her task in plain language and expects it to just work. She doesn't know what a VM is, doesn't know there are step limits, and has no mental model for agent execution. She only knows whether the deliverable showed up or didn't.</p>
+      <div style="display: flex; gap: 32px; flex-wrap: wrap;">
+        <span style="font-size: 0.8125rem; color: var(--text);"><span style="color: var(--green);">↗</span> Just delegate it and get a result</span>
+        <span style="font-size: 0.8125rem; color: var(--text);"><span style="color: var(--red);">↘</span> Don't make me manage it</span>
       </div>
 
     </div>
-
 
     <h3>The Task — and Why I Chose It</h3>
 
-    <div class="card" style="border-left:3px solid var(--accent); padding-left:32px; margin-bottom:20px;">
-      <h4 style="margin-top:0;">Task given to SAI</h4>
-      <p style="font-size:1rem; line-height:1.8; margin-bottom:12px;">
-        <em>"Research 20 Nordic and Japanese home accessories suitable for a Singapore curation brand. Include brand origin, price point, and market positioning. Compile everything into a Google Sheet."</em>
+    <p style="font-size: 0.875rem; color: var(--text-dim); margin-bottom: 16px; line-height: 1.7;">
+      Julia has a product curation call on Thursday. She opens SAI and types:
+    </p>
+
+    <div style="border-left: 2px solid var(--border); padding: 14px 20px; margin: 0 0 20px; background: var(--surface2); border-radius: 0 var(--radius) var(--radius) 0;">
+      <p style="font-size: 0.875rem; font-style: italic; color: var(--text); margin: 0; line-height: 1.8;">
+        "I am launching a home decor curation brand in Singapore, focusing on Nordic and Japanese home accessories (e.g., vases, small lighting, stools, stationery — no large furniture). Please research brands popular in Singapore and trending in Europe/Japan, curate 20 items with market analysis and pricing, then compile everything into a Google Sheet report I can use for import decisions."
       </p>
     </div>
 
-    <p>I chose this task because it's not a single capability test — it chains four distinct steps, each requiring the agent to earn trust in a different way:</p>
+    <p style="font-size: 0.875rem; color: var(--text-dim); margin-bottom: 12px; line-height: 1.7;">
+      This task isn't a single capability test — it chains four steps, each requiring the agent to earn trust differently. Any break in the chain means no usable output.
+    </p>
 
-    <div style="display:flex; gap:0; margin:20px 0; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
-      <div style="flex:1; padding:16px 20px; border-right:1px solid var(--border);">
-        <div style="font-family:var(--mono); font-size:0.625rem; text-transform:uppercase; letter-spacing:0.6px; color:var(--blue); margin-bottom:6px;">Research</div>
-        <p style="font-size:0.875rem; color:var(--text-dim); margin:0; line-height:1.6;">Browse and synthesise product data autonomously</p>
-      </div>
-      <div style="flex:1; padding:16px 20px; border-right:1px solid var(--border);">
-        <div style="font-family:var(--mono); font-size:0.625rem; text-transform:uppercase; letter-spacing:0.6px; color:var(--blue); margin-bottom:6px;">Judgement</div>
-        <p style="font-size:0.875rem; color:var(--text-dim); margin:0; line-height:1.6;">Filter 20 items that fit an implied brand brief</p>
-      </div>
-      <div style="flex:1; padding:16px 20px; border-right:1px solid var(--border); background:rgba(185,28,28,.02);">
-        <div style="font-family:var(--mono); font-size:0.625rem; text-transform:uppercase; letter-spacing:0.6px; color:var(--red); margin-bottom:6px;">Auth handoff ⚠</div>
-        <p style="font-size:0.875rem; color:var(--text-dim); margin:0; line-height:1.6;">Request Google access mid-task — the highest-risk trust moment</p>
-      </div>
-      <div style="flex:1; padding:16px 20px;">
-        <div style="font-family:var(--mono); font-size:0.625rem; text-transform:uppercase; letter-spacing:0.6px; color:var(--amber); margin-bottom:6px;">Delivery</div>
-        <p style="font-size:0.875rem; color:var(--text-dim); margin:0; line-height:1.6;">Produce a real artefact — pass or fail, no middle ground</p>
-      </div>
-    </div>
+    <p style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-dim); letter-spacing: 0.3px;">
+      <span style="color: var(--blue);">Research</span>
+      <span style="margin: 0 8px; color: var(--border);">→</span>
+      <span style="color: var(--blue);">Judgement</span>
+      <span style="margin: 0 8px; color: var(--border);">→</span>
+      <span style="color: var(--red);">Auth handoff ⚠</span>
+      <span style="margin: 0 8px; color: var(--border);">→</span>
+      <span style="color: var(--amber);">Delivery</span>
+    </p>
 
   </div>
 </section>
@@ -547,7 +480,6 @@ footer a:hover { text-decoration: underline; }
         <div class="step-body">
           <div class="step-tag">Initial State</div>
           <div class="step-title">The SAI home screen before anything begins</div>
-          <p>The home screen offers suggested tasks and a text input. No indication of how long execution takes, what permissions will be requested, or when the user will need to step in.</p>
           <figure class="zoomable" style="margin-top:12px;">
             <img src="report_assets/audit/01_home_suggestions.png" alt="SAI home screen with suggested tasks" onclick="openLightbox(this)">
             <figcaption>The suggested tasks give no indication of how the agent handles multi-step workflows or what the user should expect during execution.</figcaption>
@@ -560,7 +492,6 @@ footer a:hover { text-decoration: underline; }
         <div class="step-body">
           <div class="step-tag">Start</div>
           <div class="step-title">Task submitted — execution starts immediately</div>
-          <p>Execution begins immediately. No plan shown, no confirmation step. The user has no visibility into what strategy the agent will follow.</p>
         </div>
       </div>
 
@@ -569,7 +500,7 @@ footer a:hover { text-decoration: underline; }
         <div class="step-body">
           <div class="step-tag">First friction point</div>
           <div class="step-title">Google Sheets access requested — in the middle of execution</div>
-          <p>Without warning, a permission dialog appears: "Need Google Sheets access to create the market research report spreadsheet." The agent has already started building the sheet, but now needs the user to grant access mid-task. It's unclear whether the task has paused or is still running in parallel.</p>
+          <p>It's unclear whether the task has paused or is still running in parallel.</p>
           <figure class="zoomable">
             <img src="report_assets/audit/02_executing_sheets_permission.png" alt="Sheets permission dialog mid-execution" onclick="openLightbox(this)">
             <figcaption>The agent asks for Sheets access mid-execution. The user doesn't know if work has paused or is still running.</figcaption>
@@ -582,7 +513,6 @@ footer a:hover { text-decoration: underline; }
         <div class="step-body">
           <div class="step-tag">Authentication handoff</div>
           <div class="step-title">User signs into VM — but the agent asks for more permissions</div>
-          <p>The user manually signs in to Google inside the VM browser. SAI acknowledges this. But immediately after, a new "Browser JS Execution — Safety Check" dialog appears, asking permission to run scripts on the page. Multiple handoffs in quick succession with no explanation of the overall flow.</p>
           <figure class="zoomable">
             <img src="report_assets/audit/03_vm_signin_js_permission.png" alt="VM sign-in confirmed, JS execution permission requested" onclick="openLightbox(this)">
             <figcaption>"I have signed in to VM" — but immediately followed by another permission request, creating a disjointed handoff experience.</figcaption>
@@ -595,7 +525,7 @@ footer a:hover { text-decoration: underline; }
         <div class="step-body">
           <div class="step-tag">Incomplete output</div>
           <div class="step-title">The sheet is produced without images — despite images being in the original brief</div>
-          <p>Product images were part of the original task requirements, but the first version of the Google Sheet SAI produced did not include them. The user has to follow up and explicitly remind the agent. There is no indication from SAI that it had dropped this requirement, or why — the output simply arrived incomplete.</p>
+          <p>SAI produced the sheet without images and gave no explanation for the omission.</p>
           <figure class="zoomable">
             <img src="report_assets/audit/04_agent_requests_images.png" alt="User follows up on missing images" onclick="openLightbox(this)">
             <figcaption>The user has to re-state a requirement that was already in the original task. SAI produced the sheet without images and gave no explanation for the omission.</figcaption>
@@ -608,7 +538,6 @@ footer a:hover { text-decoration: underline; }
         <div class="step-body">
           <div class="step-tag">Loss of visibility</div>
           <div class="step-title">"Are you still working?"</div>
-          <p>After a long pause, the user types "are you still working?" — the only way to check. The interface gives no ambient signal of state. Working, waiting, and failing all look identical.</p>
           <figure class="zoomable">
             <img src="report_assets/audit/05_user_asks_are_you_working.png" alt="User asks if agent is still working" onclick="openLightbox(this)">
             <figcaption>The user has no way to tell if the agent is still running. The only option is to ask it directly.</figcaption>
@@ -621,7 +550,7 @@ footer a:hover { text-decoration: underline; }
         <div class="step-body">
           <div class="step-tag">Wrong environment</div>
           <div class="step-title">Google auth dialog appears on the user's desktop — not inside the VM</div>
-          <p>SAI needs to authenticate with Google to access Sheets. Instead of handling this inside the VM browser where it's operating, it triggers a native Google account picker on the user's local machine. The user dismisses it. The agent has no way to signal what it needs or why — and no way to surface the right credential interface.</p>
+          <p>The agent had no way to signal what it needed or surface the right credential interface.</p>
           <figure class="zoomable">
             <img src="report_assets/audit/05b_google_account_selector.png" alt="Google account selector appeared on host machine" onclick="openLightbox(this)">
             <figcaption>A native Google account picker appeared on the user's local desktop — outside the VM where the agent was actually working.</figcaption>
@@ -634,7 +563,7 @@ footer a:hover { text-decoration: underline; }
         <div class="step-body">
           <div class="step-tag">No recovery</div>
           <div class="step-title">User denies. The dialog comes back three more times.</div>
-          <p>After the user dismisses the auth dialog, the agent continues retrying the same broken path. The dialog reappears three more times before the agent finally reads the user's message in the chat and stops. The agent had no mechanism to detect the denial, no fallback, and no way to tell the user what it actually needed to proceed.</p>
+          <p>The agent had no mechanism to detect the denial, no fallback, and no way to tell the user what it needed to proceed.</p>
           <figure class="zoomable">
             <img src="report_assets/audit/05a_sheets_access_repeated.png" alt="Sheets access dialog appearing repeatedly" onclick="openLightbox(this)">
             <figcaption>The same auth prompt reappeared four times in total. Each time, the user had to manually dismiss it with no explanation from the agent.</figcaption>
@@ -647,7 +576,7 @@ footer a:hover { text-decoration: underline; }
         <div class="step-body">
           <div class="step-tag">Hard stop</div>
           <div class="step-title">"I've reached the maximum number of steps"</div>
-          <p>The agent terminates. The task is incomplete. There is no summary of what was accomplished, no partial output offered, no option to continue. The user is left with an unfinished Google Sheet and a message that offers no path forward except starting over.</p>
+          <p>No summary of what was accomplished, no partial output, no path forward except starting over.</p>
           <figure class="zoomable">
             <img src="report_assets/audit/06_step_limit_reached.png" alt="Step limit reached — hard stop" onclick="openLightbox(this)">
             <figcaption>"I've reached the maximum number of steps. Please let me know if you'd like me to continue or try a different approach." No context. No summary. No recovery.</figcaption>
@@ -688,7 +617,6 @@ footer a:hover { text-decoration: underline; }
       <div class="blocker-id">Blocker 02</div>
       <h3>No legible execution state — working, waiting, and failing look identical</h3>
       <p class="blocker-body">The interface presents all activity as a single stream of log entries. Whether the agent is actively running, paused waiting for input, encountering errors, or retrying failed steps — the visual presentation is identical. The user has no ambient signal of status, which means they can't tell when to act and when to wait.</p>
-      <p class="blocker-body" style="margin-top:12px;">This caused a concrete failure: when authentication was needed, the agent repeatedly surfaced a Google sign-in dialog on the <em>user's local machine</em> instead of inside the VM browser. The user denied it. It came back three more times. The agent was looping on the same broken approach — it could not distinguish its own repeated failure from a new attempt, and only stopped when it finally processed the user's chat message instructing it to sign in via the VM. With a clear execution state visible, the agent's confusion would have been immediately apparent.</p>
     </div>
 
     <div class="blocker">
