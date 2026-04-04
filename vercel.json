@@ -1,9 +1,7 @@
 {
-  "redirects": [
-    { "source": "/report", "destination": "/report/report_audit.html", "permanent": false }
-  ],
   "rewrites": [
     { "source": "/logo/:file*", "destination": "/Redesign Prototype/logo/:file*" },
+    { "source": "/report", "destination": "/Redesign Report/report_audit.html" },
     { "source": "/report/:path*", "destination": "/Redesign Report/:path*" },
     { "source": "/prototype/:path*", "destination": "/Redesign Prototype/AgentUI.html" },
     { "source": "/prototype", "destination": "/Redesign Prototype/AgentUI.html" },
