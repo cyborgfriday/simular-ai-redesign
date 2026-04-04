@@ -368,44 +368,97 @@ footer a:hover { text-decoration: underline; }
 <!-- HERO -->
 <header class="hero">
   <div class="container">
-    <span class="badge accent">Product Audit</span>
     <h1>The <em>Core</em> Gaps.</h1>
-    <p class="subtitle">A task-based audit testing SAI against a non-technical solo founder. Surfaces four structural UX gaps in how the product handles multi-step agentic work.</p>
-    <div class="meta">
-      <span>YuRong Cheng</span>
-      <span>April 2026</span>
-    </div>
+    <p class="subtitle">A task-based audit run as a non-technical SMB founder. Finds three structural HITL gaps in how the product handles multi-step agentic work.</p>
   </div>
 </header>
 
-<!-- SUMMARY -->
-<section id="summary" style="background: var(--surface); padding: 56px 0;">
-  <div class="container">
-    <p class="eyebrow">Summary</p>
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px 56px; margin-top: 8px;">
+<!-- PERSONAL PREFACE -->
+<section style="background: var(--surface2); padding: 72px 0;">
+  <div class="container" style="max-width: 760px;">
 
+    <!-- Identity row -->
+    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 36px;">
+      <img
+        src="report_assets/me_sq.jpeg"
+        alt="YuRong Cheng"
+        style="width: 52px; height: 52px; border-radius: 50%; object-fit: cover; object-position: center top; flex-shrink: 0; border: 1.5px solid var(--border);"
+      >
       <div>
-        <h4 style="margin-top: 0; margin-bottom: 10px;">Key problems found</h4>
-        <ul style="font-size: 0.875rem; color: var(--text-dim); list-style: none; padding: 0; margin: 0; line-height: 1;">
-          <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>No visibility: running, stuck, and failed all look identical</li>
-          <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>No designed touchpoint for user to intervene mid-task</li>
-          <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>Step limit ends with hard stop — no recovery, no partial output</li>
-          <li style="padding: 5px 0; display: flex; gap: 10px;"><span style="color: var(--red); flex-shrink: 0;">—</span>No observer mode: entering the VM to check progress interrupts the agent</li>
+        <div style="font-family: var(--serif); font-size: 1rem; color: var(--text); line-height: 1;">YuRong Cheng</div>
+        <div style="font-family: var(--mono); font-size: 0.625rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-top: 4px;">A Note Before the Audit</div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div style="font-size: 0.9375rem; color: var(--text-dim); line-height: 1.85;">
+      <p style="margin-bottom: 0;">I build AI products. So when I got this brief, I didn't treat it as a two-hour exercise. Google's Errors Audit framework puts it plainly: <span style="color: var(--text); font-style: italic;">"errors and failures are an inevitable part of any product experience."</span> The real question is never whether an agent will fail — it's whether the interface is designed to handle it when it does. I ran the same task across multiple autonomous agents before writing a word of this, compared where each one broke down, and used that as the lens for this audit.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROBLEM STATEMENT -->
+<section id="summary" style="background: var(--surface); padding: 64px 0;">
+  <div class="container">
+    <h2 style="margin-bottom: 10px;">Problem Statement</h2>
+    <p style="font-size: 1rem; color: var(--text-dim); max-width: 60ch; margin: 0 0 36px; line-height: 1.75;">Three gaps in how the product handles the moments that demand human judgment.</p>
+
+    <div class="two-col" style="grid-template-columns: 1fr 1fr 1fr;">
+
+      <!-- BEFORE -->
+      <div class="prob-card" style="position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--amber);"></div>
+        <span style="font-family: var(--mono); font-size: 0.625rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--amber); display: block; margin-bottom: 14px;">Before execution</span>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0;">
+          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start;">
+            <span style="color: var(--amber); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+            No plan preview before the agent starts
+          </li>
+          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="color: var(--amber); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+            Homepage front-loads a VM panel before the user has typed anything, creating cognitive overhead before the task has even started
+          </li>
         </ul>
       </div>
 
-      <div>
-        <h4 style="margin-top: 0; margin-bottom: 10px;">What was tested</h4>
-        <p style="font-size: 0.875rem; color: var(--text-dim); margin: 0; line-height: 1.75;">Tested against a non-technical SMB founder running a multi-step research and delivery task — the scenario that best surfaces where human-in-the-loop design breaks down.</p>
+      <!-- DURING -->
+      <div class="prob-card" style="position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red);"></div>
+        <span style="font-family: var(--mono); font-size: 0.625rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--red); display: block; margin-bottom: 14px;">During execution</span>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0;">
+          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start;">
+            <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+            Running, stuck, and failed all look identical
+          </li>
+          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start;">
+            <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+            Clicking into the VM transfers control by accident
+          </li>
+          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start;">
+            <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+            Google auth popup appears on the local desktop outside the VM. Denying it triggers a silent retry loop with no recovery path
+          </li>
+          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+            Permission UI shows raw JavaScript written for engineers, not the person approving it
+          </li>
+        </ul>
       </div>
 
-      <div>
-        <h4 style="margin-top: 0; margin-bottom: 10px;">Redesign direction</h4>
-        <ul style="font-size: 0.875rem; color: var(--text-dim); list-style: none; padding: 0; margin: 0; line-height: 1;">
-          <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--accent); flex-shrink: 0;">→</span>Plan review before execution — user approves strategy first</li>
-          <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--accent); flex-shrink: 0;">→</span>Structured interrupt for credential / clarification handoffs</li>
-          <li style="padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px;"><span style="color: var(--accent); flex-shrink: 0;">→</span>Graceful step-limit exit with summary + resume option</li>
-          <li style="padding: 5px 0; display: flex; gap: 10px;"><span style="color: var(--accent); flex-shrink: 0;">→</span>Separate Simular Computer mode from user take-control mode</li>
+      <!-- AFTER -->
+      <div class="prob-card" style="position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue);"></div>
+        <span style="font-family: var(--mono); font-size: 0.625rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); display: block; margin-bottom: 14px;">After completion</span>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0;">
+          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start;">
+            <span style="color: var(--blue); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+            Step-limit stop leaves no partial output, no progress summary, no path forward
+          </li>
+          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="color: var(--blue); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+            Final output (Google Sheet link) buried in a wall of text with no structured handoff
+          </li>
         </ul>
       </div>
 
@@ -416,46 +469,57 @@ footer a:hover { text-decoration: underline; }
 <!-- 01 FOCUS & PERSONA -->
 <section id="the-task">
   <div class="container">
-    <h2><span class="num">01</span> Who I Tested For</h2>
+    <h2>Who I Tested For</h2>
 
-    <p style="font-size:0.875rem; color:var(--text-dim); margin-bottom: 24px;">Technical users have scripting, APIs, and no-code alternatives. SAI's real opportunity is with users who don't. That's who this audit tests for.</p>
+    <p style="font-size:0.875rem; color:var(--text-dim); margin-bottom: 24px;">I chose a non-technical SMB founder because this is the user who can't recover when the agent fails. Technical users have workarounds. She doesn't.</p>
 
-    <!-- Persona strip -->
-    <div style="border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin: 24px 0; background: var(--surface);">
+    <!-- Persona card -->
+    <div style="border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); overflow: hidden; margin: 24px 0;">
 
-      <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px;">
-        <span style="font-family: var(--serif); font-size: 1.25rem; color: var(--text);">Julia Marsh</span>
-        <span style="font-family: var(--mono); font-size: 0.625rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px;">Proto-Persona · SMB Founder · Singapore</span>
+      <!-- Name row -->
+      <div style="padding: 24px 28px 20px; border-bottom: 1px solid var(--border);">
+        <div style="font-family: var(--serif); font-size: 1.25rem; color: var(--text); margin-bottom: 4px;">Julia Marsh</div>
+        <div style="font-family: var(--mono); font-size: 0.625rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px;">Proto-Persona · SMB Founder · Singapore</div>
       </div>
 
-      <div style="display: flex; gap: 24px; margin-bottom: 16px; flex-wrap: wrap;">
-        <span style="font-size: 0.8125rem; color: var(--text-dim);">Non-technical</span>
-        <span style="font-size: 0.8125rem; color: var(--text-dim);">First-time agent user</span>
-        <span style="font-size: 0.8125rem; color: var(--text-dim);">Cautious with permissions</span>
-        <span style="font-size: 0.8125rem; color: var(--text-dim);">Google Workspace · Canva · ChatGPT (casual)</span>
-      </div>
+      <!-- Attributes grid -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
 
-      <div style="display: flex; gap: 32px; flex-wrap: wrap;">
-        <span style="font-size: 0.8125rem; color: var(--text);"><span style="color: var(--green);">↗</span> Just delegate it and get a result</span>
-        <span style="font-size: 0.8125rem; color: var(--text);"><span style="color: var(--red);">↘</span> Don't make me manage it</span>
+        <div style="padding: 18px 24px; border-right: 1px solid var(--border);">
+          <div style="font-family: var(--mono); font-size: 0.5625rem; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-dim); margin-bottom: 8px;">Background</div>
+          <div style="font-size: 0.8125rem; color: var(--text); line-height: 1.65;">Non-technical. First-time agent user. Cautious with permissions.</div>
+        </div>
+
+        <div style="padding: 18px 24px; border-right: 1px solid var(--border);">
+          <div style="font-family: var(--mono); font-size: 0.5625rem; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-dim); margin-bottom: 8px;">Tools she knows</div>
+          <div style="font-size: 0.8125rem; color: var(--text); line-height: 1.65;">Google Workspace, Canva, ChatGPT (casual use)</div>
+        </div>
+
+        <div style="padding: 18px 24px;">
+          <div style="font-family: var(--mono); font-size: 0.5625rem; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-dim); margin-bottom: 8px;">What she needs from SAI</div>
+          <div style="font-size: 0.8125rem; color: var(--text); line-height: 1.65;">Delegate a complex task and get a usable result. No babysitting, no technical overhead.</div>
+        </div>
+
       </div>
 
     </div>
 
-    <h3>The Task — and Why I Chose It</h3>
+    <h3>The Scenario</h3>
 
     <p style="font-size: 0.875rem; color: var(--text-dim); margin-bottom: 16px; line-height: 1.7;">
       Julia has a product curation call on Thursday. She opens SAI and types:
     </p>
 
-    <div style="border-left: 2px solid var(--border); padding: 14px 20px; margin: 0 0 20px; background: var(--surface2); border-radius: 0 var(--radius) var(--radius) 0;">
+    <div style="border-left: 2px solid var(--border); padding: 14px 20px; margin: 0 0 36px; background: var(--surface2); border-radius: 0 var(--radius) var(--radius) 0;">
       <p style="font-size: 0.875rem; font-style: italic; color: var(--text); margin: 0; line-height: 1.8;">
         "I am launching a home decor curation brand in Singapore, focusing on Nordic and Japanese home accessories (e.g., vases, small lighting, stools, stationery — no large furniture). Please research brands popular in Singapore and trending in Europe/Japan, curate 20 items with market analysis and pricing, then compile everything and images into a Google Sheet report I can use for import decisions."
       </p>
     </div>
 
-    <p style="font-size: 0.875rem; color: var(--text-dim); margin-bottom: 16px; line-height: 1.7;">
-      To deliver a usable result, the agent needs to move through four capabilities in sequence — each one building on the last.
+    <h3>Why I Chose It</h3>
+
+    <p style="font-size: 0.875rem; color: var(--text-dim); margin-bottom: 24px; line-height: 1.75;">
+      This task requires the agent to cross multiple capability boundaries in a single run. That's exactly where HITL design breaks down if it isn't built for it.
     </p>
 
     <div style="display: flex; align-items: center; gap: 0; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.4px; color: var(--text-dim);">
@@ -472,38 +536,10 @@ footer a:hover { text-decoration: underline; }
 </section>
 
 <!-- PROBLEM STATEMENT -->
-<section id="two-problems">
-  <div class="container">
-    <h2>Problem Statement</h2>
-
-    <div class="two-col">
-      <div class="prob-card a">
-        <span class="prob-label">Problem 01</span>
-        <h3>The user is locked out of the plan</h3>
-        <p>There's no designed moment where the user and agent align on approach before execution starts. Without this, mismatches between user intent and agent strategy are only discovered after steps have been wasted — or after a hard stop.</p>
-        <ul style="margin-top:16px; padding-left:16px; display:flex; flex-direction:column; gap:8px;">
-          <li style="font-family:var(--mono); font-size:0.6875rem; color:var(--text-dim); letter-spacing:0.3px;">No pre-task alignment</li>
-        </ul>
-      </div>
-      <div class="prob-card b">
-        <span class="prob-label">Problem 02</span>
-        <h3>There's no designed touchpoint for human intervention</h3>
-        <p>The agent doesn't have a model for "pause and ask." When it needs credentials, clarification, or approval mid-task, it either retries silently or stops entirely. There's no interaction pattern for the user to step in, help, and let the agent continue.</p>
-        <ul style="margin-top:16px; padding-left:16px; display:flex; flex-direction:column; gap:8px;">
-          <li style="font-family:var(--mono); font-size:0.6875rem; color:var(--text-dim); letter-spacing:0.3px;">No legible execution state</li>
-          <li style="font-family:var(--mono); font-size:0.6875rem; color:var(--text-dim); letter-spacing:0.3px;">No graceful failure exit</li>
-          <li style="font-family:var(--mono); font-size:0.6875rem; color:var(--text-dim); letter-spacing:0.3px;">No observer mode for the VM</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</section>
-
 <!-- 02 TASK JOURNEY -->
 <section id="journey">
   <div class="container">
-    <h2><span class="num">02</span> How the Task Unfolded</h2>
+    <h2>How the Task Unfolded</h2>
     <p class="section-intro">The task ran across multiple sessions. These are the key moments — progress, friction, and failure.</p>
 
     <div class="journey">
@@ -610,14 +646,26 @@ footer a:hover { text-decoration: underline; }
         </div>
       </div>
 
+      <div class="journey-step friction">
+        <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-tag">Delivery</div>
+          <div class="step-title">The Google Sheet link is buried in a wall of text</div>
+          <p>The agent's final message is a long block of prose. The Google Sheet URL is somewhere inside it — no card, no clear action, no structured handoff. The user has to scan through the text to find it, then figure out what to do next on their own.</p>
+          <figure class="zoomable">
+            <img src="report_assets/audit/Screenshot_2026-04-04_at_23_58_41.png" alt="Final output buried in wall of text" onclick="openLightbox(this)">
+          </figure>
+        </div>
+      </div>
+
       <div class="journey-step">
         <div class="step-line"><div class="step-dot"></div><div class="step-connector"></div></div>
         <div class="step-body">
           <div class="step-tag">Final output</div>
-          <div class="step-title">Task completed — with caveats</div>
-          <p>The agent ultimately produced a Google Sheet in the cloud — a genuinely complex multi-step task involving research, curation, and remote file creation. The output is passable: items are listed, pricing is included. But the product selection feels generic and the analysis lacks the depth needed for real import decisions. The capability is there; the quality of judgement is not yet at the level where you'd act on it without review.</p>
+          <div class="step-title">The agent pulled off something genuinely hard. 🎉</div>
+          <p>A multi-step research, curation, and remote file creation task — completed. The output is passable: items are listed, pricing is included. The product selection feels a little generic and the analysis isn't quite at the depth you'd act on without review. The capability is real, but it's not yet at the level where you'd trust it to run unsupervised. Which is exactly why the interface needs to be designed for a human who's still very much in the loop.</p>
           <figure class="zoomable">
-            <img src="report_assets/audit/11_final_output.png" alt="Final Google Sheet output" onclick="openLightbox(this)">
+            <img src="report_assets/audit/Screenshot_2026-04-04_at_22_05_05.png" alt="Final Google Sheet output" onclick="openLightbox(this)">
           </figure>
         </div>
       </div>
