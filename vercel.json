@@ -1,6 +1,9 @@
 {
-  "cleanUrls": true,
   "rewrites": [
+    { "source": "/report", "destination": "/report/index.html" },
+    { "source": "/report/redesign", "destination": "/report/redesign.html" },
+    { "source": "/report/design_revolution", "destination": "/report/design_revolution.html" },
+    { "source": "/report/prototype_intro", "destination": "/report/prototype_intro.html" },
     { "source": "/", "destination": "/prototype/AgentUI.html" },
     { "source": "/prototype", "destination": "/prototype/AgentUI.html" },
     { "source": "/prototype/:path*", "destination": "/prototype/AgentUI.html" }
