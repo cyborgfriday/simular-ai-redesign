@@ -295,6 +295,9 @@ footer a:hover { text-decoration: underline; }
 .site-nav .pages a { white-space:nowrap; padding:6px 14px; border-radius:6px; text-decoration:none; color:var(--text-dim); font-size:0.8125rem; font-weight:450; transition:all 0.15s; }
 .site-nav .pages a:hover { color:var(--text); background:var(--surface2); }
 .site-nav .pages a.active { color:var(--text); background:var(--surface2); font-weight:550; }
+.site-nav .pages a.nav-cta { background:var(--accent); color:#fff; font-weight:550; }
+.site-nav .pages a.nav-cta:hover { background:var(--accent-light); color:#fff; }
+.site-nav .pages a.nav-cta.active { background:var(--accent); color:#fff; }
 @media (max-width:600px) { .site-nav .brand { display:none; } .site-nav .inner { justify-content:center; } }
 
 /* Journey timeline */
@@ -391,7 +394,7 @@ footer a:hover { text-decoration: underline; }
       <a href="/report" class="active">Product Audit</a>
       <a href="/report/redesign">Redesign</a>
       <a href="/report/design_revolution">Design Evolution</a>
-      <a href="/report/prototype_intro">Live Prototype</a>
+      <a href="/report/prototype_intro" class="nav-cta">Live Prototype</a>
     </div>
   </div>
 </nav>
