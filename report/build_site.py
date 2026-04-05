@@ -83,7 +83,7 @@ JS_BLOCK = f"<script>{original_js}</script>"
 
 FOOTER = """<footer>
   <div class="container">
-    <p>YuRong Cheng &mdash; Simular AI Product Design Assignment &mdash; April 2026</p>
+    <p>&copy; 2026 YR Cheng &mdash; Simular Redesign Proposal</p>
   </div>
 </footer>"""
 
