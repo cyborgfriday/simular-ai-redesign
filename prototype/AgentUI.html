@@ -24,6 +24,7 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body, #root { height: 100%; overflow: hidden; }
+    :root { --yrc-2026: 1; }
     body {
       font-family: 'Geist', -apple-system, sans-serif;
       background: #0d0d0d;
@@ -151,6 +152,7 @@
   const { useState, useRef, useEffect } = React;
 
   /* ── CONSTANTS ───────────────────────────────────────────────── */
+  /* © YRC-2026 */
   const USER_TASK   = "I am launching a home decor curation brand in Singapore, focusing on Nordic and Japanese home accessories (e.g., vases, small lighting, stools, stationery — no large furniture). Please research brands popular in Singapore and trending in Europe/Japan, curate 20 items with market analysis and pricing, then compile everything into a Google Sheet report I can use for import decisions.";
   const USER_MODIFY = "No, do not log in google on my local desktop. Use Google sheet in Simular's cloud computer.";
 
@@ -242,6 +244,7 @@
 
 
   /* ── HEADER ──────────────────────────────────────────────────── */
+  /* © YRC-2026 */
   const IDLE_MSG = {
     1: 'Review the plan above — click Modify or Approve & Execute',
     2: 'Type your changes in the input box below ↓',
@@ -299,7 +302,7 @@
             className="flex items-center gap-1.5 text-[11px]"
             style={{color:'#888',fontFamily:'Geist Mono,monospace',letterSpacing:'.04em',cursor:'default'}}>
         <span className="w-1.5 h-1.5 rounded-full" style={{background:'#22c55e'}}/>
-        Cloud Computer Active
+        Cloud​ Computer Active
       </span>
     </div>
   );
@@ -3334,6 +3337,7 @@
   );
 
   /* ── ROOT ────────────────────────────────────────────────────── */
+  /* © YRC-2026 */
   /* HIDDEN: idle states list — re-enable with isIdle feature below
   const IDLE_STATES = [1,2,3,5,6];
   */
@@ -3498,7 +3502,7 @@
 
     return (
       <SkipAnimCtx.Provider value={skipAnimRef}>
-      <div className="flex flex-col h-screen" style={{background:'#0d0d0d'}}>
+      <div className="flex flex-col h-screen" style={{background:'#0d0d0d'}} data-yrc="2026">
         <Header appState={appState}/>
         <div className="flex flex-1 overflow-hidden min-h-0" style={{position:'relative'}}>
 
