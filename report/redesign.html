@@ -284,6 +284,8 @@ footer a:hover { text-decoration: underline; }
   .container { padding: 0 20px; }
   .hl-nav { margin-top: 20px; margin-bottom: 40px; }
   .hl-nav .inner { padding: 0 20px; }
+  /* Four principles: stack label above text */
+  h3 + ul > li { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
   /* Highlight meta row: clear indent on mobile */
   h3[id^="hl-"] + div { padding-left: 0 !important; row-gap: 0; }
   /* Hide · separator */
