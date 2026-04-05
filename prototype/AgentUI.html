@@ -156,9 +156,10 @@
       /* Full-screen panels on mobile */
       html, body, #root { overflow: hidden; }
 
-      /* iOS Safari: use dynamic viewport height to avoid address bar overlap */
-      .h-screen { height: 100dvh !important; }
-      html, body, #root { height: 100dvh; }
+      /* iOS Safari: -webkit-fill-available accounts for the visible URL bar height */
+      html { height: -webkit-fill-available; }
+      body, #root { height: 100%; }
+      .h-screen { height: 100% !important; }
 
       /* Touch action: pan-y for smooth scroll in chat */
       [role="log"] { touch-action: pan-y; }
@@ -3275,7 +3276,7 @@
                         </div>
                         <div className="flex-1 min-w-0">
                           <div style={{fontSize:'13px',fontWeight:600,color:'#bfdbfe',lineHeight:1.3,
-                                       overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>
+                                       wordBreak:'break-all'}}>
                             SG_Nordic_Japanese_HomeDecor_Research_2026
                           </div>
                           <div style={{fontSize:'11.5px',color:'#6b7280',marginTop:'2px'}}>
