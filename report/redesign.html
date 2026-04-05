@@ -284,13 +284,19 @@ footer a:hover { text-decoration: underline; }
   .container { padding: 0 20px; }
   .hl-nav { margin-top: 20px; margin-bottom: 40px; }
   .hl-nav .inner { padding: 0 20px; }
-  /* Four principles: stack label above text */
-  h3 + ul > li { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
-  /* Highlight section sub-headers: remove left indent, let tags wrap naturally */
-  h3[id^="hl-"] + div { padding-left: 0 !important; }
-  /* Hide · separator; force description text onto its own line */
+  /* Highlight meta row: clear indent on mobile */
+  h3[id^="hl-"] + div { padding-left: 0 !important; row-gap: 0; }
+  /* Hide · separator */
   h3[id^="hl-"] + div > span[style*="--border"] { display: none !important; }
-  h3[id^="hl-"] + div > span:last-child { width: 100%; margin-top: 2px; }
+  /* AUDIT GAP label — always on its own row, clearly separated from principle tags */
+  h3[id^="hl-"] + div > span[style*="color:var(--red)"] {
+    flex-basis: 100%;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  /* Audit gap description — block on next line */
+  h3[id^="hl-"] + div > span:last-child { display: block; margin-top: 4px; }
 }
 @media print {
   body { background: #fff; }
