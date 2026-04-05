@@ -128,10 +128,10 @@ p { margin-bottom: 16px; color: var(--text-dim); }
   font-family: var(--mono); font-size:0.625rem; font-weight: 500;
   letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 16px;
 }
-.label-red { background: rgba(185,28,28,0.06); color: var(--red); }
-.label-amber { background: rgba(161,98,7,0.06); color: var(--amber); }
-.label-green { background: rgba(21,128,61,0.06); color: var(--green); }
-.label-blue { background: rgba(29,78,216,0.06); color: var(--blue); }
+.label-red { background: rgba(185,28,28,0.09); color: var(--red); border: 1px solid rgba(185,28,28,0.22); }
+.label-amber { background: rgba(161,98,7,0.09); color: var(--amber); border: 1px solid rgba(161,98,7,0.22); }
+.label-green { background: rgba(21,128,61,0.09); color: var(--green); border: 1px solid rgba(21,128,61,0.22); }
+.label-blue { background: rgba(29,78,216,0.09); color: var(--blue); border: 1px solid rgba(29,78,216,0.22); }
 .label-purple { background: var(--accent-bg); color: var(--accent); }
 
 /* ── Figures ── */
@@ -159,8 +159,10 @@ figcaption {
   font-family: var(--mono); font-size:0.625rem; font-weight: 500;
   letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 12px;
 }
-.before-label { background: rgba(185,28,28,0.06); color: var(--red); }
-.after-label { background: rgba(21,128,61,0.06); color: var(--green); }
+p:has(> .col-label) { display: flex; align-items: baseline; gap: 8px; }
+p:has(> .col-label) .col-label { flex-shrink: 0; margin-bottom: 0; }
+.before-label { background: rgba(185,28,28,0.09); color: var(--red); border: 1px solid rgba(185,28,28,0.22); }
+.after-label { background: rgba(21,128,61,0.09); color: var(--green); border: 1px solid rgba(21,128,61,0.22); }
 .comparison figure { margin: 0; }
 .comparison .col p { font-size: 0.8125rem; color: var(--text-dim); margin-top: 12px; line-height: 1.65; }
 
@@ -521,8 +523,8 @@ footer a:hover { text-decoration: underline; }
           </figure>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:10px;">
-          <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(29,78,216,0.08);color:var(--blue);">Browser</span> Tab active — Desktop / Browser / Editor visible in header</p>
-          <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(21,128,61,0.08);color:var(--green);">Editor</span> Tab active — syntax-highlighted code, terminal output</p>
+          <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(29,78,216,0.09);color:var(--blue);border:1px solid rgba(29,78,216,0.22);">Browser</span> Tab active — Desktop / Browser / Editor visible in header</p>
+          <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(21,128,61,0.09);color:var(--green);border:1px solid rgba(21,128,61,0.22);">Editor</span> Tab active — syntax-highlighted code, terminal output</p>
         </div>
       </div>
       <div>
@@ -566,8 +568,8 @@ footer a:hover { text-decoration: underline; }
           </figure>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:10px;">
-          <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(161,98,7,0.08);color:var(--amber);">Preview</span> A compact cloud computer preview appears on the right, letting users stay in the chat flow or expand into full Split View.</p>
-          <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(29,78,216,0.08);color:var(--blue);">Split View</span> Click to enlarge into a full workspace, so users can follow the chat and watch the cloud computer side by side.</p>
+          <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(161,98,7,0.09);color:var(--amber);border:1px solid rgba(161,98,7,0.22);">Preview</span> A compact cloud computer preview appears on the right, letting users stay in the chat flow or expand into full Split View.</p>
+          <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(29,78,216,0.09);color:var(--blue);border:1px solid rgba(29,78,216,0.22);">Split View</span> Click to enlarge into a full workspace, so users can follow the chat and watch the cloud computer side by side.</p>
         </div>
       </div>
     </div>
