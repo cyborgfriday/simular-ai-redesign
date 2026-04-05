@@ -18,6 +18,17 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Real viewport height fix for mobile browsers (Safari + Chrome).
+    // window.innerHeight = actual visible height after browser chrome (URL bar, nav bar).
+    // We write it as --real-vh and use it instead of 100vh/dvh/svh.
+    function setRealVH() {
+      document.documentElement.style.setProperty('--real-vh', window.innerHeight + 'px');
+    }
+    setRealVH();
+    window.addEventListener('resize', setRealVH);
+    window.addEventListener('orientationchange', function() { setTimeout(setRealVH, 300); });
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -156,10 +167,10 @@
       /* Full-screen panels on mobile */
       html, body, #root { overflow: hidden; }
 
-      /* iOS Safari: -webkit-fill-available accounts for the visible URL bar height */
-      html { height: -webkit-fill-available; }
-      body, #root { height: 100%; }
-      .h-screen { height: 100% !important; }
+      /* Real viewport height: JS writes window.innerHeight to --real-vh at load+resize.
+         Works in both Safari and Chrome on iOS/Android — accounts for URL/nav bars. */
+      html, body, #root { height: var(--real-vh, 100vh); overflow: hidden; }
+      .h-screen { height: var(--real-vh, 100vh) !important; }
 
       /* Touch action: pan-y for smooth scroll in chat */
       [role="log"] { touch-action: pan-y; }
