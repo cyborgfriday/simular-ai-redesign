@@ -222,6 +222,7 @@
   const IShield   = p=><Ic {...p}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></Ic>;
   const IRefresh  = p=><Ic {...p}><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></Ic>;
   const IFile     = p=><Ic {...p}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></Ic>;
+  const IExternalLink = p=><Ic {...p}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></Ic>;
   const IMsg      = p=><Ic {...p}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></Ic>;
   const IXCircle  = p=><Ic {...p}><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></Ic>;
   const IClock    = p=><Ic {...p}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></Ic>;
@@ -256,7 +257,25 @@
              style={{borderRadius:'6px',objectFit:'cover'}}/>
         <span className="text-[14px] font-semibold" style={{color:'#e2e2e2'}}>Simular AI</span>
 
+        {/* Full Report button */}
+        <a href="https://simular-redesign.yrcheng.tech/report" target="_blank" rel="noopener noreferrer"
+           data-tip="Check the full design report website!" data-tip-b
+           style={{
+             display:'inline-flex', alignItems:'center',
+             padding:'3px 10px', borderRadius:'7px', marginLeft:'10px',
+             background:'rgba(139,92,246,.08)', color:'#9d8ec8',
+             fontSize:'11.5px', fontWeight:600,
+             fontFamily:'Geist Mono,monospace', letterSpacing:'.03em',
+             textDecoration:'none', border:'1px solid rgba(139,92,246,.25)',
+             transition:'background .15s, border-color .15s, color .15s',
+           }}
+           onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(139,92,246,.45)';e.currentTarget.style.color='#c4b5fd';e.currentTarget.style.background='rgba(139,92,246,.14)';}}
+           onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(139,92,246,.25)';e.currentTarget.style.color='#9d8ec8';e.currentTarget.style.background='rgba(139,92,246,.08)';}}>
+          <IExternalLink size={12}/><span style={{marginLeft:'4px'}}>Design Report</span>
+        </a>
+
         {/* Idle reminder — only after 2 min inactivity in a waiting state */}
+        {/* HIDDEN: uncomment to re-enable (needs isIdle state + IDLE_STATES + timer useEffects)
         {isIdle && IDLE_MSG[appState] && (
           <div className="flex items-center gap-2 anim-fadeUp"
                style={{
@@ -272,6 +291,7 @@
             </span>
           </div>
         )}
+        */}
       </div>
 
       {/* VM status — right side */}
@@ -513,13 +533,17 @@
 
         {/* Copyright — bottom of welcome screen */}
         <div className="absolute bottom-5 left-0 right-0 flex justify-center">
-          <a href="https://simular-redesign.yrcheng.tech/report" target="_blank" rel="noopener noreferrer"
-             style={{fontSize:'11px',color:'#a78bfa',fontFamily:'Geist Mono,monospace',
-                     letterSpacing:'.05em',textDecoration:'none',opacity:.7}}
-             onMouseEnter={e=>e.currentTarget.style.opacity='1'}
-             onMouseLeave={e=>e.currentTarget.style.opacity='.7'}>
-            © 2026 YuRong C. — Simular Redesign Proposal
-          </a>
+          <span style={{fontSize:'11px',color:'#888',fontFamily:'Geist Mono,monospace',
+                        letterSpacing:'.05em'}}>
+            © 2026{' '}
+            <a href="https://www.linkedin.com/in/yrcheng/" target="_blank" rel="noopener noreferrer"
+               style={{color:'#a78bfa',textDecoration:'none',opacity:.7,transition:'opacity .15s'}}
+               onMouseEnter={e=>e.currentTarget.style.opacity='1'}
+               onMouseLeave={e=>e.currentTarget.style.opacity='.7'}>
+              YuRong C.
+            </a>
+            {' '}— Simular Redesign Proposal
+          </span>
         </div>
       </div>
     );
@@ -3310,7 +3334,9 @@
   );
 
   /* ── ROOT ────────────────────────────────────────────────────── */
+  /* HIDDEN: idle states list — re-enable with isIdle feature below
   const IDLE_STATES = [1,2,3,5,6];
+  */
   const App = () => {
     const [appState,    setAppState]    = useState(0);
     const [userMsg,     setUserMsg]     = useState('');
@@ -3327,8 +3353,10 @@
     const [vmAuthPhase,   setVmAuthPhase]   = useState(null); // null | 'new-tab' | 'redirecting' | 'signin'
     const [otherText,     setOtherText]     = useState('');
     const [otherSent,     setOtherSent]     = useState(false);
+    /* HIDDEN: isIdle state & ref — re-enable with idle timer useEffects below
     const [isIdle,        setIsIdle]        = useState(false);
     const idleRef     = useRef(null);
+    */
     const skipAnimRef = useRef(false);
     const skipTimerRef = useRef(null);
 
@@ -3349,6 +3377,7 @@
       return () => { window.removeEventListener('keydown', onKey); clearTimeout(skipTimerRef.current); };
     }, []);
 
+    /* HIDDEN: idle timer logic — uncomment to re-enable idle reminder in Header
     // Idle timer: resets on appState change; fires after 2 min in waiting states
     useEffect(() => {
       clearTimeout(idleRef.current);
@@ -3372,6 +3401,7 @@
       events.forEach(e => window.addEventListener(e, reset));
       return () => events.forEach(e => window.removeEventListener(e, reset));
     }, [appState]);
+    */
 
     const AUTH_LOG_ENTRIES = [
       { type:'ok',   text:'Opened browser — google.com' },
@@ -3469,7 +3499,7 @@
     return (
       <SkipAnimCtx.Provider value={skipAnimRef}>
       <div className="flex flex-col h-screen" style={{background:'#0d0d0d'}}>
-        <Header isIdle={isIdle} appState={appState}/>
+        <Header appState={appState}/>
         <div className="flex flex-1 overflow-hidden min-h-0" style={{position:'relative'}}>
 
           <Sidebar/>
