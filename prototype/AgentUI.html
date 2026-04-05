@@ -2288,7 +2288,7 @@
           {/* Left: title (desktop only) + tabs */}
           <div className="flex items-center gap-3">
             {/* "Interactive mode" label — always shown when relevant; "Simular Computer" — desktop only */}
-            {(appState===8||(appState===5&&vmAuthPhase==='signin')) ? (
+            {!isMobile && (appState===8||(appState===5&&vmAuthPhase==='signin')) ? (
               <>
                 <span style={{fontSize:'12px',fontWeight:600,fontFamily:'Geist Mono,monospace',
                               letterSpacing:'.04em',whiteSpace:'nowrap',cursor:'default',color:'#c4b5fd'}}>
