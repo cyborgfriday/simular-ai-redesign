@@ -308,7 +308,7 @@ footer a:hover { text-decoration: underline; }
 }
 .site-nav .brand:hover { color: var(--text); }
 .site-nav .pages {
-  display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none;
+  display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
 }
 .site-nav .pages::-webkit-scrollbar { display: none; }
 .site-nav .pages a {
@@ -360,11 +360,11 @@ footer a:hover { text-decoration: underline; }
   </div>
 </header>
 
-<section style="background: var(--surface2); padding: 72px 0;">
+<section style="background: var(--surface2); padding: 72px 0; border-top: 2px solid var(--accent);">
   <div class="container" style="max-width: 760px;">
 
     <!-- Designer identity row -->
-    <div style="display: flex; align-items: center; gap: 24px; margin-bottom: 36px;">
+    <div style="display: flex; align-items: center; gap: 24px; margin-bottom: 48px;">
       <img
         src="/report/report_assets/me_sq.jpeg"
         alt="YuRong C."
@@ -372,15 +372,15 @@ footer a:hover { text-decoration: underline; }
       >
       <div>
         <div style="font-family: var(--serif); font-size: 1rem; color: var(--text); line-height: 1;">YuRong C.</div>
-        <div style="font-family: var(--mono); font-size: 0.625rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-top: 8px;">A Note on This Prototype</div>
       </div>
     </div>
 
     <!-- Note body -->
-    <div style="font-size: 0.9375rem; color: var(--text-dim); line-height: 1.85;">
-      <p style="margin-bottom: 18px;">Hi! This prototype was built directly in code using Claude Code. As a designer, I enjoy building products and polishing them. Every interaction, from the typing animations to the exact moment the split view slides in, was implemented and iterated by hand.</p>
-      <p style="margin-bottom: 18px;">It took a bit longer than a static mockup, and I spent quite some time polishing it even though it's a prototype. I believe interaction design only truly comes alive when you can actually feel the timing. Building it live also surfaced many ideas that wireframes never could. You can see how some of these UI components evolved from this process on the <a href="/report/design_revolution" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(180,83,9,0.3);">Design Evolution page</a>.</p>
-      <p style="margin-bottom: 0;">A quick note: if you run into any weird bugs, or if the simulated agent forgets its script and gets stuck, please bear with it — it's still just a prototype. Have fun playing around with it! 👾</p>
+    <div style="color: var(--text-dim); line-height: 1.85;">
+      <div style="font-family: var(--serif); font-size: 4.5rem; line-height: 0.75; color: var(--accent); margin-bottom: 16px; user-select: none;">&ldquo;</div>
+      <p style="font-size: 0.9375rem; margin-bottom: 18px;">Hi! This prototype was built directly in code using Claude Code. As a designer, I enjoy building products and polishing them. Every interaction, from the typing animations to the exact moment the split view slides in, was implemented and iterated by hand.</p>
+      <p style="font-size: 0.9375rem; margin-bottom: 18px;">It took a bit longer than a static mockup, and I spent quite some time polishing it even though it's a prototype. I believe interaction design only truly comes alive when you can actually feel the timing. Building it live also surfaced many ideas that wireframes never could. You can see how some of these UI components evolved from this process on the <a href="/report/design_revolution" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(180,83,9,0.3);">Design Evolution page</a>.</p>
+      <p style="font-size: 0.9375rem; margin-bottom: 0;">A quick note: if you run into any weird bugs, or if the simulated agent forgets its script and gets stuck, please bear with it — it's still just a prototype. Have fun playing around with it! 👾</p>
     </div>
   </div>
 </section>

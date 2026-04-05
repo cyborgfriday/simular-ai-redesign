@@ -258,25 +258,13 @@ footer a:hover { text-decoration: underline; }
 }
 
 /* ── Section jump nav ── */
-nav:not(.site-nav) {
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 0;
-  background: var(--surface);
-}
-nav:not(.site-nav) .container {
-  display: flex; gap: 2px; padding: 10px 32px;
-}
-nav:not(.site-nav) a {
-  font-family: var(--mono); font-size: 0.6875rem; font-weight: 500;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--text-dim); text-decoration: none;
-  padding: 5px 12px; border-radius: 5px;
-  transition: all 0.15s;
-}
-nav:not(.site-nav) a:hover {
-  color: var(--text); background: var(--surface2);
-}
+.hl-nav { position:sticky; top:52px; z-index:190; background:transparent; border-top:1px solid var(--border); border-bottom:1px solid var(--border); width:100vw; margin-left:calc(50% - 50vw); transition:background 0.15s; }
+.hl-nav.stuck { background:var(--surface); }
+.hl-nav .inner { max-width:1160px; margin:0 auto; padding:0 32px; display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; height:44px; align-items:center; }
+.hl-nav .inner::-webkit-scrollbar { display:none; }
+.hl-nav a { white-space:nowrap; padding:6px 14px; border-radius:6px; text-decoration:none; color:var(--text-dim); font-size:0.8125rem; font-weight:400; transition:all 0.15s; display:flex; align-items:center; gap:8px; }
+.hl-nav a:hover { color:var(--text); background:var(--surface2); }
+.hl-nav a.active { color:var(--text); background:var(--surface2); font-weight:500; }
 
 /* ── Site-level page nav ── */
 .site-nav {
@@ -296,7 +284,7 @@ nav:not(.site-nav) a:hover {
 }
 .site-nav .brand:hover { color: var(--text); }
 .site-nav .pages {
-  display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none;
+  display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
 }
 .site-nav .pages::-webkit-scrollbar { display: none; }
 .site-nav .pages a {
@@ -377,21 +365,21 @@ nav:not(.site-nav) a:hover {
 </header>
 
 <!-- ════ CONTEXT SCREENSHOTS ════ -->
-<div style="border-bottom: 1px solid var(--border); padding: 56px 0;">
+<div style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 56px 0; background: var(--surface2);">
   <div class="container">
     <p style="font-family: var(--mono); font-size: 10.5px; font-weight: 500; color: var(--text-dim); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px;">Interface Context</p>
     <h2 style="font-family: var(--serif); font-size: 1.75rem; font-weight: 400; letter-spacing: -0.025em; color: var(--text); margin-bottom: 40px; line-height: 1.2;">Cards in the Chat Panel</h2>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+    <div style="display: flex; flex-direction: column; gap: 32px;">
       <div>
         <h3 style="font-family: var(--serif); font-size: 1.25rem; font-weight: 500; letter-spacing: -0.02em; color: var(--text); margin: 0 0 8px;">Execution Plan Card</h3>
-        <p style="font-size: 14px; color: var(--text-dim); margin: 0 0 20px; line-height: 1.7;">Appears in the chat panel before the agent starts. The user reviews each step and approves — or modifies — the plan before anything runs.</p>
+        <p style="font-size: 14px; color: var(--text-dim); margin: 0 0 24px; line-height: 1.7;">Appears in the chat panel before the agent starts. The user reviews each step and approves — or modifies — the plan before anything runs.</p>
         <figure style="margin: 0; border-radius: 10px; overflow: hidden;">
           <img src="/report/report_assets/Redesign/after_08_browser_article.png" alt="Execution Plan card in prototype interface" style="width: 100%; display: block; cursor: zoom-in;" onclick="openLightbox(this)">
         </figure>
       </div>
       <div>
         <h3 style="font-family: var(--serif); font-size: 1.25rem; font-weight: 500; letter-spacing: -0.02em; color: var(--text); margin: 0 0 8px;">Google Sign-in Required Card</h3>
-        <p style="font-size: 14px; color: var(--text-dim); margin: 0 0 20px; line-height: 1.7;">Surfaces mid-task when the agent needs user credentials to continue. Once the user signs in, the agent resumes automatically — no manual re-trigger needed.</p>
+        <p style="font-size: 14px; color: var(--text-dim); margin: 0 0 24px; line-height: 1.7;">Surfaces mid-task when the agent needs user credentials to continue. Once the user signs in, the agent resumes automatically — no manual re-trigger needed.</p>
         <figure style="margin: 0; border-radius: 10px; overflow: hidden;">
           <img src="/report/report_assets/Redesign/after_14_auth_signin.png" alt="Auth sign-in handoff card in prototype interface" style="width: 100%; display: block; cursor: zoom-in;" onclick="openLightbox(this)">
         </figure>
@@ -400,17 +388,17 @@ nav:not(.site-nav) a:hover {
   </div>
 </div>
 
-<nav>
-  <div class="container">
-    <a href="#plan">Execution Plan</a>
-    <a href="#updated-plan">Updated Plan</a>
-    <a href="#signin">Google Sign-in Required</a>
+<nav class="hl-nav" id="hl-nav-dr">
+  <div class="inner">
+    <a href="#plan"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;letter-spacing:0.04em;">01</span>Execution Plan</a>
+    <a href="#updated-plan"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;letter-spacing:0.04em;">02</span>Updated Plan</a>
+    <a href="#signin"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;letter-spacing:0.04em;">03</span>Google Sign-in Required</a>
   </div>
 </nav>
 
 
 <!-- ════ SECTION 1: Execution Plan Card ════ -->
-<section class="comp-section" id="plan">
+<section class="comp-section" id="plan" style="scroll-margin-top:128px;">
 <div class="container">
   <div class="section-eyebrow">Component 01</div>
   <h2 class="section-title">Execution Plan Card</h2>
@@ -570,7 +558,7 @@ nav:not(.site-nav) a:hover {
 
 
 <!-- ════ SECTION 2: Updated Plan Card ════ -->
-<section class="comp-section" id="updated-plan">
+<section class="comp-section" id="updated-plan" style="scroll-margin-top:128px;">
 <div class="container">
   <div class="section-eyebrow">Component 02 — Modifier Flow</div>
   <h2 class="section-title">Updated Execution Plan</h2>
@@ -695,7 +683,7 @@ nav:not(.site-nav) a:hover {
 
 
 <!-- ════ SECTION 3: Sign-in Card ════ -->
-<section class="comp-section" id="signin">
+<section class="comp-section" id="signin" style="scroll-margin-top:128px;">
 <div class="container">
   <div class="section-eyebrow">Component 03</div>
   <h2 class="section-title">Google Sign-in Required Card</h2>
@@ -821,6 +809,46 @@ function closeLightbox() {
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+
+  // ── Anchor nav: stuck background + active state ──
+  (function() {
+    var nav = document.getElementById('hl-nav-dr');
+    if (!nav) return;
+    var sentinel = document.createElement('div');
+    sentinel.style.cssText = 'height:1px;pointer-events:none;';
+    nav.insertAdjacentElement('beforebegin', sentinel);
+    new IntersectionObserver(function(e) {
+      nav.classList.toggle('stuck', !e[0].isIntersecting);
+    }, { rootMargin: '-53px 0px 0px 0px', threshold: [1] }).observe(sentinel);
+    var sections = ['plan','updated-plan','signin'];
+    var links = {};
+    sections.forEach(function(id) {
+      var a = document.querySelector('.hl-nav a[href="#' + id + '"]');
+      if (a) links[id] = a;
+    });
+    new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          Object.values(links).forEach(function(a) { a.classList.remove('active'); });
+          if (links[e.target.id]) links[e.target.id].classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' }).observe(
+      ...sections.map(function(id) { return document.getElementById(id); }).filter(Boolean)
+    );
+    sections.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            Object.values(links).forEach(function(a) { a.classList.remove('active'); });
+            if (links[id]) links[id].classList.add('active');
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' }).observe(el);
+    });
+  })();
+
 </script>
 
 
