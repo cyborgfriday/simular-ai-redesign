@@ -270,16 +270,24 @@ footer a { color: var(--accent); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 
 @media (max-width: 768px) {
-  .hero { padding: 40px 0 28px; }
+  /* Spacing */
+  section { padding: 48px 0; }
+  .hero { padding: 36px 0 24px; }
+  .container { padding: 0 20px; }
+
+  /* Journey: full-width images stacked under text — no bleed trick needed */
+  .step-body { overflow: hidden; }
+  .step-body figure { float: none; width: 100%; margin: 20px 0 12px; max-width: none; }
+
+  /* Grids → single column */
   .attr-grid { grid-template-columns: 1fr !important; }
-  .prototype-cta { flex-direction: column; text-align: center; }
-  .spectrum { flex-direction: column; }
+  .two-col { grid-template-columns: 1fr !important; }
   .comparison { grid-template-columns: 1fr; }
   .strategy-grid { grid-template-columns: 1fr; }
-  .container { padding: 0 20px; }
-  .step-body { overflow: visible; }
-  .step-body figure { float: none; width: calc(100% + 40px); margin: 16px -20px 12px; }
-  .step-body figure img { border-radius: 0; }
+
+  /* Components */
+  .prototype-cta { flex-direction: column; text-align: center; }
+  .spectrum { flex-direction: column; }
   .blocker { padding: 24px 20px; }
 }
 @media print {
