@@ -20,14 +20,22 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     // Real viewport height fix for mobile browsers (Safari + Chrome).
-    // window.innerHeight = actual visible height after browser chrome (URL bar, nav bar).
-    // We write it as --real-vh and use it instead of 100vh/dvh/svh.
+    // Uses window.visualViewport.height when available — this correctly shrinks
+    // when the software keyboard appears, keeping the header visible and the
+    // input bar above the keyboard at all times.
     function setRealVH() {
-      document.documentElement.style.setProperty('--real-vh', window.innerHeight + 'px');
+      var h = (window.visualViewport && window.visualViewport.height)
+            ? window.visualViewport.height
+            : window.innerHeight;
+      document.documentElement.style.setProperty('--real-vh', h + 'px');
     }
     setRealVH();
     window.addEventListener('resize', setRealVH);
     window.addEventListener('orientationchange', function() { setTimeout(setRealVH, 300); });
+    // visualViewport fires on every keyboard show/hide — crucial for iOS
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', setRealVH);
+    }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -624,7 +632,9 @@
             style={{color:'#d0d0d0',
                     minHeight: isMobile ? '80px' : '110px',
                     maxHeight: isMobile ? '160px' : '220px',
-                    fontSize: isMobile ? '15px' : '15px',
+                    /* iOS Safari zooms any input with font-size < 16px.
+                       Keep at 16px on mobile to prevent the horizontal pan/cut bug. */
+                    fontSize: isMobile ? '16px' : '15px',
                     padding: isMobile ? '16px 16px 8px' : '20px 24px 8px'}}
           />
           <div className="flex items-center justify-between pt-1"
@@ -2789,8 +2799,17 @@
               onFocus={()=>setFocused(true)} onBlur={()=>setFocused(false)}
               onClick={()=>{ if(isModify && !val) setVal(USER_MODIFY); }}
               placeholder="Reply"
-              className="w-full bg-transparent px-4 pt-3 pb-2 text-[13.5px] focus:outline-none resize-none leading-relaxed block"
-              style={{color:'#ebebeb',minHeight:'52px',maxHeight:'120px',caretColor:'#8b5cf6'}}
+              className="w-full bg-transparent px-4 pt-3 pb-2 focus:outline-none resize-none leading-relaxed block"
+              style={{
+                color:'#ebebeb',
+                minHeight:'52px',
+                maxHeight:'120px',
+                caretColor:'#8b5cf6',
+                /* iOS Safari zooms inputs with font-size < 16px, causing the
+                   horizontal pan/cut bug. Force 16px on mobile; keep 13.5px on desktop. */
+                fontSize: isMobile ? '16px' : '13.5px',
+                touchAction: 'manipulation',
+              }}
             />
             {/* Toolbar */}
             <div className="flex items-center justify-between px-3 pb-2.5 pt-0.5">
