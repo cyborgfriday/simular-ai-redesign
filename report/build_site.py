@@ -146,7 +146,7 @@ audit_hero = """<header class="hero">
     <h1>UX Audit &amp;<br>Product Context</h1>
     <p class="subtitle">End-to-end usability audit of Simular SAI — mapping friction points, trust gaps, and failure modes in an autonomous computer-use agent.</p>
     <div class="meta">
-      <span>YuRong Cheng</span>
+      <span>YuRong C.</span>
       <span>April 2026</span>
       <span>Simular AI &mdash; Product Design</span>
     </div>
@@ -175,7 +175,7 @@ redesign_hero = """<header class="hero">
     <h1>Design Strategy &amp;<br>Redesign Solution</h1>
     <p class="subtitle">Strategic redesign of human-in-the-loop interaction — building trust, transparency, and user control into autonomous agent workflows.</p>
     <div class="meta">
-      <span>YuRong Cheng</span>
+      <span>YuRong C.</span>
       <span>April 2026</span>
       <span>Simular AI &mdash; Product Design</span>
     </div>
@@ -204,7 +204,7 @@ prototype_body = """<header class="hero">
     <h1>Live Prototype</h1>
     <p class="subtitle">Try the redesigned human-in-the-loop interaction flow. The prototype simulates the agent's execution plan confirmation, mid-task interruption, and sign-in handoff states.</p>
     <div class="meta">
-      <span>YuRong Cheng</span>
+      <span>YuRong C.</span>
       <span>April 2026</span>
       <span>Simular AI &mdash; Product Design</span>
     </div>
