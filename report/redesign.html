@@ -361,6 +361,15 @@ footer a:hover { text-decoration: underline; }
     transform: translateY(0) scale(1);
   }
 }
+
+/* ── Design Highlights anchor nav ── */
+.hl-nav { position:sticky; top:52px; z-index:190; background:transparent; border-top:1px solid var(--border); border-bottom:1px solid var(--border); width:100vw; margin-left:calc(50% - 50vw); margin-top:32px; margin-bottom:72px; transition:background 0.15s; }
+.hl-nav.stuck { background:var(--surface); }
+.hl-nav .inner { max-width:1160px; margin:0 auto; padding:0 32px; display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; height:44px; align-items:center; }
+.hl-nav .inner::-webkit-scrollbar { display:none; }
+.hl-nav a { white-space:nowrap; padding:6px 14px; border-radius:6px; text-decoration:none; color:var(--text-dim); font-size:0.8125rem; font-weight:400; transition:all 0.15s; display:flex; align-items:center; gap:8px; }
+.hl-nav a:hover { color:var(--text); background:var(--surface2); }
+.hl-nav a.active { color:var(--text); background:var(--surface2); font-weight:500; }
 </style>
 </head>
 <body>
@@ -442,8 +451,20 @@ footer a:hover { text-decoration: underline; }
     <p>Six design decisions that build trust across the task lifecycle: before the agent acts, while it runs, and after it delivers. Each maps to a gap from the audit, applies a specific principle, and includes the trade-off.</p>
 
 
+    <!-- ─── Anchor nav ─── -->
+    <nav class="hl-nav" id="hl-nav">
+      <div class="inner">
+        <a href="#hl-01"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;letter-spacing:0.04em;">01</span>Plan Pre-Confirmation</a>
+        <a href="#hl-02"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;letter-spacing:0.04em;">02</span>Auth Handoff</a>
+        <a href="#hl-03"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;letter-spacing:0.04em;">03</span>Workspace</a>
+        <a href="#hl-04"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;letter-spacing:0.04em;">04</span>Progressive Reveal</a>
+        <a href="#hl-05"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;letter-spacing:0.04em;">05</span>Post-Completion</a>
+        <a href="#hl-06"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;letter-spacing:0.04em;">06</span>Progress Sidebar</a>
+      </div>
+    </nav>
+
     <!-- ─── HIGHLIGHT 1 ─── -->
-    <h3 style="margin:48px 0 0;"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">01</span>Plan Pre-Confirmation</h3>
+    <h3 id="hl-01" style="margin:48px 0 0;scroll-margin-top:128px;"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">01</span>Plan Pre-Confirmation</h3>
     <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:8px 0 28px;padding-left:46px;"><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);background:rgba(180,83,9,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Legibility</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--amber);background:rgba(161,98,7,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Progressive Disclosure</span><span style="color:var(--border);margin:0 4px;font-size:0.875rem;line-height:1;user-select:none;">·</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--red);">Audit gap</span><span style="font-family:var(--sans);font-size:0.875rem;color:var(--text);">No plan preview before execution</span></div>
     <p>Before execution, users have no idea what the agent is about to do, how long it will take, what data it will touch, or when it will need their help. A plan preview creates shared expectations before anything happens and flags handoff moments like authentication upfront so they don't arrive as surprises mid-task.</p>
     <p style="margin-bottom:20px;"><strong>Trade-off:</strong> Adds a step before the agent starts. Not fully automatic. But a 10-second review costs far less than watching the agent silently fail with no way to intervene. As reliability improves, this step can become optional.</p>
@@ -462,7 +483,7 @@ footer a:hover { text-decoration: underline; }
 
     <div style="margin-top:72px;padding-top:64px;border-top:1px solid var(--border);"></div>
     <!-- ─── HIGHLIGHT 2 ─── -->
-    <h3><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">02</span>Authentication Handoff &amp; Graceful Fallback</h3>
+    <h3 id="hl-02" style="scroll-margin-top:128px;"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">02</span>Authentication Handoff &amp; Graceful Fallback</h3>
     <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:8px 0 28px;padding-left:46px;"><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);background:rgba(29,78,216,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Boundary Awareness</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--green);background:rgba(21,128,61,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Controllability</span><span style="color:var(--border);margin:0 4px;font-size:0.875rem;line-height:1;user-select:none;">·</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--red);">Audit gap</span><span style="font-family:var(--sans);font-size:0.875rem;color:var(--text);">Auth popup outside VM; denial triggers silent retry loop</span></div>
     <p>The original flow pushed OAuth through a desktop popup. Dismissing it caused the agent to retry endlessly with no explanation and no escape. The redesign treats authentication as a deliberate handoff: the agent pauses, explains what it needs, and directs the user to the browser panel. If the user cancels login, the agent responds immediately with a clear recovery path instead of stalling.</p>
     <p style="margin-bottom:20px;"><strong>Trade-off:</strong> Less seamless than a fully automatic flow. But an agent that pauses cleanly and recovers gracefully is far more trustworthy than one that loops silently until it times out.</p>
@@ -485,7 +506,7 @@ footer a:hover { text-decoration: underline; }
 
     <div style="margin-top:72px;padding-top:64px;border-top:1px solid var(--border);"></div>
     <!-- ─── HIGHLIGHT 3 ─── -->
-    <h3><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">03</span>Workspace Transparency &amp; Safe Control</h3>
+    <h3 id="hl-03" style="scroll-margin-top:128px;"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">03</span>Workspace Transparency &amp; Safe Control</h3>
     <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:8px 0 28px;padding-left:46px;"><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);background:rgba(29,78,216,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Boundary Awareness</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--green);background:rgba(21,128,61,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Controllability</span><span style="color:var(--border);margin:0 4px;font-size:0.875rem;line-height:1;user-select:none;">·</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--red);">Audit gap</span><span style="font-family:var(--sans);font-size:0.875rem;color:var(--text);">Clicking into VM transfers control by accident</span></div>
     <p>Two design decisions that solve the same problem from different angles: how do you let users see what the agent is doing without accidentally disrupting it?</p>
     <p style="margin-bottom:20px;"><strong>Trade-off:</strong> More interface surface area. But for a product where the agent operates autonomously in a live environment, visibility without interference is the core trust mechanism. Tabs show what's happening; the takeover dialog controls when you act on it.</p>
@@ -517,7 +538,46 @@ footer a:hover { text-decoration: underline; }
 
     <div style="margin-top:72px;padding-top:64px;border-top:1px solid var(--border);"></div>
     <!-- ─── HIGHLIGHT 4 ─── -->
-    <h3><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">04</span>Post-Completion: Structured Delivery</h3>
+    <h3 id="hl-04" style="scroll-margin-top:128px;"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">04</span>Progressive Reveal</h3>
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:8px 0 28px;padding-left:46px;"><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);background:rgba(180,83,9,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Legibility</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--amber);background:rgba(161,98,7,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Progressive Disclosure</span><span style="color:var(--border);margin:0 4px;font-size:0.875rem;line-height:1;user-select:none;">·</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--red);">Audit gap</span><span style="font-family:var(--sans);font-size:0.875rem;color:var(--text);">Homepage front-loads VM before user has typed anything</span></div>
+    <div style="display:flex;flex-direction:column;gap:64px;margin:28px 0;">
+      <div>
+        <h4 style="font-family:var(--serif);font-size:1.125rem;font-weight:500;letter-spacing:-0.02em;margin:0 0 12px;">Homepage</h4>
+        <p style="margin-bottom:12px;">The original interface opened with a split-screen layout and a live VM preview before the user had even typed a task. For new users, this is immediately overwhelming. The redesign starts with a single centered input field. The cloud computer panel only appears after the plan is approved, matching the user's growing mental model rather than front-loading every capability at once.</p>
+        <p style="margin-bottom:20px;"><strong>Trade-off:</strong> Power users may want immediate workspace access. A shortcut is available, but the default prioritises the first-time experience. Progressive disclosure doesn't hide capability; it sequences it.</p>
+        <div class="comparison" style="margin:0;">
+          <div class="col">
+            <figure class="zoomable" style="margin-bottom:0;"><img src="/report/report_assets/audit/01_home_suggestions.png" alt="Original: complex homepage with task suggestion list" loading="lazy" onclick="openLightbox(this)"></figure>
+            <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label before-label">Before</span> Original homepage: task list and VM panel loaded immediately on open.</p>
+          </div>
+          <div class="col">
+            <figure class="zoomable" style="margin-bottom:0;"><img src="/report/report_assets/Redesign/after_01_home_idle_crop.png" alt="Redesign: chat-first homepage — clean centered input with suggestion chips" loading="lazy" onclick="openLightbox(this)"></figure>
+            <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label after-label">After</span> Redesigned homepage: clean centered input with suggestion chips. Workspace reveals only after plan approval.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="font-family:var(--serif);font-size:1.125rem;font-weight:500;letter-spacing:-0.02em;margin:0 0 12px;">From Preview to Split View &mdash; Appearing, but Not Interrupting</h4>
+        <p style="margin-bottom:12px;">Even after the cloud computer appears, it doesn't demand attention. It starts as a compact preview tucked to the right, letting users stay in the chat flow. One click expands it into a full Split View workspace &mdash; chat on the left, cloud computer on the right &mdash; so users can watch the agent work without losing conversational context.</p>
+        <div class="comparison" style="margin:0;">
+          <figure class="zoomable" style="margin:0;">
+            <img src="/report/report_assets/Redesign/after_06_desktop_tab_crop.png" alt="Preview: compact cloud computer panel tucked to the right of the chat" loading="lazy" onclick="openLightbox(this)">
+          </figure>
+          <figure class="zoomable" style="margin:0;">
+            <img src="/report/report_assets/Redesign/after_07_browser_search_crop.png" alt="Split View: full workspace with chat on left and cloud computer on right" loading="lazy" onclick="openLightbox(this)">
+          </figure>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:10px;">
+          <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(161,98,7,0.08);color:var(--amber);">Preview</span> A compact cloud computer preview appears on the right, letting users stay in the chat flow or expand into full Split View.</p>
+          <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(29,78,216,0.08);color:var(--blue);">Split View</span> Click to enlarge into a full workspace, so users can follow the chat and watch the cloud computer side by side.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:72px;padding-top:64px;border-top:1px solid var(--border);"></div>
+    <!-- ─── HIGHLIGHT 5 ─── -->
+    <h3 id="hl-05" style="scroll-margin-top:128px;"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">05</span>Post-Completion: Structured Delivery</h3>
     <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:8px 0 28px;padding-left:46px;"><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);background:rgba(180,83,9,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Legibility</span><span style="color:var(--border);margin:0 4px;font-size:0.875rem;line-height:1;user-select:none;">·</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--red);">Audit gap</span><span style="font-family:var(--sans);font-size:0.875rem;color:var(--text);">Output buried in text; no structured handoff after completion</span></div>
     <p>A text &ldquo;done&rdquo; message forces users to hunt for their output inside the VM. Structured delivery surfaces the result immediately: file card, export options, and next actions in one view.</p>
     <p style="margin-bottom:20px;"><strong>Trade-off:</strong> Adds interaction after the main task. But showing what was actually produced, and giving the user immediate ways to use it, is the difference between completing a task and delivering value.</p>
@@ -535,8 +595,8 @@ footer a:hover { text-decoration: underline; }
 
 
     <div style="margin-top:72px;padding-top:64px;border-top:1px solid var(--border);"></div>
-    <!-- ─── HIGHLIGHT 5 ─── -->
-    <h3><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">05</span>Task Progress Sidebar &mdash; Collapsable</h3>
+    <!-- ─── HIGHLIGHT 6 ─── -->
+    <h3 id="hl-06" style="scroll-margin-top:128px;"><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">06</span>Task Progress Sidebar &mdash; Collapsable</h3>
     <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:8px 0 28px;padding-left:46px;"><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);background:rgba(180,83,9,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Legibility</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--green);background:rgba(21,128,61,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Controllability</span><span style="color:var(--border);margin:0 4px;font-size:0.875rem;line-height:1;user-select:none;">·</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--red);">Audit gap</span><span style="font-family:var(--sans);font-size:0.875rem;color:var(--text);">Running, stuck, and failed states all look identical</span></div>
     <p>The original execution stream updated constantly but had no hierarchy. Agent reasoning, process logs, and required actions all appeared as undifferentiated text. There was no sense of how far the task had progressed or whether the agent was stuck. The redesign adds a persistent progress sidebar that shows each step, its current status, and a real-time activity log. At any point during execution, the user knows exactly where the task stands.</p>
     <p style="margin-bottom:20px;"><strong>Trade-off:</strong> Uses screen real estate. But constant orientation is worth the space for multi-step tasks that run for minutes. The sidebar also serves as the primary trust signal during execution: it proves the agent is making progress, not spinning in place.</p>
@@ -553,24 +613,6 @@ footer a:hover { text-decoration: underline; }
     </div>
 
 
-
-    <div style="margin-top:72px;padding-top:64px;border-top:1px solid var(--border);"></div>
-    <!-- ─── HIGHLIGHT 6 ─── -->
-    <h3><span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.625rem;font-weight:600;background:var(--text);color:#fff;border-radius:5px;padding:2px 7px;margin-right:12px;letter-spacing:0.04em;vertical-align:2px;">06</span>Progressive Reveal</h3>
-    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:8px 0 28px;padding-left:46px;"><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);background:rgba(180,83,9,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Legibility</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--amber);background:rgba(161,98,7,0.1);padding:3px 10px;border-radius:4px;white-space:nowrap;">Progressive Disclosure</span><span style="color:var(--border);margin:0 4px;font-size:0.875rem;line-height:1;user-select:none;">·</span><span style="font-family:var(--mono);font-size:0.75rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--red);">Audit gap</span><span style="font-family:var(--sans);font-size:0.875rem;color:var(--text);">Homepage front-loads VM before user has typed anything</span></div>
-    <p>The original interface opened with a split-screen layout and a live VM preview before the user had even typed a task. For new users, this is immediately overwhelming. The redesign starts with a single centered input field. The cloud computer panel only appears after the plan is approved, matching the user's growing mental model rather than front-loading every capability at once.</p>
-    <p style="margin-bottom:20px;"><strong>Trade-off:</strong> Power users may want immediate workspace access. A shortcut is available, but the default prioritises the first-time experience. Progressive disclosure doesn't hide capability; it sequences it.</p>
-
-    <div class="comparison">
-      <div class="col">
-                <figure class="zoomable" style="margin-bottom:0;"><img src="/report/report_assets/audit/01_home_suggestions.png" alt="Original: complex homepage with task suggestion list" loading="lazy" onclick="openLightbox(this)"></figure>
-        <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label before-label">Before</span> Original: task list and VM panel loaded immediately on open.</p>
-      </div>
-      <div class="col">
-                <figure class="zoomable" style="margin-bottom:0;"><img src="/report/report_assets/Redesign/after_01_home_idle_crop.png" alt="Redesign: chat-first homepage — clean centered input with suggestion chips" loading="lazy" onclick="openLightbox(this)"></figure>
-        <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label after-label">After</span> Clean centered input with suggestion chips. Workspace reveals only after plan approval.</p>
-      </div>
-    </div>
 
     <!-- Product Architecture -->
     <h3>Product Architecture</h3>
@@ -662,6 +704,41 @@ function closeLightbox() {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeLightbox();
 });
+
+  // ── Anchor nav: stuck background + active state ──
+  (function() {
+    var nav = document.getElementById('hl-nav');
+    if (!nav) return;
+
+    // Sticky detection via sentinel
+    var sentinel = document.createElement('div');
+    sentinel.style.cssText = 'height:1px;pointer-events:none;';
+    nav.insertAdjacentElement('beforebegin', sentinel);
+    new IntersectionObserver(function(e) {
+      nav.classList.toggle('stuck', !e[0].isIntersecting);
+    }, { rootMargin: '-53px 0px 0px 0px', threshold: [1] }).observe(sentinel);
+
+    // Active section highlight
+    var sections = ['hl-01','hl-02','hl-03','hl-04','hl-05','hl-06'];
+    var links = {};
+    sections.forEach(function(id) {
+      var a = document.querySelector('.hl-nav a[href="#' + id + '"]');
+      if (a) links[id] = a;
+    });
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          Object.values(links).forEach(function(a) { a.classList.remove('active'); });
+          if (links[e.target.id]) links[e.target.id].classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+  })();
+
 </script>
 
 <script>
