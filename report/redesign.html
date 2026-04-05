@@ -288,6 +288,9 @@ footer a:hover { text-decoration: underline; }
   h3 + ul > li { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
   /* Highlight section sub-headers: remove left indent, let tags wrap naturally */
   h3[id^="hl-"] + div { padding-left: 0 !important; }
+  /* Hide · separator; force description text onto its own line */
+  h3[id^="hl-"] + div > span[style*="--border"] { display: none !important; }
+  h3[id^="hl-"] + div > span:last-child { width: 100%; margin-top: 2px; }
 }
 @media print {
   body { background: #fff; }

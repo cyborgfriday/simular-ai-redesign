@@ -277,6 +277,7 @@ footer a:hover { text-decoration: underline; }
   .comparison { grid-template-columns: 1fr; }
   .strategy-grid { grid-template-columns: 1fr; }
   .container { padding: 0 20px; }
+  .step-body { overflow: visible; }
   .step-body figure { float: none; width: calc(100% + 40px); margin: 16px -20px 12px; }
   .step-body figure img { border-radius: 0; }
   .blocker { padding: 24px 20px; }
@@ -578,7 +579,7 @@ footer a:hover { text-decoration: underline; }
       This task requires the agent to cross multiple capability boundaries in a single run. That's exactly where HITL design breaks down if it isn't built for it.
     </p>
 
-    <div style="display: flex; align-items: center; gap: 0; flex-wrap: wrap; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.4px; color: var(--text-dim);">
+    <div style="display: flex; align-items: center; column-gap: 0; row-gap: 8px; flex-wrap: wrap; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.4px; color: var(--text-dim);">
       <span style="display:inline-flex;align-items:center;"><span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Research</span><span style="padding: 0 10px; color: var(--text-dim);">→</span></span>
       <span style="display:inline-flex;align-items:center;"><span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Judgement</span><span style="padding: 0 10px; color: var(--text-dim);">→</span></span>
       <span style="display:inline-flex;align-items:center;"><span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Auth handoff</span><span style="padding: 0 10px; color: var(--text-dim);">→</span></span>
