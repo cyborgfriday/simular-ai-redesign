@@ -83,7 +83,7 @@ JS_BLOCK = f"<script>{original_js}</script>"
 
 FOOTER = """<footer>
   <div class="container">
-    <p>&copy; 2026 YuRong C. &mdash; Simular Redesign Proposal</p>
+    <p>&copy; 2026 <a href="https://www.linkedin.com/in/yrcheng/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">YuRong C.</a> &mdash; Simular Redesign Proposal</p>
   </div>
 </footer>"""
 
