@@ -353,7 +353,12 @@
          style={{background:'#0d0d0d',borderBottom:'1px solid #383838',
                  height:'44px',
                  paddingLeft: isMobile ? '12px' : '20px',
-                 paddingRight: isMobile ? '12px' : '20px'}}>
+                 paddingRight: isMobile ? '12px' : '20px',
+                 // Sticky on mobile: prevents iOS Safari flex bugs from hiding the header
+                 position: isMobile ? 'sticky' : 'relative',
+                 top: 0,
+                 zIndex: 20,
+                 }}>
       <div className="flex items-center gap-2">
 
         {/* Hamburger — mobile only */}
