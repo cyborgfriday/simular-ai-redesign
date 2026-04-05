@@ -144,12 +144,108 @@
         radial-gradient(ellipse at 92% 65%, #e8704a 0%, transparent 48%),
         linear-gradient(135deg, #0d0221 0%, #1a0533 100%);
     }
+
+    /* ── MOBILE RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 767px) {
+      /* Disable tooltips on touch devices */
+      [data-tip]::after, [data-tip-r]::after, [data-tip-b]::after { display: none !important; }
+
+      /* Thinner scrollbars on mobile */
+      ::-webkit-scrollbar { width: 2px; }
+
+      /* Full-screen panels on mobile */
+      html, body, #root { overflow: hidden; }
+
+      /* iOS Safari: use dynamic viewport height to avoid address bar overlap */
+      .h-screen { height: 100dvh !important; }
+      html, body, #root { height: 100dvh; }
+
+      /* Touch action: pan-y for smooth scroll in chat */
+      [role="log"] { touch-action: pan-y; }
+
+      /* Increase tap target for buttons */
+      button { min-height: 36px; }
+    }
+
+    /* Sidebar mobile drawer */
+    @keyframes slideInLeft {
+      from { transform: translateX(-100%); opacity: 0; }
+      to   { transform: translateX(0);     opacity: 1; }
+    }
+    .sidebar-drawer {
+      position: fixed !important;
+      left: 0; top: 0; bottom: 0;
+      width: 240px !important;
+      z-index: 100;
+      animation: slideInLeft .22s cubic-bezier(.22,.68,0,1.05) both;
+    }
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.6);
+      z-index: 99;
+      animation: fadeIn .18s ease both;
+      backdrop-filter: blur(2px);
+    }
+
+    /* Mobile bottom tab bar */
+    .mobile-tab-bar {
+      display: flex;
+      background: #0d0d0d;
+      border-top: 1px solid #252525;
+      flex-shrink: 0;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    .mobile-tab-btn {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      padding: 8px 0 6px;
+      font-size: 10px;
+      font-family: 'Geist', sans-serif;
+      font-weight: 500;
+      letter-spacing: .02em;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: color .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Input bar with safe area */
+    .input-bar-wrap {
+      padding-top: 12px;
+      padding-left: max(20px, env(safe-area-inset-left));
+      padding-right: max(20px, env(safe-area-inset-right));
+      padding-bottom: max(12px, env(safe-area-inset-bottom));
+    }
+
+    /* Desktop hides mobile-only elements */
+    @media (min-width: 768px) {
+      .mobile-tab-bar { display: none !important; }
+      .mobile-only    { display: none !important; }
+    }
   </style>
 </head>
 <body>
 <div id="root"></div>
 <script type="text/babel">
   const { useState, useRef, useEffect } = React;
+
+  /* ── MOBILE HOOK ────────────────────────────────────────────── */
+  const useIsMobile = () => {
+    const [isMobile, setIsMobile] = useState(()=>window.innerWidth < 768);
+    useEffect(()=>{
+      const fn = ()=>setIsMobile(window.innerWidth < 768);
+      window.addEventListener('resize', fn);
+      return ()=>window.removeEventListener('resize', fn);
+    },[]);
+    return isMobile;
+  };
 
   /* ── CONSTANTS ───────────────────────────────────────────────── */
   /* © YRC-2026 */
@@ -252,57 +348,66 @@
     5: 'Sign in to Google in the browser on the right to continue',
     6: 'Choose an option above, or type your instruction below ↓',
   };
-  const Header = ({ isIdle=false, appState=0 }) => (
-    <div className="flex items-center justify-between px-5 h-11 flex-shrink-0"
-         style={{background:'#0d0d0d',borderBottom:'1px solid #383838'}}>
-      <div className="flex items-center gap-2.5">
+  const Header = ({ isIdle=false, appState=0, isMobile=false, sidebarOpen=false, onMenuToggle }) => (
+    <div className="flex items-center justify-between flex-shrink-0"
+         style={{background:'#0d0d0d',borderBottom:'1px solid #383838',
+                 height:'44px',
+                 paddingLeft: isMobile ? '12px' : '20px',
+                 paddingRight: isMobile ? '12px' : '20px'}}>
+      <div className="flex items-center gap-2">
+
+        {/* Hamburger — mobile only */}
+        {isMobile&&(
+          <button onClick={onMenuToggle}
+            className="w-9 h-9 rounded-xl flex items-center justify-center tr flex-shrink-0"
+            style={{color:'#777',marginLeft:'-4px'}}
+            onMouseEnter={e=>{e.currentTarget.style.background='#1e1e1e';e.currentTarget.style.color='#ccc'}}
+            onMouseLeave={e=>{e.currentTarget.style.background='transparent';e.currentTarget.style.color='#777'}}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+              {sidebarOpen
+                ? <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>
+                : <><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></>
+              }
+            </svg>
+          </button>
+        )}
+
         <img src="/prototype/logo/simular_ai_logo.jpeg" width={22} height={22}
              style={{borderRadius:'6px',objectFit:'cover'}}/>
         <span className="text-[14px] font-semibold" style={{color:'#e2e2e2'}}>Simular AI</span>
 
-        {/* Full Report button */}
-        <a href="https://simular-redesign.yrcheng.tech/report" target="_blank" rel="noopener noreferrer"
-           data-tip="Check the full design report website!" data-tip-b
-           style={{
-             display:'inline-flex', alignItems:'center',
-             padding:'3px 10px', borderRadius:'7px', marginLeft:'10px',
-             background:'rgba(139,92,246,.08)', color:'#9d8ec8',
-             fontSize:'11.5px', fontWeight:600,
-             fontFamily:'Geist Mono,monospace', letterSpacing:'.03em',
-             textDecoration:'none', border:'1px solid rgba(139,92,246,.25)',
-             transition:'background .15s, border-color .15s, color .15s',
-           }}
-           onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(139,92,246,.45)';e.currentTarget.style.color='#c4b5fd';e.currentTarget.style.background='rgba(139,92,246,.14)';}}
-           onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(139,92,246,.25)';e.currentTarget.style.color='#9d8ec8';e.currentTarget.style.background='rgba(139,92,246,.08)';}}>
-          <IExternalLink size={12}/><span style={{marginLeft:'4px'}}>Design Report</span>
-        </a>
-
-        {/* Idle reminder — only after 2 min inactivity in a waiting state */}
-        {/* HIDDEN: uncomment to re-enable (needs isIdle state + IDLE_STATES + timer useEffects)
-        {isIdle && IDLE_MSG[appState] && (
-          <div className="flex items-center gap-2 anim-fadeUp"
-               style={{
-                 padding:'3px 11px 3px 8px', borderRadius:'8px',
-                 border:'1px solid rgba(251,191,36,.45)',
-                 background:'rgba(251,191,36,.06)',
-               }}>
-            <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 anim-pulse"
-                  style={{background:'#facc15'}}/>
-            <span style={{fontSize:'11.5px',fontFamily:'Geist Mono,monospace',
-                          color:'#fbbf24',letterSpacing:'.02em',whiteSpace:'nowrap'}}>
-              {IDLE_MSG[appState]}
-            </span>
-          </div>
+        {/* Full Report button — desktop only */}
+        {!isMobile&&(
+          <a href="https://simular-redesign.yrcheng.tech/report" target="_blank" rel="noopener noreferrer"
+             data-tip="Check the full design report website!" data-tip-b
+             style={{
+               display:'inline-flex', alignItems:'center',
+               padding:'3px 10px', borderRadius:'7px', marginLeft:'10px',
+               background:'rgba(139,92,246,.08)', color:'#9d8ec8',
+               fontSize:'11.5px', fontWeight:600,
+               fontFamily:'Geist Mono,monospace', letterSpacing:'.03em',
+               textDecoration:'none', border:'1px solid rgba(139,92,246,.25)',
+               transition:'background .15s, border-color .15s, color .15s',
+             }}
+             onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(139,92,246,.45)';e.currentTarget.style.color='#c4b5fd';e.currentTarget.style.background='rgba(139,92,246,.14)';}}
+             onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(139,92,246,.25)';e.currentTarget.style.color='#9d8ec8';e.currentTarget.style.background='rgba(139,92,246,.08)';}}>
+            <IExternalLink size={12}/><span style={{marginLeft:'4px'}}>Design Report</span>
+          </a>
         )}
+
+        {/* Idle reminder — HIDDEN
+        ...
         */}
       </div>
 
       {/* VM status — right side */}
       <span data-tip="Cloud Computer ID: sg-cc-7f2a3b · Running in Singapore region"
-            className="flex items-center gap-1.5 text-[11px]"
-            style={{color:'#888',fontFamily:'Geist Mono,monospace',letterSpacing:'.04em',cursor:'default'}}>
-        <span className="w-1.5 h-1.5 rounded-full" style={{background:'#22c55e'}}/>
-        Cloud​ Computer Active
+            className="flex items-center gap-1.5"
+            style={{fontSize: isMobile ? '10px' : '11px',
+                    color:'#888',fontFamily:'Geist Mono,monospace',
+                    letterSpacing:'.04em',cursor:'default'}}>
+        <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{background:'#22c55e'}}/>
+        {isMobile ? 'Active' : 'Cloud​ Computer Active'}
       </span>
     </div>
   );
@@ -448,7 +553,7 @@
     );
   };
 
-  const WelcomeScreen = ({ onSend }) => {
+  const WelcomeScreen = ({ onSend, isMobile=false }) => {
     const [val,       setVal]       = useState('');
     const [recording, setRecording] = useState(false);
     const [model,     setModel]     = useState(MODELS[0]);
@@ -463,70 +568,96 @@
     useEffect(()=>{
       if(!taRef.current) return;
       taRef.current.style.height='auto';
-      taRef.current.style.height=Math.min(taRef.current.scrollHeight,160)+'px';
+      taRef.current.style.height=Math.min(taRef.current.scrollHeight, isMobile ? 120 : 160)+'px';
     },[val]);
 
     return (
-      <div className="flex-1 flex flex-col items-center justify-center px-6 anim-fade relative" style={{paddingBottom:'9vh'}}>
+      <div className="flex-1 flex flex-col items-center justify-center anim-fade relative"
+           style={{
+             paddingLeft: isMobile ? '16px' : '24px',
+             paddingRight: isMobile ? '16px' : '24px',
+             paddingBottom: isMobile ? '6vh' : '9vh',
+           }}>
         {/* Icon */}
-        <div className="mb-7 anim-pop">
-          <img src="/prototype/logo/simular_ai_logo.jpeg" width={64} height={64}
-               style={{borderRadius:'18px',objectFit:'cover',boxShadow:'0 6px 28px rgba(0,0,0,.4)'}}/>
+        <div className="anim-pop" style={{marginBottom: isMobile ? '20px' : '28px'}}>
+          <img src="/prototype/logo/simular_ai_logo.jpeg"
+               width={isMobile ? 52 : 64} height={isMobile ? 52 : 64}
+               style={{borderRadius: isMobile ? '14px' : '18px',objectFit:'cover',boxShadow:'0 6px 28px rgba(0,0,0,.4)'}}/>
         </div>
 
         {/* Heading */}
-        <h1 className="text-[25px] font-semibold mb-7 anim-fadeUp"
-            style={{color:'#eaeaea',letterSpacing:'-.4px',animationDelay:'60ms'}}>
+        <h1 className="font-semibold anim-fadeUp text-center"
+            style={{color:'#eaeaea',letterSpacing:'-.4px',animationDelay:'60ms',
+                    fontSize: isMobile ? '20px' : '25px',
+                    marginBottom: isMobile ? '20px' : '28px',
+                    lineHeight: 1.3}}>
           What can I do for you today?
         </h1>
 
         {/* Input box */}
-        <div className="w-full max-w-[860px] rounded-2xl anim-fadeUp"
-             style={{background:'#1a1a1a',
+        <div className="w-full rounded-2xl anim-fadeUp" style={{maxWidth:'860px',
+                     background:'#1a1a1a',
                      border: focused ? '1px solid rgba(139,92,246,.55)' : '1px solid #2e2e2e',
                      boxShadow: focused ? '0 0 0 3px rgba(139,92,246,.1)' : '0 4px 24px rgba(0,0,0,.35)',
                      animationDelay:'120ms'}}>
-          <textarea ref={taRef} rows={4} value={val}
+          <textarea ref={taRef} rows={isMobile ? 3 : 4} value={val}
             onChange={e=>setVal(e.target.value)} onKeyDown={onKey} onFocus={onFocus} onBlur={onBlur}
             placeholder="Message Simular AI..."
-            className="w-full bg-transparent px-6 pt-5 pb-2 text-[15px] focus:outline-none resize-none leading-relaxed"
-            style={{color:'#d0d0d0',minHeight:'110px',maxHeight:'220px'}}
+            className="w-full bg-transparent focus:outline-none resize-none leading-relaxed"
+            style={{color:'#d0d0d0',
+                    minHeight: isMobile ? '80px' : '110px',
+                    maxHeight: isMobile ? '160px' : '220px',
+                    fontSize: isMobile ? '15px' : '15px',
+                    padding: isMobile ? '16px 16px 8px' : '20px 24px 8px'}}
           />
-          <div className="flex items-center justify-between px-3 pb-3 pt-1">
-            <div className="flex items-center gap-1">
+          <div className="flex items-center justify-between pt-1"
+               style={{padding: isMobile ? '4px 10px 10px' : '4px 12px 12px'}}>
+            <div className="flex items-center gap-0.5">
               <button data-tip="Attach file"
-                className="relative w-8 h-8 rounded-lg flex items-center justify-center tr"
-                style={{color:'#777'}}
+                className="relative rounded-lg flex items-center justify-center tr"
+                style={{color:'#777', width: isMobile ? '36px' : '32px', height: isMobile ? '36px' : '32px'}}
                 onMouseEnter={e=>{e.currentTarget.style.background='#252525';e.currentTarget.style.color='#bbb'}}
                 onMouseLeave={e=>{e.currentTarget.style.background='transparent';e.currentTarget.style.color='#777'}}>
                 <IPaperclip/>
               </button>
               <button data-tip={recording ? "Stop recording" : "Voice input"} onClick={()=>setRecording(r=>!r)}
-                className="relative w-8 h-8 rounded-lg flex items-center justify-center tr"
-                style={{color:recording?'#ef4444':'#777',background:recording?'rgba(239,68,68,.12)':'transparent'}}>
+                className="relative rounded-lg flex items-center justify-center tr"
+                style={{color:recording?'#ef4444':'#777',background:recording?'rgba(239,68,68,.12)':'transparent',
+                        width: isMobile ? '36px' : '32px', height: isMobile ? '36px' : '32px'}}>
                 <IMic/>
                 {recording&&<span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-red-500 anim-pulse"/>}
               </button>
-              <div className="w-px h-4 mx-1" style={{background:'#2e2e2e'}}/>
+              <div className="h-4 mx-1" style={{width:'1px',background:'#2e2e2e'}}/>
               <ModelSelector model={model} setModel={setModel}/>
             </div>
             <button onClick={()=>send()} disabled={!val.trim()}
               data-tip="Send message" data-tip-r
-              className="relative w-8 h-8 rounded-lg flex items-center justify-center tr"
+              className="relative rounded-lg flex items-center justify-center tr"
               style={{background:val.trim()?'#7c3aed':'#252525',
                       color:val.trim()?'#fff':'#606060',
-                      boxShadow:val.trim()?'0 2px 10px rgba(124,58,237,.4)':'none'}}>
+                      boxShadow:val.trim()?'0 2px 10px rgba(124,58,237,.4)':'none',
+                      width: isMobile ? '36px' : '32px', height: isMobile ? '36px' : '32px'}}>
               <IArrowRight size={13}/>
             </button>
           </div>
         </div>
 
-        {/* Chips */}
-        <div className="flex flex-wrap gap-2 mt-5 justify-center max-w-[860px] anim-fadeUp" style={{animationDelay:'200ms'}}>
+        {/* Chips — horizontal scroll on mobile */}
+        <div className="anim-fadeUp" style={{
+               display:'flex', gap:'8px', marginTop: isMobile ? '16px' : '20px',
+               maxWidth:'860px', width:'100%',
+               overflowX: isMobile ? 'auto' : 'visible',
+               flexWrap: isMobile ? 'nowrap' : 'wrap',
+               justifyContent: isMobile ? 'flex-start' : 'center',
+               paddingBottom: isMobile ? '4px' : 0,
+               animationDelay:'200ms'}}>
           {CHIPS.map(c=>(
             <button key={c} onClick={()=>send(c)}
-              className="px-3.5 py-2 rounded-full text-[12.5px] tr"
-              style={{background:'#161616',border:'1px solid #2a2a2a',color:'#888'}}
+              className="rounded-full tr"
+              style={{background:'#161616',border:'1px solid #2a2a2a',color:'#888',
+                      fontSize: isMobile ? '12px' : '12.5px',
+                      padding: isMobile ? '8px 14px' : '8px 14px',
+                      whiteSpace:'nowrap', flexShrink:0}}
               onMouseEnter={e=>{e.currentTarget.style.borderColor='#3a3a3a';e.currentTarget.style.color='#ccc';e.currentTarget.style.background='#1e1e1e'}}
               onMouseLeave={e=>{e.currentTarget.style.borderColor='#2a2a2a';e.currentTarget.style.color='#888';e.currentTarget.style.background='#161616'}}>
               {c}
@@ -2601,7 +2732,7 @@
     },[isOther]);
 
     return (
-      <div className="px-5 pt-3 pb-3 flex-shrink-0">
+      <div className="input-bar-wrap flex-shrink-0">
         <div style={props.isSplit ? {maxWidth:'800px',margin:'0 auto'} : {maxWidth:'900px',margin:'0 auto'}}>
 
           {/* Input container */}
@@ -3305,36 +3436,98 @@
     </button>
   );
 
-  const Sidebar = () => (
-    <div className="flex flex-col items-center py-3 flex-shrink-0"
-         style={{width:'56px',borderRight:'1px solid #383838',background:'#111111'}}>
+  const Sidebar = ({ isMobile=false, onClose }) => {
+    const drawerContent = (
+      <div className="flex flex-col items-center py-3 flex-shrink-0 h-full"
+           style={{width: isMobile ? '240px' : '56px',
+                   borderRight:'1px solid #383838',background:'#111111'}}>
 
-      {/* New chat */}
-      <div className="mb-3">
-        <SidebarBtn label="New chat"
-          icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>}/>
+        {isMobile && (
+          <div className="w-full flex items-center justify-between px-4 pb-3 mb-1"
+               style={{borderBottom:'1px solid #1e1e1e'}}>
+            <span style={{fontSize:'13px',fontWeight:600,color:'#888',
+                          fontFamily:'Geist Mono,monospace',letterSpacing:'.06em',textTransform:'uppercase'}}>
+              Menu
+            </span>
+            <button onClick={onClose}
+              className="w-8 h-8 rounded-lg flex items-center justify-center tr"
+              style={{color:'#666'}}
+              onMouseEnter={e=>{e.currentTarget.style.background='#1e1e1e';e.currentTarget.style.color='#ccc'}}
+              onMouseLeave={e=>{e.currentTarget.style.background='transparent';e.currentTarget.style.color='#666'}}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+        )}
+
+        {/* New chat */}
+        <div className={isMobile ? 'w-full px-3 mb-2' : 'mb-3'}>
+          {isMobile ? (
+            <button onClick={onClose}
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl tr"
+              style={{color:'#aaa',background:'rgba(139,92,246,.08)',border:'1px solid rgba(139,92,246,.2)'}}
+              onMouseEnter={e=>{e.currentTarget.style.background='rgba(139,92,246,.14)'}}
+              onMouseLeave={e=>{e.currentTarget.style.background='rgba(139,92,246,.08)'}}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span style={{fontSize:'13px',fontWeight:500,color:'#c4b5fd'}}>New chat</span>
+            </button>
+          ) : (
+            <SidebarBtn label="New chat"
+              icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>}/>
+          )}
+        </div>
+
+        <div style={{width: isMobile ? 'calc(100% - 24px)' : '24px',height:'1px',
+                     background:'#1e1e1e',marginBottom:'8px',
+                     alignSelf: isMobile ? 'center' : 'auto'}}/>
+
+        {/* Nav items */}
+        <div className={isMobile ? 'flex flex-col w-full px-3 gap-0.5 flex-1' : 'flex flex-col items-center gap-1 flex-1'}>
+          {[
+            { label:'Chats',    active:true,  icon:<IMsg      size={isMobile?15:16}/> },
+            { label:'History',  active:false, icon:<IClock    size={isMobile?15:16}/> },
+            { label:'Files',    active:false, icon:<IFolder   size={isMobile?15:16}/> },
+            { label:'Activity', active:false, icon:<IActivity size={isMobile?15:16}/> },
+          ].map(({label, active, icon}) => isMobile ? (
+            <button key={label}
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl tr"
+              style={{color:active?'#c4b5fd':'#666',
+                      background:active?'rgba(139,92,246,.1)':'transparent'}}
+              onMouseEnter={e=>{if(!active){e.currentTarget.style.background='rgba(255,255,255,.04)';e.currentTarget.style.color='#aaa'}}}
+              onMouseLeave={e=>{if(!active){e.currentTarget.style.background='transparent';e.currentTarget.style.color='#666'}}}>
+              {icon}
+              <span style={{fontSize:'13px',fontWeight:active?500:400}}>{label}</span>
+            </button>
+          ) : (
+            <SidebarBtn key={label} label={label} active={active} icon={icon}/>
+          ))}
+        </div>
+
+        {/* Bottom */}
+        <div style={{width: isMobile ? 'calc(100% - 24px)' : '24px',height:'1px',
+                     background:'#1e1e1e',marginBottom:'8px',
+                     alignSelf: isMobile ? 'center' : 'auto'}}/>
+        {isMobile ? (
+          <div className="w-full px-3">
+            <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl tr"
+              style={{color:'#666'}}
+              onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,.04)';e.currentTarget.style.color='#aaa'}}
+              onMouseLeave={e=>{e.currentTarget.style.background='transparent';e.currentTarget.style.color='#666'}}>
+              <ISettings size={15}/><span style={{fontSize:'13px'}}>Settings</span>
+            </button>
+          </div>
+        ) : (
+          <SidebarBtn label="Settings" icon={<ISettings size={16}/>}/>
+        )}
       </div>
+    );
 
-      <div style={{width:'24px',height:'1px',background:'#1e1e1e',marginBottom:'8px'}}/>
-
-      {/* Nav items */}
-      <div className="flex flex-col items-center gap-1 flex-1">
-        <SidebarBtn label="Chats" active={true}
-          icon={<IMsg size={16}/>}/>
-        <SidebarBtn label="History"
-          icon={<IClock size={16}/>}/>
-        <SidebarBtn label="Files"
-          icon={<IFolder size={16}/>}/>
-        <SidebarBtn label="Activity"
-          icon={<IActivity size={16}/>}/>
-      </div>
-
-      {/* Bottom */}
-      <div style={{width:'24px',height:'1px',background:'#1e1e1e',marginBottom:'8px'}}/>
-      <SidebarBtn label="Settings"
-        icon={<ISettings size={16}/>}/>
-    </div>
-  );
+    if (isMobile) {
+      return drawerContent;
+    }
+    return drawerContent;
+  };
 
   /* ── ROOT ────────────────────────────────────────────────────── */
   /* © YRC-2026 */
@@ -3342,6 +3535,7 @@
   const IDLE_STATES = [1,2,3,5,6];
   */
   const App = () => {
+    const isMobile = useIsMobile();
     const [appState,    setAppState]    = useState(0);
     const [userMsg,     setUserMsg]     = useState('');
     const [thinkingFor, setThinkingFor] = useState(null); // null | 'plan' | 'modify'
@@ -3357,6 +3551,9 @@
     const [vmAuthPhase,   setVmAuthPhase]   = useState(null); // null | 'new-tab' | 'redirecting' | 'signin'
     const [otherText,     setOtherText]     = useState('');
     const [otherSent,     setOtherSent]     = useState(false);
+    // Mobile-specific state
+    const [sidebarOpen,   setSidebarOpen]   = useState(false);
+    const [mobileTab,     setMobileTab]     = useState('chat'); // 'chat' | 'vm'
     /* HIDDEN: isIdle state & ref — re-enable with idle timer useEffects below
     const [isIdle,        setIsIdle]        = useState(false);
     const idleRef     = useRef(null);
@@ -3454,13 +3651,18 @@
     };
 
     const scrollRef  = useRef(null);
-    const isSplit    = vmMode === 'split';
-    const isFloating = vmMode === 'floating';
+    // On mobile, always treat as non-split for chat layout (VM is in separate tab)
+    const isSplit    = !isMobile && vmMode === 'split';
+    const isFloating = !isMobile && vmMode === 'floating';
+    // Mobile: VM visible when vmMode is active and user is on vm tab
+    const mobileVmVisible = isMobile && vmMode !== null && mobileTab === 'vm';
+    const mobileChatVisible = !isMobile || mobileTab === 'chat';
 
     const onExecPlanReady = () => {
       // sequence: floating panel → log entry → VM opens → typing → SERP loads
       setVmMode('floating');
       setVmLog(['Opening browser to search...']);
+      // On mobile, stay on chat tab (show banner) and don't auto-switch
       setTimeout(()=> setVmPhase('opening'), 1200);
       setTimeout(()=> setVmPhase('typing'),  2800);
       setTimeout(()=> setVmPhase('loaded'),  6400);
@@ -3503,54 +3705,106 @@
     return (
       <SkipAnimCtx.Provider value={skipAnimRef}>
       <div className="flex flex-col h-screen" style={{background:'#0d0d0d'}} data-yrc="2026">
-        <Header appState={appState}/>
+
+        <Header appState={appState} isMobile={isMobile}
+                sidebarOpen={sidebarOpen}
+                onMenuToggle={()=>setSidebarOpen(o=>!o)}/>
+
+        {/* ── Mobile sidebar overlay ── */}
+        {isMobile&&sidebarOpen&&(
+          <>
+            <div className="sidebar-overlay" onClick={()=>setSidebarOpen(false)}/>
+            <div className="sidebar-drawer" style={{background:'#111111',borderRight:'1px solid #383838'}}>
+              <Sidebar isMobile={true} onClose={()=>setSidebarOpen(false)}/>
+            </div>
+          </>
+        )}
+
         <div className="flex flex-1 overflow-hidden min-h-0" style={{position:'relative'}}>
 
-          <Sidebar/>
+          {/* Sidebar — desktop only */}
+          {!isMobile&&<Sidebar/>}
 
           {/* ── Chat side ── */}
-          <div className="flex flex-col overflow-hidden min-h-0"
-               style={{
-                 flex: '1 1 auto',
-                 minWidth: 0,
-                 borderRight: isSplit ? '1px solid #424242' : 'none',
-                 transition: 'border-color .85s ease',
-               }}>
-            {appState===0 ? (
-              <WelcomeScreen onSend={handleSend}/>
-            ) : (
-              <>
-                <div ref={scrollRef} className="flex-1 overflow-y-auto"
-                     role="log" aria-label="Conversation" aria-live="polite" aria-atomic="false"
-                     aria-keyshortcuts="ArrowRight">
-                  <div style={{maxWidth: isSplit ? '800px' : '900px',margin:'0 auto',padding:'32px 40px 180px'}}>
-                    <Conversation appState={appState} setAppState={setAppState}
-                                  userMsg={userMsg||USER_TASK} thinkingFor={thinkingFor}
-                                  onExecPlanReady={onExecPlanReady} vmLog={vmLog}
-                                  authLogs={authLogs} authLogsReady={authLogsReady}
-                                  triggerScroll={triggerScroll} csvDone={csvDone}
-                                  sheetsComplete={sheetsComplete}
-                                  signInMode={signInMode}
-                                  onSetSignInMode={setSignInMode}
-                                  onSheetsComplete={()=>setSheetsComplete(true)}
-                                  onBannerReady={()=>setBannerReady(true)}
-                                  otherText={otherText}
-                                  otherSent={otherSent}
-                                  onRetryOptions={handleRetryOptions}
-                                  onDemoTrigger={triggerAuthDemo}
-                                  isSplit={isSplit}/>
+          {mobileChatVisible&&(
+            <div className="flex flex-col overflow-hidden min-h-0"
+                 style={{
+                   flex: '1 1 auto',
+                   minWidth: 0,
+                   borderRight: isSplit ? '1px solid #424242' : 'none',
+                   transition: 'border-color .85s ease',
+                 }}>
+              {appState===0 ? (
+                <WelcomeScreen onSend={handleSend} isMobile={isMobile}/>
+              ) : (
+                <>
+                  <div ref={scrollRef} className="flex-1 overflow-y-auto"
+                       role="log" aria-label="Conversation" aria-live="polite" aria-atomic="false"
+                       aria-keyshortcuts="ArrowRight">
+                    <div style={{
+                      maxWidth: isSplit ? '800px' : '900px',
+                      margin:'0 auto',
+                      padding: isMobile ? '20px 16px 160px' : '32px 40px 180px',
+                    }}>
+                      <Conversation appState={appState} setAppState={setAppState}
+                                    userMsg={userMsg||USER_TASK} thinkingFor={thinkingFor}
+                                    onExecPlanReady={onExecPlanReady} vmLog={vmLog}
+                                    authLogs={authLogs} authLogsReady={authLogsReady}
+                                    triggerScroll={triggerScroll} csvDone={csvDone}
+                                    sheetsComplete={sheetsComplete}
+                                    signInMode={signInMode}
+                                    onSetSignInMode={setSignInMode}
+                                    onSheetsComplete={()=>setSheetsComplete(true)}
+                                    onBannerReady={()=>setBannerReady(true)}
+                                    otherText={otherText}
+                                    otherSent={otherSent}
+                                    onRetryOptions={handleRetryOptions}
+                                    onDemoTrigger={triggerAuthDemo}
+                                    isSplit={isSplit}/>
+                    </div>
                   </div>
-                </div>
-                <InputBar appState={appState} setAppState={setAppState} isSplit={isSplit}
-                          vmPhase={vmPhase} onDemoTrigger={triggerAuthDemo}
-                          thinkingFor={thinkingFor} setThinkingFor={setThinkingFor}
-                          bannerReady={bannerReady} otherSent={otherSent}
-                          onOtherSent={(text)=>{ setOtherText(text); setOtherSent(true); if(appState===6) setAppState(10); }}/>
-              </>
-            )}
-          </div>
 
-          {/* ── VM floating mini-card (top-right corner) ── */}
+                  {/* Mobile: "Computer running" banner above input bar when VM active */}
+                  {isMobile&&vmMode!==null&&(
+                    <button onClick={()=>setMobileTab('vm')}
+                      className="flex items-center justify-between flex-shrink-0"
+                      style={{
+                        padding:'9px 16px',
+                        background:'rgba(139,92,246,.08)',
+                        borderTop:'1px solid rgba(139,92,246,.2)',
+                        borderBottom:'1px solid rgba(139,92,246,.12)',
+                      }}>
+                      <div className="flex items-center gap-2.5">
+                        <span style={{
+                          width:7,height:7,borderRadius:'50%',background:'#a78bfa',display:'block',flexShrink:0,
+                          boxShadow:'0 0 6px rgba(167,139,250,.5)',
+                          animation:'pulseDot 2s ease-in-out infinite',
+                        }}/>
+                        <span style={{fontSize:'12px',fontFamily:'Geist Mono,monospace',
+                                      fontWeight:500,color:'#c4b5fd',letterSpacing:'.02em'}}>
+                          {vmPanelProps.isWaiting ? 'Computer waiting for you' : 'Computer running…'}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1.5" style={{fontSize:'11px',color:'#9d8ec8',fontWeight:500}}>
+                        View
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                      </div>
+                    </button>
+                  )}
+
+                  <InputBar appState={appState} setAppState={setAppState} isSplit={isSplit}
+                            vmPhase={vmPhase} onDemoTrigger={triggerAuthDemo}
+                            thinkingFor={thinkingFor} setThinkingFor={setThinkingFor}
+                            bannerReady={bannerReady} otherSent={otherSent}
+                            onOtherSent={(text)=>{ setOtherText(text); setOtherSent(true); if(appState===6) setAppState(10); }}/>
+                </>
+              )}
+            </div>
+          )}
+
+          {/* ── VM floating mini-card (desktop, top-right corner) ── */}
           {isFloating&&(
             <div style={{
               position:'absolute', right:36, top:28,
@@ -3603,7 +3857,6 @@
                             'google.com';
                 return (
                   <div style={{margin:'0 0 0',borderTop:'1px solid rgba(255,255,255,.06)'}}>
-                    {/* Chrome bar */}
                     <div style={{background:'#d5d8dc',display:'flex',alignItems:'center',gap:5,padding:'4px 8px'}}>
                       <div style={{display:'flex',gap:3,flexShrink:0}}>
                         {['#FF5F56','#FFBD2E','#27C93F'].map((c,i)=>(
@@ -3622,16 +3875,12 @@
                         </span>
                       </div>
                     </div>
-
-                    {/* Page content — clickable to expand */}
                     <div
                       onClick={()=>setVmMode('split')}
                       style={{background:'#fff',height:258,overflow:'hidden',position:'relative',cursor:'pointer'}}
                       onMouseEnter={e=>{const ov=e.currentTarget.lastElementChild;if(ov)ov.style.opacity='1';}}
                       onMouseLeave={e=>{const ov=e.currentTarget.lastElementChild;if(ov)ov.style.opacity='0';}}
                     >
-
-                      {/* Google homepage / searching state */}
                       {!showSERP&&!showSignIn&&!showSheets&&(
                         <div style={{display:'flex',flexDirection:'column',alignItems:'center',
                                      justifyContent:'center',height:'100%',gap:6}}>
@@ -3646,24 +3895,16 @@
                             <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" strokeWidth="2.5">
                               <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                             </svg>
-                            <span style={{fontSize:6.5,color:'#333',flex:1,overflow:'hidden',
-                                          whiteSpace:'nowrap',textOverflow:'ellipsis'}}>
+                            <span style={{fontSize:6.5,color:'#333',flex:1,overflow:'hidden',whiteSpace:'nowrap',textOverflow:'ellipsis'}}>
                               {vmPhase==='typing' ? 'Nordic home accessories Singapore...' : ''}
                             </span>
-                            {vmPhase==='typing'&&(
-                              <span style={{width:1,height:7,background:'#4285f4',display:'block',
-                                            animation:'pulseDot .8s ease-in-out infinite'}}/>
-                            )}
+                            {vmPhase==='typing'&&<span style={{width:1,height:7,background:'#4285f4',display:'block',animation:'pulseDot .8s ease-in-out infinite'}}/>}
                           </div>
                         </div>
                       )}
-
-                      {/* SERP results */}
                       {showSERP&&(
                         <div style={{padding:'7px 9px',overflowY:'hidden'}}>
-                          <div style={{fontSize:6,color:'#70757a',marginBottom:5}}>
-                            About 2,340,000 results (0.42 seconds)
-                          </div>
+                          <div style={{fontSize:6,color:'#70757a',marginBottom:5}}>About 2,340,000 results (0.42 seconds)</div>
                           {[
                             {title:'Marimekko — Nordic Home Accessories | Singapore',url:'hipvan.com › nordic-home',lines:[.9,.7]},
                             {title:'MUJI Singapore — Japanese Home Decor Collection',url:'muji.com › sg › home',lines:[.85,.6]},
@@ -3671,42 +3912,33 @@
                             {title:'ferm LIVING — Hourglass Vase | SG Import Guide',url:'fermliving.com › sg',lines:[.75,.65]},
                           ].map((r,i)=>(
                             <div key={i} style={{marginBottom:6}}>
-                              <div style={{fontSize:6,color:'#202124',marginBottom:1,whiteSpace:'nowrap',
-                                           overflow:'hidden',textOverflow:'ellipsis'}}>
+                              <div style={{fontSize:6,color:'#202124',marginBottom:1,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>
                                 <span style={{color:'#1a0dab',fontWeight:500}}>{r.title}</span>
                               </div>
                               <div style={{fontSize:5.5,color:'#006621',marginBottom:2}}>{r.url}</div>
                               {r.lines.map((w,j)=>(
-                                <div key={j} style={{height:2.5,background:'#e8e8e8',borderRadius:1,
-                                                     width:`${w*100}%`,marginBottom:1.5}}/>
+                                <div key={j} style={{height:2.5,background:'#e8e8e8',borderRadius:1,width:`${w*100}%`,marginBottom:1.5}}/>
                               ))}
                             </div>
                           ))}
                         </div>
                       )}
-
-                      {/* Google Sign-in */}
                       {showSignIn&&(
-                        <div style={{display:'flex',flexDirection:'column',alignItems:'center',
-                                     justifyContent:'center',height:'100%',gap:5}}>
+                        <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',height:'100%',gap:5}}>
                           <div style={{fontSize:17,fontWeight:700,letterSpacing:'-0.5px',lineHeight:1}}>
                             <span style={{color:'#4285f4'}}>G</span><span style={{color:'#ea4335'}}>o</span>
                             <span style={{color:'#fbbc04'}}>o</span><span style={{color:'#4285f4'}}>g</span>
                             <span style={{color:'#34a853'}}>l</span><span style={{color:'#ea4335'}}>e</span>
                           </div>
                           <div style={{fontSize:8,fontWeight:600,color:'#202124'}}>Sign in</div>
-                          <div style={{width:'70%',height:12,border:'1px solid #dadce0',borderRadius:3,
-                                       display:'flex',alignItems:'center',padding:'0 5px'}}>
+                          <div style={{width:'70%',height:12,border:'1px solid #dadce0',borderRadius:3,display:'flex',alignItems:'center',padding:'0 5px'}}>
                             <span style={{fontSize:6,color:'#80868b'}}>Email or phone</span>
                           </div>
-                          <div style={{width:'44%',height:11,borderRadius:3,background:'#1a73e8',
-                                       display:'flex',alignItems:'center',justifyContent:'center'}}>
+                          <div style={{width:'44%',height:11,borderRadius:3,background:'#1a73e8',display:'flex',alignItems:'center',justifyContent:'center'}}>
                             <span style={{fontSize:6.5,color:'white',fontWeight:600}}>Next</span>
                           </div>
                         </div>
                       )}
-
-                      {/* Google Sheets mini grid */}
                       {showSheets&&(
                         <div style={{background:'#fff',height:'100%',display:'flex',flexDirection:'column'}}>
                           <div style={{background:'#f1f3f4',padding:'2px 4px',display:'flex',alignItems:'center',gap:3,borderBottom:'1px solid #e0e0e0'}}>
@@ -3719,57 +3951,21 @@
                             </div>
                             <span style={{fontSize:6,color:'#202124',fontWeight:500}}>SG_Nordic_Japanese_Research_2026</span>
                           </div>
-                          <div style={{flex:1,overflow:'hidden',display:'grid',
-                                       gridTemplateColumns:'18px repeat(5,1fr)',
-                                       fontSize:5,color:'#444',borderTop:'1px solid #e0e0e0'}}>
+                          <div style={{flex:1,overflow:'hidden',display:'grid',gridTemplateColumns:'18px repeat(5,1fr)',fontSize:5,color:'#444',borderTop:'1px solid #e0e0e0'}}>
                             {['','Brand','Origin','Type','Price','Margin'].map((h,i)=>(
-                              <div key={i} style={{padding:'1.5px 2px',background:'#f8f9fa',
-                                                   borderRight:'1px solid #e0e0e0',borderBottom:'1px solid #e0e0e0',
-                                                   fontWeight:600,color:'#444',whiteSpace:'nowrap',overflow:'hidden'}}>{h}</div>
+                              <div key={i} style={{padding:'1.5px 2px',background:'#f8f9fa',borderRight:'1px solid #e0e0e0',borderBottom:'1px solid #e0e0e0',fontWeight:600,color:'#444',whiteSpace:'nowrap',overflow:'hidden'}}>{h}</div>
                             ))}
-                            {[
-                              ['1','Marimekko','🇫🇮','🚦','SGD 36','40%'],
-                              ['2','iittala','🇫🇮','🚦','SGD 58','45%'],
-                              ['3','KINTO','🇯🇵','🚦','SGD 20','50%'],
-                              ['4','HAY','🇩🇰','🚦','SGD 29','45%'],
-                              ['5','Hasami','🇯🇵','🔎','SGD 14','50%'],
-                              ['6','Kähler','🇩🇰','🚦','SGD 65','50%'],
-                            ].map((row,ri)=>row.map((cell,ci)=>(
-                              <div key={`${ri}-${ci}`} style={{padding:'1.5px 2px',
-                                borderRight:'1px solid #e8e8e8',borderBottom:'1px solid #e8e8e8',
-                                whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',
-                                background: ci===0?'#f8f9fa':'white'}}>{cell}</div>
+                            {[['1','Marimekko','🇫🇮','🚦','SGD 36','40%'],['2','iittala','🇫🇮','🚦','SGD 58','45%'],['3','KINTO','🇯🇵','🚦','SGD 20','50%'],['4','HAY','🇩🇰','🚦','SGD 29','45%'],['5','Hasami','🇯🇵','🔎','SGD 14','50%'],['6','Kähler','🇩🇰','🚦','SGD 65','50%']].map((row,ri)=>row.map((cell,ci)=>(
+                              <div key={`${ri}-${ci}`} style={{padding:'1.5px 2px',borderRight:'1px solid #e8e8e8',borderBottom:'1px solid #e8e8e8',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',background:ci===0?'#f8f9fa':'white'}}>{cell}</div>
                             )))}
                           </div>
                         </div>
                       )}
-
-                      {/* Subtle scanning overlay for active browsing */}
                       {showSERP&&(
-                        <div style={{
-                          position:'absolute',left:0,right:0,
-                          height:2,
-                          background:'linear-gradient(90deg,transparent,rgba(66,133,244,.5),transparent)',
-                          animation:'shimmer 1.8s ease-in-out infinite',
-                          pointerEvents:'none',
-                          top:'40%',
-                        }}/>
+                        <div style={{position:'absolute',left:0,right:0,height:2,background:'linear-gradient(90deg,transparent,rgba(66,133,244,.5),transparent)',animation:'shimmer 1.8s ease-in-out infinite',pointerEvents:'none',top:'40%'}}/>
                       )}
-
-                      {/* Expand hover overlay — always last child for onMouseEnter targeting */}
-                      <div style={{
-                        position:'absolute',inset:0,
-                        background:'rgba(0,0,0,.42)',
-                        display:'flex',alignItems:'center',justifyContent:'center',
-                        opacity:0,transition:'opacity .15s ease',
-                        pointerEvents:'none',
-                      }}>
-                        <div style={{
-                          display:'flex',alignItems:'center',gap:5,
-                          padding:'5px 11px',borderRadius:7,
-                          background:'rgba(255,255,255,.14)',border:'1px solid rgba(255,255,255,.28)',
-                          fontSize:11,fontWeight:600,color:'#fff',letterSpacing:'.01em',
-                        }}>
+                      <div style={{position:'absolute',inset:0,background:'rgba(0,0,0,.42)',display:'flex',alignItems:'center',justifyContent:'center',opacity:0,transition:'opacity .15s ease',pointerEvents:'none'}}>
+                        <div style={{display:'flex',alignItems:'center',gap:5,padding:'5px 11px',borderRadius:7,background:'rgba(255,255,255,.14)',border:'1px solid rgba(255,255,255,.28)',fontSize:11,fontWeight:600,color:'#fff',letterSpacing:'.01em'}}>
                           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>
                             <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
@@ -3781,14 +3977,9 @@
                   </div>
                 );
               })()}
-
-              {/* Footer status */}
               <div className="flex items-center justify-between" style={{padding:'7px 14px 10px'}}>
-                <span style={{
-                  fontSize:'10px',fontFamily:'Geist Mono,monospace',fontWeight:600,
-                  color: vmPanelProps.isWaiting ? '#fde047' : '#c4b5fd',
-                  letterSpacing:'.05em',
-                }}>
+                <span style={{fontSize:'10px',fontFamily:'Geist Mono,monospace',fontWeight:600,
+                              color:vmPanelProps.isWaiting?'#fde047':'#c4b5fd',letterSpacing:'.05em'}}>
                   {vmPanelProps.isWaiting ? '⏸ Waiting for input' : '▶ Browsing…'}
                 </span>
                 <span style={{fontSize:'10px',color:'rgba(167,139,250,.6)',fontFamily:'Geist Mono,monospace'}}>
@@ -3798,20 +3989,74 @@
             </div>
           )}
 
-          {/* ── VM split panel — smooth width transition ── */}
+          {/* ── VM panel — split (desktop) or full-screen (mobile) ── */}
           {vmMode!==null&&(
             <div style={{
               flexShrink: 0,
               overflow: 'hidden',
               minHeight: 0,
-              width: isSplit ? '50%' : '0',
-              transition: 'width .85s cubic-bezier(.4,0,.2,1)',
+              // Desktop: animate width; Mobile: full-screen when on vm tab
+              width: isMobile ? (mobileVmVisible ? '100%' : '0') : (isSplit ? '50%' : '0'),
+              transition: isMobile ? 'none' : 'width .85s cubic-bezier(.4,0,.2,1)',
             }}>
-              <VMPanel {...vmPanelProps} onCollapse={()=>setVmMode('floating')}/>
+              {(!isMobile || mobileVmVisible) && (
+                <VMPanel {...vmPanelProps}
+                  onCollapse={isMobile ? null : ()=>setVmMode('floating')}
+                  onExpand={isMobile ? null : undefined}/>
+              )}
             </div>
           )}
 
         </div>
+
+        {/* ── Mobile bottom tab bar — shown when VM is active ── */}
+        {isMobile&&vmMode!==null&&(
+          <div className="mobile-tab-bar">
+            {[
+              {
+                id:'chat', label:'Chat',
+                icon:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
+                badge: mobileTab==='vm' && (appState===5||appState===6),
+              },
+              {
+                id:'vm', label:'Computer',
+                icon:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>,
+                pulse: vmMode!==null && !vmPanelProps.isWaiting,
+              },
+            ].map(({id, label, icon, badge, pulse})=>(
+              <button key={id} className="mobile-tab-btn" onClick={()=>setMobileTab(id)}
+                style={{color: mobileTab===id ? '#c4b5fd' : '#555'}}>
+                <div style={{position:'relative',display:'inline-flex'}}>
+                  {icon}
+                  {badge&&(
+                    <span style={{
+                      position:'absolute',top:-2,right:-2,
+                      width:7,height:7,borderRadius:'50%',
+                      background:'#ef4444',border:'1.5px solid #0d0d0d',
+                    }}/>
+                  )}
+                  {pulse&&mobileTab!==id&&(
+                    <span style={{
+                      position:'absolute',top:-2,right:-2,
+                      width:7,height:7,borderRadius:'50%',
+                      background:'#a78bfa',border:'1.5px solid #0d0d0d',
+                      animation:'pulseDot 2s ease-in-out infinite',
+                    }}/>
+                  )}
+                </div>
+                <span>{label}</span>
+                {mobileTab===id&&(
+                  <div style={{
+                    position:'absolute', bottom:0, left:'50%', transform:'translateX(-50%)',
+                    width:24, height:2, borderRadius:1,
+                    background:'#c4b5fd',
+                  }}/>
+                )}
+              </button>
+            ))}
+          </div>
+        )}
+
       </div>
       </SkipAnimCtx.Provider>
     );
