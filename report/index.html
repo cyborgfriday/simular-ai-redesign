@@ -277,7 +277,8 @@ footer a:hover { text-decoration: underline; }
   .comparison { grid-template-columns: 1fr; }
   .strategy-grid { grid-template-columns: 1fr; }
   .container { padding: 0 20px; }
-  .step-body figure { float: none; width: 100%; margin: 16px 0 12px; }
+  .step-body figure { float: none; width: calc(100% + 40px); margin: 16px -20px 12px; }
+  .step-body figure img { border-radius: 0; }
   .blocker { padding: 24px 20px; }
 }
 @media print {
@@ -578,12 +579,9 @@ footer a:hover { text-decoration: underline; }
     </p>
 
     <div style="display: flex; align-items: center; gap: 0; flex-wrap: wrap; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.4px; color: var(--text-dim);">
-      <span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Research</span>
-      <span style="padding: 0 10px; color: var(--text-dim);">→</span>
-      <span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Judgement</span>
-      <span style="padding: 0 10px; color: var(--text-dim);">→</span>
-      <span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Auth handoff</span>
-      <span style="padding: 0 10px; color: var(--text-dim);">→</span>
+      <span style="display:inline-flex;align-items:center;"><span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Research</span><span style="padding: 0 10px; color: var(--text-dim);">→</span></span>
+      <span style="display:inline-flex;align-items:center;"><span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Judgement</span><span style="padding: 0 10px; color: var(--text-dim);">→</span></span>
+      <span style="display:inline-flex;align-items:center;"><span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Auth handoff</span><span style="padding: 0 10px; color: var(--text-dim);">→</span></span>
       <span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Delivery</span>
     </div>
 
