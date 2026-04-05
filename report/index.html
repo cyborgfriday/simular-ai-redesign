@@ -271,6 +271,7 @@ footer a:hover { text-decoration: underline; }
 
 @media (max-width: 768px) {
   .hero { padding: 40px 0 28px; }
+  .attr-grid { grid-template-columns: 1fr !important; }
   .prototype-cta { flex-direction: column; text-align: center; }
   .spectrum { flex-direction: column; }
   .comparison { grid-template-columns: 1fr; }
@@ -355,7 +356,7 @@ footer a:hover { text-decoration: underline; }
 .prob-card.a .prob-link { color:var(--accent); }
 .prob-card.b .prob-link { color:var(--blue); }
 @media (max-width:640px) {
-  .two-col { grid-template-columns:1fr; }
+  .two-col { grid-template-columns:1fr !important; }
   .journey-step { grid-template-columns:32px 1fr; gap:0 14px; }
 }
 
@@ -537,7 +538,7 @@ footer a:hover { text-decoration: underline; }
       </div>
 
       <!-- Attributes grid -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+      <div class="attr-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
 
         <div style="padding: 18px 24px; border-right: 1px solid var(--border);">
           <div style="font-family: var(--mono); font-size: 0.5625rem; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-dim); margin-bottom: 8px;">Background</div>
@@ -576,7 +577,7 @@ footer a:hover { text-decoration: underline; }
       This task requires the agent to cross multiple capability boundaries in a single run. That's exactly where HITL design breaks down if it isn't built for it.
     </p>
 
-    <div style="display: flex; align-items: center; gap: 0; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.4px; color: var(--text-dim);">
+    <div style="display: flex; align-items: center; gap: 0; flex-wrap: wrap; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.4px; color: var(--text-dim);">
       <span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Research</span>
       <span style="padding: 0 10px; color: var(--text-dim);">→</span>
       <span style="padding: 6px 14px; border: 1px solid var(--text-dim); border-radius: 4px; background: var(--surface);">Judgement</span>
