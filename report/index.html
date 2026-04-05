@@ -284,6 +284,9 @@ footer a:hover { text-decoration: underline; }
   .two-col { grid-template-columns: 1fr !important; }
   .comparison { grid-template-columns: 1fr; }
   .strategy-grid { grid-template-columns: 1fr; }
+  .prob-grid { grid-template-columns: 1fr !important; }
+  .prob-grid > div { border-right: none !important; border-bottom: 1px solid var(--border); }
+  .prob-grid > div:last-child { border-bottom: none; }
 
   /* Components */
   .prototype-cta { flex-direction: column; text-align: center; }
@@ -466,67 +469,71 @@ footer a:hover { text-decoration: underline; }
   <div class="container">
     <h2 style="margin-bottom: 8px;">Audit Product</h2>
     <p style="font-size: 1rem; color: var(--text-dim); max-width: 60ch; margin: 0 0 48px; line-height: 1.75;"><a href="https://www.simular.ai/sai" target="_blank" rel="noopener" style="color: var(--text); text-decoration: underline; text-underline-offset: 3px;">Simular Sai</a> — an Autonomous Agent</p>
-    <h2 style="margin-bottom: 10px;">Problem Statement</h2>
-    <p style="font-size: 1rem; color: var(--text-dim); max-width: 60ch; margin: 0 0 36px; line-height: 1.75;">Three gaps in how the product handles the moments that demand human judgment.</p>
+    <h2 style="margin-bottom: 16px;">Problem Statement</h2>
 
-    <div class="two-col" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div style="border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: var(--radius); overflow: hidden;">
 
-      <!-- BEFORE -->
-      <div class="prob-card" style="position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px;">
-        <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--amber);"></div>
-        <span style="font-family: var(--mono); font-size: 0.625rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--amber); display: block; margin-bottom: 14px;">Before execution</span>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0;">
-          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start;">
-            <span style="color: var(--amber); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
-            No plan preview before the agent starts
-          </li>
-          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; display: flex; gap: 10px; align-items: flex-start;">
-            <span style="color: var(--amber); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
-            Homepage front-loads a VM panel before the user has typed anything, creating cognitive overhead before the task has even started
-          </li>
-        </ul>
+      <div style="padding: 28px 32px; border-bottom: 1px solid var(--border);">
+        <p style="font-size: 1.125rem; font-weight: 400; color: var(--text-dim); line-height: 1.75; margin: 0; max-width: 72ch;">The black-box nature of AI workflows causes abrupt interruptions and dead-end failures. This lack of transparency and recovery paths strips users of control, making the agent feel like an unreliable executor.</p>
       </div>
 
-      <!-- DURING -->
-      <div class="prob-card" style="position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px;">
-        <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red);"></div>
-        <span style="font-family: var(--mono); font-size: 0.625rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--red); display: block; margin-bottom: 14px;">During execution</span>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0;">
-          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start;">
-            <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
-            Running, stuck, and failed all look identical
-          </li>
-          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start;">
-            <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
-            Clicking into the VM transfers control by accident
-          </li>
-          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start;">
-            <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
-            Google auth popup appears on the local desktop outside the VM. Denying it triggers a silent retry loop with no recovery path
-          </li>
-          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; display: flex; gap: 10px; align-items: flex-start;">
-            <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
-            Permission UI shows raw JavaScript written for engineers, not the person approving it
-          </li>
-        </ul>
-      </div>
+      <!-- Three gap columns -->
+      <div class="prob-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
 
-      <!-- AFTER -->
-      <div class="prob-card" style="position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px;">
-        <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue);"></div>
-        <span style="font-family: var(--mono); font-size: 0.625rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); display: block; margin-bottom: 14px;">After completion</span>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0;">
-          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start;">
-            <span style="color: var(--blue); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
-            Step-limit stop leaves no partial output, no progress summary, no path forward
-          </li>
-          <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.7; padding: 9px 0; display: flex; gap: 10px; align-items: flex-start;">
-            <span style="color: var(--blue); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
-            Final output (Google Sheet link) buried in a wall of text with no structured handoff
-          </li>
-        </ul>
-      </div>
+        <!-- BEFORE -->
+        <div style="position: relative; overflow: hidden; background: var(--surface); padding: 28px; border-right: 1px solid var(--border);">
+          <span style="font-family: var(--mono); font-size: 0.625rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--amber); display: block; margin-bottom: 14px;">Before execution</span>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px;">
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--amber); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              No plan preview before the agent starts
+            </li>
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--amber); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              Homepage front-loads a VM panel before the user has typed anything, creating cognitive overhead before the task has even started
+            </li>
+          </ul>
+        </div>
 
+        <!-- DURING -->
+        <div style="position: relative; overflow: hidden; background: var(--surface); padding: 28px; border-right: 1px solid var(--border);">
+          <span style="font-family: var(--mono); font-size: 0.625rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--red); display: block; margin-bottom: 14px;">During execution</span>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px;">
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              Running, stuck, and failed all look identical
+            </li>
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              Clicking into the VM transfers control by accident
+            </li>
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              Google auth popup appears on the local desktop outside the VM. Denying it triggers a silent retry loop with no recovery path
+            </li>
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              Permission UI shows raw JavaScript written for engineers, not the person approving it
+            </li>
+          </ul>
+        </div>
+
+        <!-- AFTER -->
+        <div style="position: relative; overflow: hidden; background: var(--surface); padding: 28px;">
+          <span style="font-family: var(--mono); font-size: 0.625rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); display: block; margin-bottom: 14px;">After completion</span>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px;">
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--blue); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              Step-limit stop leaves no partial output, no progress summary, no path forward
+            </li>
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--blue); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              Final output (Google Sheet link) buried in a wall of text with no structured handoff
+            </li>
+          </ul>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
