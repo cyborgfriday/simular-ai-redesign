@@ -3767,13 +3767,18 @@
           {!isMobile&&<Sidebar/>}
 
           {/* ── Chat side ── */}
-          {mobileChatVisible&&(
+          {(()=>{
+            // Always render (never unmount) so animation / React state is preserved.
+            // On mobile hide via display:none when user is on the VM tab.
+            const chatHidden = isMobile && mobileTab === 'vm';
+            return (
             <div className="flex flex-col overflow-hidden min-h-0"
                  style={{
                    flex: '1 1 auto',
                    minWidth: 0,
                    borderRight: isSplit ? '1px solid #424242' : 'none',
                    transition: 'border-color .85s ease',
+                   display: chatHidden ? 'none' : 'flex',
                  }}>
               {appState===0 ? (
                 <WelcomeScreen onSend={handleSend} isMobile={isMobile}/>
@@ -3845,7 +3850,8 @@
                 </>
               )}
             </div>
-          )}
+            );
+          })()}
 
           {/* ── VM floating mini-card (desktop, top-right corner) ── */}
           {isFloating&&(
@@ -4038,15 +4044,20 @@
               flexShrink: 0,
               overflow: 'hidden',
               minHeight: 0,
-              // Desktop: animate width; Mobile: full-screen when on vm tab
-              width: isMobile ? (mobileVmVisible ? '100%' : '0') : (isSplit ? '50%' : '0'),
-              transition: isMobile ? 'none' : 'width .85s cubic-bezier(.4,0,.2,1)',
+              // Desktop: animate width; Mobile: full-screen on vm tab, hidden on chat tab
+              ...(isMobile ? {
+                width: '100%',
+                display: mobileTab === 'vm' ? 'flex' : 'none',
+                flexDirection: 'column',
+              } : {
+                width: isSplit ? '50%' : '0',
+                transition: 'width .85s cubic-bezier(.4,0,.2,1)',
+              }),
             }}>
-              {(!isMobile || mobileVmVisible) && (
-                <VMPanel {...vmPanelProps}
-                  onCollapse={isMobile ? null : ()=>setVmMode('floating')}
-                  onExpand={isMobile ? null : undefined}/>
-              )}
+              {/* Always keep VMPanel mounted to preserve its internal state */}
+              <VMPanel {...vmPanelProps}
+                onCollapse={isMobile ? null : ()=>setVmMode('floating')}
+                onExpand={isMobile ? null : undefined}/>
             </div>
           )}
 
