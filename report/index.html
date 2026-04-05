@@ -270,12 +270,14 @@ footer a { color: var(--accent); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 
 @media (max-width: 768px) {
-  /* h1 fluid sizing via clamp(), no override needed */
+  .hero { padding: 40px 0 28px; }
   .prototype-cta { flex-direction: column; text-align: center; }
   .spectrum { flex-direction: column; }
   .comparison { grid-template-columns: 1fr; }
   .strategy-grid { grid-template-columns: 1fr; }
   .container { padding: 0 20px; }
+  .step-body figure { float: none; width: 100%; margin: 16px 0 12px; }
+  .blocker { padding: 24px 20px; }
 }
 @media print {
   body { background: #fff; }
