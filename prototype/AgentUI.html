@@ -646,10 +646,10 @@
         <div className="anim-fadeUp" style={{
                display:'flex', gap:'8px', marginTop: isMobile ? '16px' : '20px',
                maxWidth:'860px', width:'100%',
-               overflowX: isMobile ? 'auto' : 'visible',
-               flexWrap: isMobile ? 'nowrap' : 'wrap',
-               justifyContent: isMobile ? 'flex-start' : 'center',
-               paddingBottom: isMobile ? '4px' : 0,
+               overflowX: 'visible',
+               flexWrap: 'wrap',
+               justifyContent: 'center',
+               paddingBottom: 0,
                animationDelay:'200ms'}}>
           {CHIPS.map(c=>(
             <button key={c} onClick={()=>send(c)}
