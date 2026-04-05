@@ -275,7 +275,7 @@ footer a:hover { text-decoration: underline; }
 
 @media (max-width: 768px) {
   .hero { padding: 40px 0 28px; }
-  .caption-pair { grid-template-columns: 1fr !important; }
+  .comparison-captioned > div { display: flex; flex-direction: column; }
   .hero h1 { font-size: clamp(2.25rem, 4vw + 0.5rem, 3.5rem); }
   .prototype-cta { flex-direction: column; text-align: center; }
   .spectrum { flex-direction: column; }
@@ -530,17 +530,19 @@ footer a:hover { text-decoration: underline; }
       <div>
         <h4 style="font-family:var(--serif);font-size:1.125rem;font-weight:500;letter-spacing:-0.02em;margin:0 0 12px;">Desktop / Browser / Editor tabs</h4>
         <p style="margin-bottom:12px;">Three tabs surface the agent's three execution contexts in real time. Desktop shows the Ubuntu environment. Browser shows live web activity. Editor shows syntax-highlighted code and terminal output. All are view-only by default &mdash; you can watch without touching.</p>
-        <div class="comparison" style="margin:0;">
-          <figure class="zoomable" style="margin:0;">
-            <img src="/report/report_assets/Redesign/after_07_browser_tabs_crop.png" alt="Browser tab: three workspace tabs with agent searching in real time" loading="lazy" onclick="openLightbox(this)">
-          </figure>
-          <figure class="zoomable" style="margin:0;">
-            <img src="/report/report_assets/Redesign/after_09_editor_code_crop.png" alt="Editor tab: syntax-highlighted Python code and terminal" loading="lazy" onclick="openLightbox(this)">
-          </figure>
-        </div>
-        <div class="caption-pair" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:10px;">
-          <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(29,78,216,0.09);color:var(--blue);border:1px solid rgba(29,78,216,0.22);">Browser</span> Tab active — Desktop / Browser / Editor visible in header</p>
-          <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(21,128,61,0.09);color:var(--green);border:1px solid rgba(21,128,61,0.22);">Editor</span> Tab active — syntax-highlighted code, terminal output</p>
+        <div class="comparison comparison-captioned" style="margin:0;">
+          <div>
+            <figure class="zoomable" style="margin:0;">
+              <img src="/report/report_assets/Redesign/after_07_browser_tabs_crop.png" alt="Browser tab: three workspace tabs with agent searching in real time" loading="lazy" onclick="openLightbox(this)">
+            </figure>
+            <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(29,78,216,0.09);color:var(--blue);border:1px solid rgba(29,78,216,0.22);">Browser</span> Tab active — Desktop / Browser / Editor visible in header</p>
+          </div>
+          <div>
+            <figure class="zoomable" style="margin:0;">
+              <img src="/report/report_assets/Redesign/after_09_editor_code_crop.png" alt="Editor tab: syntax-highlighted Python code and terminal" loading="lazy" onclick="openLightbox(this)">
+            </figure>
+            <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(21,128,61,0.09);color:var(--green);border:1px solid rgba(21,128,61,0.22);">Editor</span> Tab active — syntax-highlighted code, terminal output</p>
+          </div>
         </div>
       </div>
       <div>
@@ -575,17 +577,19 @@ footer a:hover { text-decoration: underline; }
       <div>
         <h4 style="font-family:var(--serif);font-size:1.125rem;font-weight:500;letter-spacing:-0.02em;margin:0 0 12px;">From Preview to Split View &mdash; Appearing, but Not Interrupting</h4>
         <p style="margin-bottom:12px;">Even after the cloud computer appears, it doesn't demand attention. It starts as a compact preview tucked to the right, letting users stay in the chat flow. One click expands it into a full Split View workspace &mdash; chat on the left, cloud computer on the right &mdash; so users can watch the agent work without losing conversational context.</p>
-        <div class="comparison" style="margin:0;">
-          <figure class="zoomable" style="margin:0;">
-            <img src="/report/report_assets/Redesign/after_06_desktop_tab_crop.png" alt="Preview: compact cloud computer panel tucked to the right of the chat" loading="lazy" onclick="openLightbox(this)">
-          </figure>
-          <figure class="zoomable" style="margin:0;">
-            <img src="/report/report_assets/Redesign/after_07_browser_search_crop.png" alt="Split View: full workspace with chat on left and cloud computer on right" loading="lazy" onclick="openLightbox(this)">
-          </figure>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:10px;">
-          <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(161,98,7,0.09);color:var(--amber);border:1px solid rgba(161,98,7,0.22);">Preview</span> A compact cloud computer preview appears on the right, letting users stay in the chat flow or expand into full Split View.</p>
-          <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(29,78,216,0.09);color:var(--blue);border:1px solid rgba(29,78,216,0.22);">Split View</span> Click to enlarge into a full workspace, so users can follow the chat and watch the cloud computer side by side.</p>
+        <div class="comparison comparison-captioned" style="margin:0;">
+          <div>
+            <figure class="zoomable" style="margin:0;">
+              <img src="/report/report_assets/Redesign/after_06_desktop_tab_crop.png" alt="Preview: compact cloud computer panel tucked to the right of the chat" loading="lazy" onclick="openLightbox(this)">
+            </figure>
+            <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(161,98,7,0.09);color:var(--amber);border:1px solid rgba(161,98,7,0.22);">Preview</span> A compact cloud computer preview appears on the right, letting users stay in the chat flow or expand into full Split View.</p>
+          </div>
+          <div>
+            <figure class="zoomable" style="margin:0;">
+              <img src="/report/report_assets/Redesign/after_07_browser_search_crop.png" alt="Split View: full workspace with chat on left and cloud computer on right" loading="lazy" onclick="openLightbox(this)">
+            </figure>
+            <p style="font-size:0.875rem;color:var(--text-dim);margin-top:8px;"><span class="col-label" style="background:rgba(29,78,216,0.09);color:var(--blue);border:1px solid rgba(29,78,216,0.22);">Split View</span> Click to enlarge into a full workspace, so users can follow the chat and watch the cloud computer side by side.</p>
+          </div>
         </div>
       </div>
     </div>
