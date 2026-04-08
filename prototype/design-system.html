@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  Simular AI — Design System Reference                        ║
+  ║  Extracted from AgentUI.html by YR Cheng                    ║
+  ║  © 2026 YR Cheng. All rights reserved.                      ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Simular AI — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS — Single Source of Truth
+═══════════════════════════════════════════════ */
+:root {
+  /* Backgrounds */
+  --bg-base:       #0d0d0d;
+  --bg-overlay:    #0a0a0a;
+  --bg-code:       #0f0f0f;
+  --bg-e1:         #161616;
+  --bg-e2:         #1a1a1a;
+  --bg-e2b:        #181818;
+  --bg-e3:         #252525;
+  --bg-e4:         #2e2e2e;
+  /* Borders */
+  --b-subtle:      #2a2a2a;
+  --b-default:     #2e2e2e;
+  --b-medium:      #333;
+  --b-strong:      #383838;
+  --b-glass:       rgba(255,255,255,.12);
+  /* Text */
+  --t-high:        #eaeaea;
+  --t-pri:         #e2e2e2;
+  --t-body:        #d4d4d4;
+  --t-sec:         #c8c8c8;
+  --t-3:           #aaa;
+  --t-m1:          #888;
+  --t-m2:          #777;
+  --t-m3:          #666;
+  --t-m4:          #555;
+  --t-code:        #d0d0d0;
+  /* Purple */
+  --p-950:  #1e1b4b;
+  --p-700:  #7c3aed;
+  --p-600:  #8b5cf6;
+  --p-500:  #9d8ec8;
+  --p-400:  #a78bfa;
+  --p-300:  #c4b5fd;
+  --p-200:  #ede9fe;
+  --p-t06:  rgba(139,92,246,.06);
+  --p-t08:  rgba(139,92,246,.08);
+  --p-t10:  rgba(139,92,246,.10);
+  --p-t12:  rgba(139,92,246,.12);
+  --p-t14:  rgba(139,92,246,.14);
+  --p-t15:  rgba(139,92,246,.15);
+  --p-t22:  rgba(139,92,246,.22);
+  --p-t30:  rgba(139,92,246,.30);
+  /* Blue */
+  --bl-400:  #60a5fa;
+  --bl-200:  #bfdbfe;
+  --bl-100:  #dbeafe;
+  --bl-t06:  rgba(37,99,235,.06);
+  --bl-t15:  rgba(59,130,246,.15);
+  --bl-t22:  rgba(59,130,246,.22);
+  /* Red */
+  --r-500:  #ef4444;
+  --r-400:  #f87171;
+  --r-t04:  rgba(239,68,68,.04);
+  --r-t12:  rgba(239,68,68,.12);
+  --r-t20:  rgba(239,68,68,.20);
+  /* Amber */
+  --a-400:  #fbbf24;
+  --a-t04:  rgba(234,179,8,.04);
+  --a-t15:  rgba(234,179,8,.15);
+  /* Green */
+  --g-500:  #22c55e;
+  /* Fonts */
+  --sans: 'Geist',-apple-system,sans-serif;
+  --mono: 'Geist Mono',monospace;
+  /* Radius */
+  --r-sm:   6px;
+  --r-md:   7px;
+  --r-lg:   8px;
+  --r-xl:   10px;
+  --r-2xl:  12px;
+  --r-3xl:  16px;
+  --r-full: 9999px;
+  /* Shadows */
+  --sh-md:      0 4px 24px rgba(0,0,0,.35);
+  --sh-xl:      0 8px 32px rgba(0,0,0,.50);
+  --sh-2xl:     0 12px 32px rgba(0,0,0,.60);
+  --sh-tip:     0 6px 20px rgba(0,0,0,.80),0 0 0 1px rgba(255,255,255,.04);
+  --sh-send:    0 2px 10px rgba(124,58,237,.40);
+  --sh-focus:   0 0 0 3px rgba(139,92,246,.10);
+  --sh-task:    0 8px 32px rgba(0,0,0,.60),0 0 0 1px rgba(139,92,246,.10);
+  --sh-pop:     0 16px 40px rgba(0,0,0,.60);
+  /* Transitions */
+  --tr:     all .15s ease;
+}
+
+/* ═══════════════════════════════════════════════
+   KEYFRAMES
+═══════════════════════════════════════════════ */
+@keyframes spin         { to{transform:rotate(360deg)} }
+@keyframes fadeIn       { from{opacity:0}to{opacity:1} }
+@keyframes fadeUp       { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }
+@keyframes pulseDot     { 0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.2)} }
+@keyframes checkIn      { from{opacity:0;transform:scale(.5) rotate(-15deg)}to{opacity:1;transform:scale(1) rotate(0)} }
+@keyframes shimmer      { 0%{background-position:-400% 0}100%{background-position:400% 0} }
+@keyframes chipIn       { from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)} }
+@keyframes popIn        { from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)} }
+@keyframes typingBounce { 0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1} }
+
+/* ═══════════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════════ */
+*,*::before,*::after { box-sizing:border-box;margin:0;padding:0 }
+html { scroll-behavior:smooth }
+body {
+  font-family:var(--sans);
+  background:var(--bg-base);
+  color:var(--t-body);
+  font-size:14px;
+  -webkit-font-smoothing:antialiased;
+}
+::-webkit-scrollbar { width:4px }
+::-webkit-scrollbar-track { background:transparent }
+::-webkit-scrollbar-thumb { background:#333;border-radius:4px }
+a { text-decoration:none }
+
+/* ═══════════════════════════════════════════════
+   PAGE SHELL — sidebar + content
+═══════════════════════════════════════════════ */
+.shell { display:flex;min-height:100vh }
+
+/* Sidebar */
+.sidebar {
+  width:200px;
+  flex-shrink:0;
+  position:fixed;
+  top:0;bottom:0;left:0;
+  border-right:1px solid var(--b-strong);
+  background:var(--bg-base);
+  display:flex;
+  flex-direction:column;
+  padding:24px 0 24px;
+  overflow-y:auto;
+  z-index:50;
+}
+.sidebar-brand {
+  display:flex;align-items:center;gap:9px;
+  padding:0 18px 20px;
+  border-bottom:1px solid var(--b-default);
+  margin-bottom:16px;
+}
+.sidebar-brand-name {
+  font-size:13px;font-weight:600;color:var(--t-pri);letter-spacing:-.2px;
+}
+.sidebar-brand-ver {
+  font-size:10px;font-family:var(--mono);color:var(--t-m3);
+  letter-spacing:.04em;margin-top:1px;
+}
+.nav-group { margin-bottom:4px }
+.nav-group-label {
+  font-size:9px;font-family:var(--mono);font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--t-m4);padding:8px 18px 4px;
+}
+.nav-item {
+  display:flex;align-items:center;gap:8px;
+  padding:6px 18px;font-size:12px;color:var(--t-m3);
+  cursor:pointer;transition:var(--tr);
+  border-left:2px solid transparent;
+}
+.nav-item:hover { color:var(--t-3);background:rgba(255,255,255,.02) }
+.nav-item.active { color:var(--p-300);border-left-color:var(--p-600) }
+.nav-dot { width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0 }
+
+/* Main content */
+.content {
+  margin-left:200px;
+  flex:1;
+  padding:40px 48px 80px 48px;
+  max-width:1100px;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION CHROME
+═══════════════════════════════════════════════ */
+.section { margin-bottom:56px }
+.section-head {
+  display:flex;align-items:baseline;gap:12px;
+  border-bottom:1px solid var(--b-default);
+  padding-bottom:10px;margin-bottom:20px;
+}
+.section-num {
+  font-size:10px;font-family:var(--mono);font-weight:600;
+  letter-spacing:.1em;color:var(--p-600);
+}
+.section-title {
+  font-size:16px;font-weight:600;color:var(--t-high);letter-spacing:-.2px;
+}
+.section-desc {
+  font-size:11.5px;color:var(--t-m1);font-family:var(--mono);
+  margin-left:auto;
+}
+.sub { font-size:10px;font-family:var(--mono);font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t-m3);
+  margin:20px 0 10px;
+}
+
+/* ═══════════════════════════════════════════════
+   GRID / FLEX LAYOUTS
+═══════════════════════════════════════════════ */
+.g2  { display:grid;grid-template-columns:1fr 1fr;gap:12px }
+.g3  { display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px }
+.g4  { display:grid;grid-template-columns:repeat(4,1fr);gap:10px }
+.g5  { display:grid;grid-template-columns:repeat(5,1fr);gap:10px }
+.flex{ display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start }
+.flexi{ display:flex;flex-wrap:wrap;gap:10px;align-items:center }
+
+/* ═══════════════════════════════════════════════
+   CARD SHELL (demo wrapper)
+═══════════════════════════════════════════════ */
+.card {
+  background:var(--bg-e2);
+  border:1px solid var(--b-default);
+  border-radius:var(--r-2xl);
+  overflow:hidden;
+}
+.card-head {
+  padding:8px 12px;
+  border-bottom:1px solid var(--b-default);
+  font-size:10.5px;font-family:var(--mono);color:var(--t-m2);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.card-body { padding:16px }
+.card-body-tight { padding:12px }
+
+/* ═══════════════════════════════════════════════
+   SWATCHES
+═══════════════════════════════════════════════ */
+.swatch-grid { display:flex;flex-wrap:wrap;gap:8px }
+.sw { display:flex;flex-direction:column;align-items:center;gap:5px;width:76px;flex-shrink:0 }
+.sw-block { width:76px;height:56px;border-radius:var(--r-lg);border:1px solid rgba(255,255,255,.06);flex-shrink:0 }
+.sw-label { font-size:9px;font-family:var(--mono);color:var(--t-m3);text-align:center;line-height:1.3 }
+
+/* ═══════════════════════════════════════════════
+   TOKEN TABLE
+═══════════════════════════════════════════════ */
+.ttable { width:100%;border-collapse:collapse;font-size:11.5px }
+.ttable th {
+  text-align:left;padding:6px 10px;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t-m4);
+  border-bottom:1px solid var(--b-default);font-weight:500;
+}
+.ttable td { padding:8px 10px;border-bottom:1px solid var(--b-subtle);vertical-align:middle }
+.ttable tr:last-child td { border-bottom:none }
+.ttable td:first-child { font-family:var(--mono);font-size:11px;color:var(--p-300) }
+.ttable td:nth-child(2) { font-family:var(--mono);font-size:11px;color:var(--t-m3) }
+.ttable td:nth-child(3) { font-size:11px;color:var(--t-m1) }
+
+/* ═══════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════ */
+.btn {
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 13px;border-radius:var(--r-lg);
+  font-size:13px;font-family:var(--sans);font-weight:500;
+  cursor:pointer;transition:var(--tr);border:1px solid transparent;
+}
+.btn-pri {
+  background:rgba(255,255,255,.82);color:var(--p-950);
+  box-shadow:0 2px 12px rgba(255,255,255,.08);
+}
+.btn-pri:hover { background:rgba(237,233,254,.88) }
+.btn-sec {
+  background:var(--p-t08);color:var(--p-500);
+  border-color:rgba(139,92,246,.25);
+}
+.btn-sec:hover { background:var(--p-t14);color:var(--p-300);border-color:rgba(139,92,246,.45) }
+.btn-ghost {
+  background:transparent;color:var(--t-m2);padding:0;
+  width:28px;height:28px;justify-content:center;border-radius:var(--r-lg);
+}
+.btn-ghost:hover { background:var(--bg-e3);color:#bbb }
+.btn-send {
+  background:var(--p-700);color:#fff;box-shadow:var(--sh-send);
+  width:28px;height:28px;padding:0;justify-content:center;border-radius:var(--r-lg);
+}
+.btn-disabled { background:var(--bg-e3);color:#606060;cursor:not-allowed }
+.btn-badge {
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 9px;border-radius:var(--r-md);
+  background:var(--p-t08);color:var(--p-500);
+  font-size:11px;font-weight:600;font-family:var(--mono);letter-spacing:.03em;
+  border:1px solid rgba(139,92,246,.25);cursor:pointer;transition:var(--tr);
+}
+.btn-badge:hover { color:var(--p-300);border-color:rgba(139,92,246,.45);background:var(--p-t14) }
+.chip {
+  display:inline-block;padding:7px 13px;border-radius:var(--r-full);
+  background:var(--bg-e1);border:1px solid var(--b-subtle);
+  color:var(--t-m1);font-size:12px;cursor:pointer;transition:var(--tr);white-space:nowrap;
+}
+.chip:hover { border-color:#3a3a3a;color:#ccc;background:var(--bg-e2) }
+.btn-opt {
+  width:100%;display:flex;align-items:center;gap:10px;
+  padding:9px 14px;border-radius:var(--r-lg);border:1px solid var(--b-medium);
+  background:transparent;color:var(--t-3);font-size:13px;cursor:pointer;transition:var(--tr);
+}
+.btn-opt:hover { background:rgba(139,92,246,.15);color:var(--p-300);border-color:transparent }
+
+/* ═══════════════════════════════════════════════
+   COMPONENT DEMOS
+═══════════════════════════════════════════════ */
+
+/* Status badge */
+.status-badge {
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;font-family:var(--mono);letter-spacing:.04em;color:var(--t-m1);
+}
+.status-dot { width:6px;height:6px;border-radius:50%;flex-shrink:0 }
+
+/* Chat bubbles */
+.bubble-user { display:flex;justify-content:flex-end }
+.bubble-user-inner {
+  max-width:86%;padding:11px 15px;
+  border-radius:16px;border-top-right-radius:4px;
+  background:var(--bg-e2);border:1px solid var(--b-default);
+  color:var(--t-sec);font-size:14px;line-height:1.65;
+}
+.bubble-agent-inner { font-size:14.5px;line-height:1.75;color:var(--t-body) }
+.action-line {
+  display:flex;align-items:center;gap:6px;
+  font-size:12px;font-family:var(--mono);color:var(--t-m3);
+}
+.typing-bubble { display:flex;align-items:center;gap:5px;height:20px }
+.typing-dot { width:5px;height:5px;border-radius:50%;background:#555 }
+.typing-dot:nth-child(1){animation:typingBounce 1.1s ease-in-out 0ms infinite}
+.typing-dot:nth-child(2){animation:typingBounce 1.1s ease-in-out 180ms infinite}
+.typing-dot:nth-child(3){animation:typingBounce 1.1s ease-in-out 360ms infinite}
+
+/* Plan card */
+.plan-card { border-radius:var(--r-2xl);overflow:hidden;background:var(--p-t06);border:1px solid var(--p-t22) }
+.plan-hdr {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 14px;background:var(--p-t12);border-bottom:1px solid var(--p-t22);
+}
+.plan-icon {
+  width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;
+  background:var(--p-t15);border:1px solid rgba(139,92,246,.28);flex-shrink:0;
+}
+.plan-title { font-size:13.5px;font-weight:600;color:var(--p-200);letter-spacing:-.2px }
+.plan-step { padding:5px 14px;display:flex;align-items:flex-start;gap:10px }
+.plan-step.active { background:rgba(139,92,246,.08) }
+.plan-step.changed { border-left:2px solid rgba(251,191,36,.45);padding-left:12px }
+.step-dot-pending { width:7px;height:7px;border-radius:50%;background:#6b5e8a;flex-shrink:0;margin-top:5px }
+.step-dot-active {
+  width:9px;height:9px;border-radius:50%;background:var(--p-400);
+  box-shadow:0 0 6px rgba(167,139,250,.5);flex-shrink:0;margin-top:4px;
+  animation:pulseDot 1.6s ease-in-out infinite;
+}
+.step-dot-done { flex-shrink:0;margin-top:1px;animation:checkIn .22s cubic-bezier(.34,1.56,.64,1) both }
+.step-txt-p { font-size:13px;color:#cdc4f0;line-height:1.55 }
+.step-txt-a { font-size:13px;color:#f0ecff;line-height:1.55 }
+.step-txt-d { font-size:13px;color:#7c8594;line-height:1.55 }
+.step-txt-c { font-size:13px;color:#fef3c7;line-height:1.55 }
+.step-running {
+  font-size:10px;font-family:var(--mono);font-weight:600;color:var(--p-400);
+  background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);
+  padding:2px 7px;border-radius:4px;flex-shrink:0;
+}
+.step-handoff {
+  display:flex;align-items:flex-start;gap:7px;
+  margin-top:5px;padding-left:10px;border-left:1px solid rgba(167,139,250,.35);
+}
+.step-handoff-txt { font-size:11px;line-height:1.5;color:#b8aee8 }
+.plan-ftr {
+  display:flex;align-items:center;justify-content:flex-end;gap:8px;
+  padding:10px 14px;border-top:1px solid rgba(139,92,246,.15);
+}
+
+/* Action card (blue HITL) */
+.action-card { border-radius:var(--r-2xl);overflow:hidden;background:var(--bl-t06);border:1px solid var(--bl-t22) }
+.action-hdr {
+  display:flex;align-items:center;gap:9px;
+  padding:9px 14px;border-bottom:1px solid rgba(59,130,246,.15);
+}
+.action-icon {
+  width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;
+  background:var(--bl-t15);border:1px solid rgba(59,130,246,.28);flex-shrink:0;
+}
+.action-title { font-size:13.5px;font-weight:600;color:var(--bl-100);letter-spacing:-.2px }
+.action-body { padding:13px 14px;font-size:13px;line-height:1.6;color:var(--bl-200) }
+
+/* Cancelled card (red) */
+.cancel-card { border-radius:var(--r-2xl);padding:16px;background:var(--r-t04);border:1px solid rgba(239,68,68,.20) }
+.cancel-label { font-size:10.5px;font-family:var(--mono);color:var(--r-400);text-transform:uppercase;letter-spacing:.12em;font-weight:600 }
+
+/* Task Progress Panel */
+.tpanel {
+  border-radius:var(--r-3xl);overflow:hidden;
+  background:rgba(12,8,24,.95);border:1px solid var(--p-t30);
+  box-shadow:var(--sh-task);
+}
+.tpanel-body { padding:12px 14px 10px }
+.tpanel-activity {
+  padding:8px 14px 12px;
+  border-top:1px solid rgba(139,92,246,.15);
+}
+.tpanel-activity-lbl {
+  font-size:9px;font-family:var(--mono);color:#7c6fa0;
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;
+}
+.tpanel-log-item { display:flex;align-items:flex-start;gap:7px;margin-bottom:4px }
+.tpanel-log-dot { width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:4px }
+.tpanel-pill {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 14px;cursor:pointer;transition:var(--tr);
+  background:rgba(12,8,24,.95);border-top:1px solid rgba(139,92,246,.15);
+}
+.tpanel-pill-standalone {
+  border-radius:var(--r-3xl);border:1px solid var(--p-t30);
+  background:rgba(12,8,24,.95);box-shadow:0 4px 20px rgba(0,0,0,.5);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 14px;cursor:pointer;
+}
+
+/* Takeover popover */
+.takeover-pop {
+  width:288px;border-radius:var(--r-3xl);padding:16px;
+  background:#1c1c1e;border:1px solid var(--b-medium);box-shadow:var(--sh-pop);
+}
+.takeover-icon {
+  width:28px;height:28px;border-radius:var(--r-lg);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:#2a2a2a;border:1px solid #3a3a3a;
+}
+
+/* Input bar (chat mode) */
+.inputbar {
+  border-radius:var(--r-xl);
+  background:#181818;
+  border:1px solid #505050;
+  overflow:hidden;
+}
+.inputbar.focused { border-color:rgba(139,92,246,.55);box-shadow:var(--sh-focus) }
+.inputbar-demo-hint {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 14px;border-bottom:1px solid rgba(234,179,8,.15);
+  background:rgba(234,179,8,.04);
+}
+.inputbar-textarea {
+  width:100%;background:transparent;border:none;outline:none;resize:none;
+  color:#ebebeb;font-size:13.5px;font-family:var(--sans);
+  padding:12px 14px 8px;min-height:52px;max-height:120px;
+  line-height:1.6;caret-color:var(--p-600);
+}
+.inputbar-toolbar {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:4px 12px 10px;
+}
+.divider-v { width:1px;height:14px;background:#3a3a3a;margin:0 4px;flex-shrink:0 }
+
+/* VM Panel Tab Bar */
+.vmpanel-tabbar {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 14px;height:44px;border-bottom:1px solid #242424;background:var(--bg-base);
+}
+.vm-tab {
+  display:flex;align-items:center;gap:5px;padding:6px 11px;
+  font-size:12px;font-weight:500;border-radius:6px;cursor:pointer;
+  color:#999;background:transparent;border:none;position:relative;transition:var(--tr);
+}
+.vm-tab.active { color:#f0f0f0;background:var(--bg-e2) }
+.vm-tab-underline {
+  position:absolute;bottom:0;left:10px;right:10px;
+  height:2px;border-radius:2px;background:var(--p-300);
+}
+.vm-ctrl {
+  width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+  border-radius:var(--r-lg);color:#aaa;background:transparent;border:1px solid transparent;
+  cursor:pointer;transition:var(--tr);
+}
+.vm-ctrl:hover { color:#f0f0f0;background:var(--bg-e2);border-color:#333 }
+
+/* Code editor */
+.editor-shell {
+  background:var(--bg-code);font-family:var(--mono);border-radius:var(--r-2xl);overflow:hidden;
+  border:1px solid var(--b-default);
+}
+.editor-tabbar {
+  display:flex;align-items:center;padding:0 8px;
+  background:#181818;border-bottom:1px solid #242424;height:32px;
+}
+.editor-tab {
+  display:flex;align-items:center;gap:6px;padding:0 10px;
+  font-size:11px;color:#666;height:100%;border-right:1px solid #222;
+  border-top:1px solid transparent;
+}
+.editor-tab.active { color:var(--t-code);background:var(--bg-code);border-top-color:rgba(167,139,250,.4) }
+.editor-area {
+  padding:10px 0;font-size:11.5px;line-height:1.7;overflow-y:auto;max-height:200px;
+}
+.editor-line { display:flex;min-height:20px }
+.editor-ln { width:40px;text-align:right;padding-right:14px;padding-left:12px;color:#3e3e4e;font-size:11px;flex-shrink:0 }
+.editor-active-line { background:rgba(167,139,250,.06) }
+.editor-active-ln { color:var(--p-400) }
+.editor-status {
+  display:flex;align-items:center;justify-content:space-between;padding:0 14px;
+  height:22px;font-size:11px;font-family:var(--mono);color:var(--p-300);
+  background:rgba(139,92,246,.18);border-top:1px solid rgba(139,92,246,.20);
+}
+
+/* Model selector */
+.model-btn {
+  display:flex;align-items:center;gap:5px;padding:5px 9px;
+  border-radius:var(--r-lg);font-size:11.5px;font-family:var(--mono);
+  color:var(--t-m1);background:transparent;border:none;cursor:pointer;transition:var(--tr);
+}
+.model-btn:hover { background:#222;color:#bbb }
+.model-dropdown {
+  width:220px;background:var(--bg-e2);border:1px solid var(--b-default);
+  border-radius:var(--r-3xl);box-shadow:var(--sh-2xl);overflow:hidden;
+}
+.model-grp-lbl {
+  padding:9px 11px 3px;font-size:9px;font-family:var(--mono);
+  color:#555;letter-spacing:.1em;text-transform:uppercase;
+}
+.model-item {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:7px 11px;cursor:pointer;transition:var(--tr);
+  border-left:2px solid transparent;
+}
+.model-item.sel { background:rgba(255,255,255,.04) }
+.model-item:hover { background:rgba(255,255,255,.03) }
+.model-name { font-size:12px;color:#bbb }
+.model-name.sel { color:#e0e0e0;font-weight:600 }
+.model-tag { font-size:10px;color:#555;margin-top:1px }
+
+/* Tooltip demo */
+[data-tip] { position:relative }
+[data-tip]::after {
+  content:attr(data-tip);position:absolute;bottom:calc(100% + 7px);left:50%;
+  transform:translateX(-50%);padding:5px 10px;border-radius:var(--r-sm);
+  white-space:nowrap;background:var(--bg-overlay);border:1px solid var(--b-glass);
+  font-size:11px;color:#e8e8e8;font-family:var(--sans);font-weight:500;
+  box-shadow:var(--sh-tip);pointer-events:none;z-index:100;opacity:0;transition:.12s ease;
+}
+[data-tip]:hover::after { opacity:1 }
+[data-tip-b]::after { bottom:auto;top:calc(100% + 7px) }
+[data-tip-r]::after { left:auto;right:0;transform:none }
+
+/* KBD */
+kbd {
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:1px 5px;border-radius:3px;border:1px solid #555;
+  background:#383838;font-size:11px;color:#ccc;line-height:1;font-family:var(--sans);
+}
+
+/* Shimmer bar */
+.shimmer-bar {
+  background:linear-gradient(90deg,transparent 0%,#7c3aed 40%,#a78bfa 50%,#7c3aed 60%,transparent 100%);
+  background-size:400% 100%;animation:shimmer 2s ease-in-out infinite;
+}
+
+/* Controlling browser float label */
+.control-label {
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:20px;
+  background:rgba(15,15,25,.82);border:1px solid rgba(167,139,250,.3);
+  backdrop-filter:blur(8px);box-shadow:0 2px 12px rgba(0,0,0,.35);
+}
+
+/* VM desktop BG */
+.vm-bg {
+  background:radial-gradient(ellipse at 15% 55%,#3b1278 0%,transparent 58%),
+    radial-gradient(ellipse at 75% 20%,#7b2d8b 0%,transparent 52%),
+    radial-gradient(ellipse at 60% 82%,#c44569 0%,transparent 52%),
+    radial-gradient(ellipse at 92% 65%,#e8704a 0%,transparent 48%),
+    linear-gradient(135deg,#0d0221 0%,#1a0533 100%);
+}
+
+/* Header demo */
+.header-demo {
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--bg-base);border:1px solid var(--b-strong);
+  border-radius:var(--r-2xl);height:44px;padding:0 16px;
+}
+
+/* Sidebar nav demo */
+.sidebar-demo {
+  width:100%;background:var(--bg-e2);border:1px solid var(--b-default);
+  border-radius:var(--r-2xl);overflow:hidden;padding:6px 0;
+}
+.snav-lbl { padding:8px 14px 3px;font-size:9px;font-family:var(--mono);color:#444;letter-spacing:.1em;text-transform:uppercase }
+.snav-item {
+  display:flex;align-items:center;gap:9px;padding:7px 10px;
+  cursor:pointer;border-radius:7px;margin:1px 5px;
+  transition:var(--tr);font-size:12px;color:var(--t-m3);
+}
+.snav-item.active { background:var(--bg-e3);color:#d0d0d0 }
+.snav-item:hover:not(.active) { background:rgba(255,255,255,.02);color:var(--t-3) }
+
+/* Mobile tab bar */
+.mob-tabbar {
+  display:flex;background:var(--bg-base);border-top:1px solid var(--b-strong);
+  border-radius:0 0 var(--r-2xl) var(--r-2xl);overflow:hidden;
+}
+.mob-tab {
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;padding:7px 0 5px;font-size:10px;font-family:var(--sans);font-weight:500;
+  background:transparent;border:none;cursor:pointer;transition:color .15s;color:var(--t-m3);
+}
+.mob-tab.active { color:var(--p-400) }
+
+/* Anim demos */
+.anim-box {
+  display:flex;flex-direction:column;align-items:center;gap:9px;
+  background:var(--bg-e2);border:1px solid var(--b-default);border-radius:var(--r-2xl);
+  padding:16px 12px;text-align:center;cursor:pointer;
+}
+.anim-sq {
+  width:28px;height:28px;border-radius:var(--r-lg);
+  background:var(--p-t15);border:1px solid var(--p-t22);
+}
+.anim-lbl { font-size:10px;font-family:var(--mono);color:var(--t-m3) }
+
+/* DS page hero */
+.hero {
+  display:flex;align-items:center;gap:14px;margin-bottom:36px;
+  padding-bottom:28px;border-bottom:1px solid var(--b-default);
+}
+.hero-text h1 { font-size:22px;font-weight:600;color:var(--t-high);letter-spacing:-.4px }
+.hero-text p { font-size:12px;color:var(--t-m1);font-family:var(--mono);margin-top:4px }
+.hero-chips { display:flex;gap:6px;flex-wrap:wrap;margin-top:10px }
+.hero-chip {
+  font-size:10.5px;font-family:var(--mono);padding:2px 8px;
+  border-radius:var(--r-sm);background:var(--p-t08);
+  color:var(--p-400);border:1px solid var(--p-t22);
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- ═══════ SIDEBAR ═══════ -->
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <img src="/prototype/logo/simular_ai_logo.jpeg" width="24" height="24"
+         style="border-radius:6px;object-fit:cover;flex-shrink:0"
+         onerror="this.style.background='#333';this.removeAttribute('src')"/>
+    <div>
+      <div class="sidebar-brand-name">Simular AI</div>
+      <div class="sidebar-brand-ver">Design System v1.0</div>
+    </div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Foundations</div>
+    <a class="nav-item" href="#colors"><span class="nav-dot"></span>Color Palette</a>
+    <a class="nav-item" href="#type"><span class="nav-dot"></span>Typography</a>
+    <a class="nav-item" href="#space"><span class="nav-dot"></span>Spacing &amp; Radius</a>
+    <a class="nav-item" href="#shadows"><span class="nav-dot"></span>Shadows</a>
+    <a class="nav-item" href="#motion"><span class="nav-dot"></span>Motion</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Components</div>
+    <a class="nav-item" href="#buttons"><span class="nav-dot"></span>Buttons &amp; Chips</a>
+    <a class="nav-item" href="#inputs"><span class="nav-dot"></span>Input Bars</a>
+    <a class="nav-item" href="#chat"><span class="nav-dot"></span>Chat Bubbles</a>
+    <a class="nav-item" href="#plan"><span class="nav-dot"></span>Plan Card</a>
+    <a class="nav-item" href="#hitl"><span class="nav-dot"></span>HITL Cards</a>
+    <a class="nav-item" href="#task"><span class="nav-dot"></span>Task Progress</a>
+    <a class="nav-item" href="#takeover"><span class="nav-dot"></span>Takeover Popover</a>
+    <a class="nav-item" href="#model"><span class="nav-dot"></span>Model Selector</a>
+    <a class="nav-item" href="#status"><span class="nav-dot"></span>Status &amp; Tags</a>
+    <a class="nav-item" href="#tooltip"><span class="nav-dot"></span>Tooltip &amp; KBD</a>
+    <a class="nav-item" href="#editor"><span class="nav-dot"></span>Code Editor</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Layout</div>
+    <a class="nav-item" href="#layout"><span class="nav-dot"></span>Header &amp; Sidebar</a>
+    <a class="nav-item" href="#vm"><span class="nav-dot"></span>VM Panel</a>
+    <a class="nav-item" href="#mobile"><span class="nav-dot"></span>Mobile</a>
+  </div>
+</nav>
+
+<!-- ═══════ CONTENT ═══════ -->
+<main class="content">
+
+  <!-- Hero -->
+  <div class="hero">
+    <img src="/prototype/logo/simular_ai_logo.jpeg" width="44" height="44"
+         style="border-radius:12px;object-fit:cover;box-shadow:0 4px 16px rgba(0,0,0,.4);flex-shrink:0"
+         onerror="this.style.background='#333';this.removeAttribute('src')"/>
+    <div class="hero-text">
+      <h1>Simular AI Design System</h1>
+      <p>© 2026 YR Cheng · Extracted from AgentUI.html</p>
+      <div class="hero-chips">
+        <span class="hero-chip">Geist + Geist Mono</span>
+        <span class="hero-chip">dark theme</span>
+        <span class="hero-chip">accent #7c3aed</span>
+        <span class="hero-chip">base 14px</span>
+        <span class="hero-chip">CSS custom properties</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       01 COLOR PALETTE
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="colors">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <span class="section-title">Color Palette</span>
+    </div>
+
+    <!-- Backgrounds + Text in one full-width card with two columns -->
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:grid;grid-template-columns:1fr 1fr">
+        <div style="border-right:1px solid var(--b-default)">
+          <div class="card-head">Backgrounds / Surfaces</div>
+          <div class="card-body-tight">
+            <div class="swatch-grid">
+              <div class="sw"><div class="sw-block" style="background:#0a0a0a;box-shadow:0 0 0 1px #2a2a2a inset"></div><div class="sw-label">--bg-overlay<br/>#0a0a0a</div></div>
+              <div class="sw"><div class="sw-block" style="background:#0d0d0d;box-shadow:0 0 0 1px #2a2a2a inset"></div><div class="sw-label">--bg-base<br/>#0d0d0d</div></div>
+              <div class="sw"><div class="sw-block" style="background:#0f0f0f;box-shadow:0 0 0 1px #2a2a2a inset"></div><div class="sw-label">--bg-code<br/>#0f0f0f</div></div>
+              <div class="sw"><div class="sw-block" style="background:#161616"></div><div class="sw-label">--bg-e1<br/>#161616</div></div>
+              <div class="sw"><div class="sw-block" style="background:#1a1a1a"></div><div class="sw-label">--bg-e2<br/>#1a1a1a</div></div>
+              <div class="sw"><div class="sw-block" style="background:#252525"></div><div class="sw-label">--bg-e3<br/>#252525</div></div>
+              <div class="sw"><div class="sw-block" style="background:#2e2e2e"></div><div class="sw-label">--bg-e4<br/>#2e2e2e</div></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card-head">Text Scale</div>
+          <div class="card-body-tight">
+            <div class="swatch-grid">
+              <div class="sw"><div class="sw-block" style="background:#eaeaea"></div><div class="sw-label">--t-high<br/>#eaeaea</div></div>
+              <div class="sw"><div class="sw-block" style="background:#e2e2e2"></div><div class="sw-label">--t-pri<br/>#e2e2e2</div></div>
+              <div class="sw"><div class="sw-block" style="background:#d4d4d4"></div><div class="sw-label">--t-body<br/>#d4d4d4</div></div>
+              <div class="sw"><div class="sw-block" style="background:#c8c8c8"></div><div class="sw-label">--t-sec<br/>#c8c8c8</div></div>
+              <div class="sw"><div class="sw-block" style="background:#aaa"></div><div class="sw-label">--t-3<br/>#aaa</div></div>
+              <div class="sw"><div class="sw-block" style="background:#888"></div><div class="sw-label">--t-m1<br/>#888</div></div>
+              <div class="sw"><div class="sw-block" style="background:#666"></div><div class="sw-label">--t-m3<br/>#666</div></div>
+              <div class="sw"><div class="sw-block" style="background:#555"></div><div class="sw-label">--t-m4<br/>#555</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Purple -->
+    <div class="sub">Purple — Primary Accent</div>
+    <div class="card">
+      <div class="card-body-tight">
+        <div class="swatch-grid">
+          <div class="sw"><div class="sw-block" style="background:#1e1b4b"></div><div class="sw-label">--p-950<br/>#1e1b4b<br/>Approve bg</div></div>
+          <div class="sw"><div class="sw-block" style="background:#7c3aed"></div><div class="sw-label">--p-700<br/>#7c3aed<br/>Send btn</div></div>
+          <div class="sw"><div class="sw-block" style="background:#8b5cf6"></div><div class="sw-label">--p-600<br/>#8b5cf6<br/>Borders</div></div>
+          <div class="sw"><div class="sw-block" style="background:#9d8ec8"></div><div class="sw-label">--p-500<br/>#9d8ec8<br/>Modify btn</div></div>
+          <div class="sw"><div class="sw-block" style="background:#a78bfa"></div><div class="sw-label">--p-400<br/>#a78bfa<br/>Active dot</div></div>
+          <div class="sw"><div class="sw-block" style="background:#c4b5fd"></div><div class="sw-label">--p-300<br/>#c4b5fd<br/>Labels</div></div>
+          <div class="sw"><div class="sw-block" style="background:#ede9fe"></div><div class="sw-label">--p-200<br/>#ede9fe<br/>Headings</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Semantic + Provider in one full-width card -->
+    <div class="card" style="margin-top:16px">
+      <div style="display:grid;grid-template-columns:1fr 1fr">
+        <div style="border-right:1px solid var(--b-default)">
+          <div class="card-head">Semantic Colors</div>
+          <div class="card-body-tight">
+            <div style="display:flex;gap:16px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:9px;font-family:var(--mono);color:var(--t-m4);margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em">Info / HITL</div>
+                <div class="swatch-grid">
+                  <div class="sw"><div class="sw-block" style="background:#3b82f6"></div><div class="sw-label">--bl-500<br/>#3b82f6</div></div>
+                  <div class="sw"><div class="sw-block" style="background:#60a5fa"></div><div class="sw-label">--bl-400<br/>#60a5fa</div></div>
+                  <div class="sw"><div class="sw-block" style="background:#bfdbfe"></div><div class="sw-label">--bl-200<br/>#bfdbfe</div></div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:9px;font-family:var(--mono);color:var(--t-m4);margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em">Error</div>
+                <div class="swatch-grid">
+                  <div class="sw"><div class="sw-block" style="background:#ef4444"></div><div class="sw-label">--r-500<br/>#ef4444</div></div>
+                  <div class="sw"><div class="sw-block" style="background:#f87171"></div><div class="sw-label">--r-400<br/>#f87171</div></div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:9px;font-family:var(--mono);color:var(--t-m4);margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em">Success</div>
+                <div class="swatch-grid">
+                  <div class="sw"><div class="sw-block" style="background:#22c55e"></div><div class="sw-label">--g-500<br/>#22c55e</div></div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:9px;font-family:var(--mono);color:var(--t-m4);margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em">Amber</div>
+                <div class="swatch-grid">
+                  <div class="sw"><div class="sw-block" style="background:#fbbf24"></div><div class="sw-label">--a-400<br/>#fbbf24</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card-head">AI Provider Colors</div>
+          <div class="card-body-tight">
+            <div class="swatch-grid">
+              <div class="sw"><div class="sw-block" style="background:#c77940"></div><div class="sw-label">Anthropic</div></div>
+              <div class="sw"><div class="sw-block" style="background:#74aa9c"></div><div class="sw-label">OpenAI</div></div>
+              <div class="sw"><div class="sw-block" style="background:#4285F4"></div><div class="sw-label">Google</div></div>
+              <div class="sw"><div class="sw-block" style="background:#4f9ef8"></div><div class="sw-label">DeepSeek</div></div>
+              <div class="sw"><div class="sw-block" style="background:#0164e0"></div><div class="sw-label">Meta</div></div>
+              <div class="sw"><div class="sw-block" style="background:#9b59b6"></div><div class="sw-label">MiniMax</div></div>
+              <div class="sw"><div class="sw-block" style="background:#f46d1b"></div><div class="sw-label">Mistral</div></div>
+              <div class="sw"><div class="sw-block" style="background:#ff6a00"></div><div class="sw-label">Alibaba</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       02 TYPOGRAPHY
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="type">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <span class="section-title">Typography</span>
+    </div>
+    <div class="g2" style="gap:12px">
+      <div class="card">
+        <div class="card-head">Geist — sans-serif</div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:25px;font-weight:600;color:var(--t-high);letter-spacing:-.4px">What can I do for you?</div>
+          <div style="font-size:20px;font-weight:500;color:var(--t-pri)">Proposed Execution Plan</div>
+          <div style="font-size:14.5px;color:var(--t-body);line-height:1.75">I've analysed your task and created an execution plan. Please review the steps—you can modify or approve to start.</div>
+          <div style="font-size:13px;color:var(--t-m1)">Modify Plan · Approve &amp; Execute · Design Report</div>
+          <div style="font-size:11px;color:var(--t-m3)">Cloud Computer Active · Singapore Region</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">Geist Mono — monospace</div>
+        <div class="card-body" style="font-family:var(--mono);display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:12px;color:var(--p-300);letter-spacing:.04em">Cloud Computer Active</div>
+          <div style="font-size:9.5px;color:#555;letter-spacing:.1em;text-transform:uppercase">ANTHROPIC · OPENAI · GOOGLE</div>
+          <div style="font-size:12px;color:var(--t-m1)">Claude Opus 4 · Most Capable</div>
+          <div style="font-size:11.5px;color:var(--p-400)">AUTHORIZATION CANCELLED</div>
+          <div style="font-size:11px;color:var(--t-code)">sg-cc-7f2a3b · Running · Python 3.11</div>
+          <div style="font-size:10px;color:var(--t-m3);letter-spacing:.05em">© 2026 YuRong C. REDESIGN</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">Type Scale</div>
+    <div class="card">
+      <div class="card-body-tight">
+        <table class="ttable">
+          <tr><th>Token</th><th>Size</th><th>Example</th></tr>
+          <tr><td>--text-xs</td><td>10px mono, uppercase</td><td><span style="font-size:10px;font-family:var(--mono);color:var(--t-m3);letter-spacing:.1em">CLOUD COMPUTER ACTIVE</span></td></tr>
+          <tr><td>--text-sm</td><td>11px status/meta</td><td><span style="font-size:11px;color:var(--t-m1)">Cloud Computer Active</span></td></tr>
+          <tr><td>--text-base</td><td>12px model label</td><td><span style="font-size:12px;font-family:var(--mono);color:var(--t-m1)">Claude Opus 4 · Most Capable</span></td></tr>
+          <tr><td>--text-md</td><td>13px buttons, step text</td><td><span style="font-size:13px;color:var(--t-body)">Modify Plan · Approve &amp; Execute</span></td></tr>
+          <tr><td>--text-lg (base)</td><td>14px card titles, body</td><td><span style="font-size:14px;font-weight:600;color:var(--t-pri)">Proposed Execution Plan</span></td></tr>
+          <tr><td>--text-lg2</td><td>14.5px agent bubble</td><td><span style="font-size:14.5px;color:var(--t-body)">I've analysed your task and created a plan.</span></td></tr>
+          <tr><td>--text-xl</td><td>15px textarea desktop</td><td><span style="font-size:15px;color:var(--t-3)">Message Simular AI…</span></td></tr>
+          <tr><td>--text-2xl</td><td>16px mobile (iOS zoom fix)</td><td><span style="font-size:16px;color:var(--t-3)">Reply</span></td></tr>
+          <tr><td>--text-3xl</td><td>20px mobile heading</td><td><span style="font-size:20px;font-weight:600;color:var(--t-high);letter-spacing:-.4px">What can I do for you today?</span></td></tr>
+          <tr><td>--text-4xl</td><td>25px desktop welcome h1</td><td><span style="font-size:25px;font-weight:600;color:var(--t-high);letter-spacing:-.4px">What can I do?</span></td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       03 SPACING & RADIUS
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="space">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <span class="section-title">Spacing &amp; Border Radius</span>
+    </div>
+    <div class="g2" style="gap:12px">
+      <div class="card">
+        <div class="card-head">Spacing</div>
+        <div class="card-body-tight">
+          <table class="ttable">
+            <tr><th>Token</th><th>Value</th><th>Bar</th></tr>
+            <tr><td>--space-1</td><td>4px</td><td><div style="background:var(--p-t22);border:1px solid var(--p-600);height:6px;border-radius:2px;width:4px"/></td></tr>
+            <tr><td>--space-2</td><td>8px</td><td><div style="background:var(--p-t22);border:1px solid var(--p-600);height:6px;border-radius:2px;width:8px"/></td></tr>
+            <tr><td>--space-3</td><td>12px</td><td><div style="background:var(--p-t22);border:1px solid var(--p-600);height:6px;border-radius:2px;width:12px"/></td></tr>
+            <tr><td>--space-4</td><td>16px</td><td><div style="background:var(--p-t22);border:1px solid var(--p-600);height:6px;border-radius:2px;width:16px"/></td></tr>
+            <tr><td>--space-5</td><td>20px</td><td><div style="background:var(--p-t22);border:1px solid var(--p-600);height:6px;border-radius:2px;width:20px"/></td></tr>
+            <tr><td>--space-6</td><td>24px</td><td><div style="background:var(--p-t22);border:1px solid var(--p-600);height:6px;border-radius:2px;width:24px"/></td></tr>
+            <tr><td>--space-7</td><td>28px</td><td><div style="background:var(--p-t22);border:1px solid var(--p-600);height:6px;border-radius:2px;width:28px"/></td></tr>
+            <tr><td>--space-8</td><td>32px</td><td><div style="background:var(--p-t22);border:1px solid var(--p-600);height:6px;border-radius:2px;width:32px"/></td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">Border Radius</div>
+        <div class="card-body">
+          <div style="display:flex;flex-wrap:wrap;gap:14px">
+            <div class="sw"><div style="width:40px;height:40px;border-radius:6px;background:var(--p-t15);border:1px solid var(--p-t22)"/><div class="sw-label">--r-sm<br/>6px</div></div>
+            <div class="sw"><div style="width:40px;height:40px;border-radius:7px;background:var(--p-t15);border:1px solid var(--p-t22)"/><div class="sw-label">--r-md<br/>7px</div></div>
+            <div class="sw"><div style="width:40px;height:40px;border-radius:8px;background:var(--p-t15);border:1px solid var(--p-t22)"/><div class="sw-label">--r-lg<br/>8px</div></div>
+            <div class="sw"><div style="width:40px;height:40px;border-radius:10px;background:var(--p-t15);border:1px solid var(--p-t22)"/><div class="sw-label">--r-xl<br/>10px</div></div>
+            <div class="sw"><div style="width:40px;height:40px;border-radius:12px;background:var(--p-t15);border:1px solid var(--p-t22)"/><div class="sw-label">--r-2xl<br/>12px</div></div>
+            <div class="sw"><div style="width:40px;height:40px;border-radius:16px;background:var(--p-t15);border:1px solid var(--p-t22)"/><div class="sw-label">--r-3xl<br/>16px</div></div>
+            <div class="sw"><div style="width:48px;height:24px;border-radius:9999px;background:var(--p-t15);border:1px solid var(--p-t22)"/><div class="sw-label">--r-full<br/>pill</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       04 SHADOWS
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="shadows">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <span class="section-title">Shadows</span>
+    </div>
+    <div class="card">
+      <div class="card-body-tight">
+        <table class="ttable">
+          <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+          <tr><td>--sh-md</td><td>0 4px 24px rgba(0,0,0,.35)</td><td>Input box, cards</td></tr>
+          <tr><td>--sh-xl</td><td>0 8px 32px rgba(0,0,0,.50)</td><td>Browser window in VM</td></tr>
+          <tr><td>--sh-2xl</td><td>0 12px 32px rgba(0,0,0,.60)</td><td>Model selector dropdown</td></tr>
+          <tr><td>--sh-tip</td><td>0 6px 20px rgba(0,0,0,.80) + ring</td><td>Tooltip</td></tr>
+          <tr><td>--sh-send</td><td>0 2px 10px rgba(124,58,237,.40)</td><td>Purple send button</td></tr>
+          <tr><td>--sh-focus</td><td>0 0 0 3px rgba(139,92,246,.10)</td><td>Focused input ring</td></tr>
+          <tr><td>--sh-task</td><td>0 8px 32px rgba(0,0,0,.60) + ring</td><td>Task Progress Panel</td></tr>
+          <tr><td>--sh-pop</td><td>0 16px 40px rgba(0,0,0,.60)</td><td>Takeover popover</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       05 MOTION
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="motion">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <span class="section-title">Motion &amp; Animation</span>
+    </div>
+    <div class="g4" style="margin-bottom:14px">
+      <div class="anim-box" onclick="let el=this.querySelector('.aq');el.style.animation='none';void el.offsetWidth;el.style.animation=''">
+        <div class="aq anim-sq" style="animation:fadeUp .35s cubic-bezier(.22,.68,0,1.05) both"></div>
+        <div class="anim-lbl">fadeUp · .35s spring</div>
+      </div>
+      <div class="anim-box" onclick="let el=this.querySelector('.aq');el.style.animation='none';void el.offsetWidth;el.style.animation=''">
+        <div class="aq anim-sq" style="animation:popIn .35s cubic-bezier(.22,.68,0,1.1) both"></div>
+        <div class="anim-lbl">popIn · .35s</div>
+      </div>
+      <div class="anim-box" onclick="let el=this.querySelector('.aq');el.style.animation='none';void el.offsetWidth;el.style.animation=''">
+        <div class="aq anim-sq" style="animation:chipIn .28s cubic-bezier(.22,.68,0,1.05) both"></div>
+        <div class="anim-lbl">chipIn · .28s</div>
+      </div>
+      <div class="anim-box" onclick="let el=this.querySelector('.aq');el.style.animation='none';void el.offsetWidth;el.style.animation=''">
+        <div class="aq anim-sq" style="animation:checkIn .22s cubic-bezier(.34,1.56,.64,1) both"></div>
+        <div class="anim-lbl">checkIn · .22s bounce</div>
+      </div>
+      <div class="anim-box">
+        <div class="anim-sq" style="animation:pulseDot 2s ease-in-out infinite;box-shadow:0 0 6px rgba(167,139,250,.5)"></div>
+        <div class="anim-lbl">pulseDot · 2s ∞</div>
+      </div>
+      <div class="anim-box">
+        <div style="width:64px;height:2px;border-radius:1px;animation:shimmer 2s ease-in-out infinite;background:linear-gradient(90deg,transparent 0%,#7c3aed 40%,#a78bfa 50%,#7c3aed 60%,transparent 100%);background-size:400% 100%"></div>
+        <div class="anim-lbl">shimmer · 2s ∞</div>
+      </div>
+      <div class="anim-box">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" style="animation:spin 1.4s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+        <div class="anim-lbl">spin · 1.4s linear</div>
+      </div>
+      <div class="anim-box">
+        <div class="typing-bubble"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>
+        <div class="anim-lbl">typingBounce · stagger</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body-tight">
+        <table class="ttable">
+          <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+          <tr><td>--tr (base)</td><td>all .15s ease</td><td>All hover states</td></tr>
+          <tr><td>spring</td><td>cubic-bezier(.22,.68,0,1.05)</td><td>fadeUp, chipIn, slideRight</td></tr>
+          <tr><td>bounce</td><td>cubic-bezier(.34,1.56,.64,1)</td><td>checkIn — overshoot</td></tr>
+          <tr><td>pop</td><td>cubic-bezier(.22,.68,0,1.10)</td><td>popIn — dropdown entrance</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       06 BUTTONS & CHIPS
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="buttons">
+    <div class="section-head">
+      <span class="section-num">06</span>
+      <span class="section-title">Buttons &amp; Chips</span>
+    </div>
+    <div class="g2" style="gap:12px">
+      <div class="card">
+        <div class="card-head">Button Variants</div>
+        <div class="card-body">
+          <div class="flexi" style="gap:8px;margin-bottom:12px">
+            <button class="btn btn-pri">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Approve &amp; Execute
+            </button>
+            <button class="btn btn-sec">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+              Modify Plan
+            </button>
+            <button class="btn btn-send" data-tip="Send message" data-tip-b>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="15 6 21 12 15 18"/></svg>
+            </button>
+            <button class="btn btn-ghost" data-tip="Attach file" data-tip-b>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.41 17.41a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+            </button>
+            <button class="btn btn-disabled" disabled>Disabled</button>
+          </div>
+          <div class="flexi">
+            <span class="btn-badge">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Design Report
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">Suggestion Chips + Option Buttons</div>
+        <div class="card-body">
+          <div class="flex" style="margin-bottom:12px">
+            <button class="chip">Research Nordic brands in SG</button>
+            <button class="chip">Analyze pricing strategy</button>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <button class="btn-opt">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              Retry authorization
+            </button>
+            <button class="btn-opt">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Output data as CSV
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       07 INPUT BARS
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="inputs">
+    <div class="section-head">
+      <span class="section-num">07</span>
+      <span class="section-title">Input Bars</span>
+    </div>
+    <div class="g2" style="gap:12px">
+      <!-- Welcome screen input -->
+      <div class="card">
+        <div class="card-head">Welcome Screen (focused state)</div>
+        <div class="card-body">
+          <div style="background:var(--bg-e2);border:1px solid rgba(139,92,246,.55);border-radius:var(--r-3xl);box-shadow:var(--sh-focus),var(--sh-md);overflow:hidden">
+            <div style="color:var(--t-sec);font-size:15px;padding:18px 20px 8px;line-height:1.6;min-height:80px">
+              I am launching a home decor curation brand in Singapore…
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 10px 10px">
+              <div style="display:flex;align-items:center;gap:2px">
+                <button class="btn btn-ghost" style="width:30px;height:30px">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.41 17.41a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                </button>
+                <button class="btn btn-ghost" style="width:30px;height:30px">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+                </button>
+                <div style="width:1px;height:14px;background:var(--b-default);margin:0 4px"></div>
+                <button class="model-btn">
+                  <span style="width:5px;height:5px;border-radius:50%;background:#c77940;flex-shrink:0"></span>
+                  Claude Opus 4
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+              </div>
+              <button class="btn btn-send" style="width:30px;height:30px">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="15 6 21 12 15 18"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Chat input bar -->
+      <div class="card">
+        <div class="card-head">Chat Mode InputBar (with Demo Hint)</div>
+        <div class="card-body">
+          <div class="inputbar focused">
+            <!-- Demo hint strip -->
+            <div class="inputbar-demo-hint">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:5px;height:5px;border-radius:50%;background:#fbbf24;box-shadow:0 0 6px rgba(251,191,36,.6);flex-shrink:0"></span>
+                <span style="font-size:11px;color:rgba(253,224,71,.75);font-family:var(--mono);letter-spacing:.04em">Demo — skip to "Create Google Sheet" step</span>
+              </div>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(253,224,71,.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <div class="inputbar-textarea" style="display:block">No, do not log in to Google on my local desktop. Use Google Sheet in Simular's cloud computer.</div>
+            <div class="inputbar-toolbar">
+              <div style="display:flex;align-items:center;gap:2px">
+                <button class="btn btn-ghost" style="width:26px;height:26px;color:#aaa">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.41 17.41a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                </button>
+                <button class="btn btn-ghost" style="width:26px;height:26px;color:#aaa">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+                </button>
+                <div class="divider-v"></div>
+                <button class="model-btn" style="font-size:11px">
+                  <span style="width:5px;height:5px;border-radius:50%;background:#c77940;flex-shrink:0"></span>
+                  Claude Opus 4
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="divider-v"></div>
+                <div style="display:flex;align-items:center;gap:5px;padding:0 4px">
+                  <kbd>→</kbd>
+                  <span style="font-size:10px;color:#aaa;font-family:var(--mono)">skip</span>
+                </div>
+                <div class="divider-v"></div>
+                <span style="font-size:10px;color:#999;font-family:var(--mono);letter-spacing:.03em">© 2026 YuRong C.</span>
+              </div>
+              <button class="btn btn-send" style="width:26px;height:26px">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="15 6 21 12 15 18"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       08 CHAT BUBBLES
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="chat">
+    <div class="section-head">
+      <span class="section-num">08</span>
+      <span class="section-title">Chat Bubbles</span>
+    </div>
+    <div class="card">
+      <div class="card-body" style="display:flex;flex-direction:column;gap:14px">
+        <div class="bubble-agent-inner">I've analysed your task and created an execution plan below. Please review the steps — you can modify or approve to start execution.</div>
+        <div class="action-line">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span>Updating execution plan</span>
+          <span style="color:#444;font-size:10px">›</span>
+        </div>
+        <div class="bubble-user">
+          <div class="bubble-user-inner">No, do not log in Google on my local desktop. Use Google Sheet in Simular's cloud computer.</div>
+        </div>
+        <div class="typing-bubble">
+          <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+        </div>
+        <!-- Typewriter cursor demo -->
+        <div class="bubble-agent-inner">
+          I'll use Simular's cloud browser to open Google Sheets directly
+          <span style="display:inline-block;margin-left:1px;color:var(--p-600);animation:pulseDot .6s ease-in-out infinite">|</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       09 PLAN CARD
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="plan">
+    <div class="section-head">
+      <span class="section-num">09</span>
+      <span class="section-title">Plan Card</span>
+    </div>
+    <div class="g2" style="gap:12px">
+      <!-- Review mode -->
+      <div class="card">
+        <div class="card-head">Review mode — Modify + Approve</div>
+        <div class="card-body">
+          <div class="plan-card">
+            <div class="plan-hdr">
+              <div style="display:flex;align-items:center;gap:9px">
+                <div class="plan-icon">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <span class="plan-title">Proposed Execution Plan</span>
+              </div>
+              <span style="font-size:10.5px;font-family:var(--mono);color:rgba(167,139,250,.5);letter-spacing:.04em">4 steps</span>
+            </div>
+            <div style="padding:4px 0">
+              <div class="plan-step"><div class="step-dot-pending"></div><span class="step-txt-p">Research Nordic and Japanese home accessory brands and trends.</span></div>
+              <div class="plan-step">
+                <div class="step-dot-pending"></div>
+                <div>
+                  <span class="step-txt-p">Open Google Sheets in Simular's cloud computer.</span>
+                  <div class="step-handoff">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#9d8ec8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v6"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L8 15"/></svg>
+                    <span class="step-handoff-txt"><strong style="color:var(--p-300)">Handoff: </strong>I'll pause here for you to sign in to Google.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="plan-step"><div class="step-dot-pending"></div><span class="step-txt-p">Deliver the completed spreadsheet.</span></div>
+            </div>
+            <div class="plan-ftr">
+              <button class="btn btn-sec" style="font-size:12.5px">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                Modify Plan
+              </button>
+              <button class="btn btn-pri" style="font-size:12.5px;font-weight:600">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Approve &amp; Execute
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Execution mode -->
+      <div class="card">
+        <div class="card-head">Execution mode — step states + changed</div>
+        <div class="card-body">
+          <div class="plan-card">
+            <div class="plan-hdr">
+              <div style="display:flex;align-items:center;gap:9px">
+                <div class="plan-icon">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <span class="plan-title">Proposed Execution Plan</span>
+              </div>
+              <span style="font-size:10.5px;font-family:var(--mono);color:var(--p-400)">2/4</span>
+            </div>
+            <div style="padding:4px 0">
+              <div class="plan-step"><div class="step-dot-done">
+                <svg width="14" height="14" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="7" fill="rgba(139,92,246,.15)" stroke="rgba(139,92,246,.4)" stroke-width="1"/><polyline points="4.5,7.5 6.5,9.5 10.5,5.5" stroke="#8b5cf6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div><span class="step-txt-d">Research Nordic and Japanese home accessory brands.</span></div>
+              <div class="plan-step active" style="border-left:none;padding:5px 14px">
+                <div class="step-dot-active"></div>
+                <div style="flex:1"><span class="step-txt-a">Curate 20 products with market analysis and pricing.</span></div>
+                <span class="step-running">Running</span>
+              </div>
+              <div class="plan-step changed">
+                <div class="step-dot-pending"></div>
+                <span class="step-txt-c">Open Google Sheets in Simular's cloud computer.</span>
+              </div>
+              <div class="plan-step"><div class="step-dot-pending"></div><span class="step-txt-p">Deliver the completed spreadsheet.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       10 HITL CARDS
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="hitl">
+    <div class="section-head">
+      <span class="section-num">10</span>
+      <span class="section-title">HITL Cards</span>
+      <span class="section-desc">Human-in-the-loop interruption states</span>
+    </div>
+    <div class="g2" style="gap:12px">
+      <!-- Action card blue -->
+      <div class="card">
+        <div class="card-head">Action Card — blue / sign-in required</div>
+        <div class="card-body">
+          <div class="action-card">
+            <div class="action-hdr">
+              <div class="action-icon">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v6"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L8 15"/></svg>
+              </div>
+              <span class="action-title">Sign in to Google in Simular's Browser</span>
+            </div>
+            <div class="action-body">
+              <p>Switch to the <strong style="color:var(--bl-100)">Browser tab on the right</strong> and sign in — I'll detect it automatically and continue.</p>
+              <div style="display:flex;align-items:center;gap:6px;margin-top:9px">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(167,139,250,.9)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span style="font-size:11.5px;color:#a8bfcc">Credentials are isolated in this session and never stored.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Cancelled card red -->
+      <div class="card">
+        <div class="card-head">Cancelled Card — red / error state + options</div>
+        <div class="card-body">
+          <div class="cancel-card">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <span class="cancel-label">Authorization Cancelled</span>
+            </div>
+            <p style="font-size:13px;line-height:1.6;color:#aaa;margin-bottom:12px">You cancelled the authorization. How would you like to proceed?</p>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <button class="btn-opt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Retry authorization</button>
+              <button class="btn-opt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Output data as CSV</button>
+              <button class="btn-opt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Provide other instructions</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       11 TASK PROGRESS PANEL
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="task">
+    <div class="section-head">
+      <span class="section-num">11</span>
+      <span class="section-title">Task Progress Panel</span>
+      <span class="section-desc">Floating overlay on VM panel</span>
+    </div>
+    <div class="g2" style="gap:12px">
+      <div class="card">
+        <div class="card-head">Expanded — steps + recent activity</div>
+        <div class="card-body">
+          <div class="tpanel">
+            <div class="tpanel-body">
+              <div style="display:flex;align-items:flex-start;gap:10px;padding:6px 0">
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;margin-top:2px"><circle cx="7" cy="7" r="6" fill="rgba(139,92,246,.15)" stroke="rgba(139,92,246,.4)" stroke-width="1"/><path d="M4.2 7l1.9 1.9 3-3" stroke="#8b5cf6" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span style="font-size:12.5px;color:#6b7280;line-height:1.5">Research Nordic and Japanese home accessory brands.</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px;padding:6px 0">
+                <span style="display:block;width:9px;height:9px;border-radius:50%;background:#a78bfa;margin:2px 2.5px;flex-shrink:0;animation:pulseDot 1.6s ease-in-out infinite;box-shadow:0 0 6px rgba(167,139,250,.5)"></span>
+                <span style="font-size:12.5px;color:#ede9fe;font-weight:600;line-height:1.5;flex:1">Curate 20 products with market analysis and pricing.</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px;padding:6px 0">
+                <div style="width:14px;display:flex;justify-content:center;padding-top:4px;flex-shrink:0">
+                  <svg width="7" height="7" viewBox="0 0 7 7" fill="none"><circle cx="3.5" cy="3.5" r="3" fill="#555"/></svg>
+                </div>
+                <span style="font-size:12.5px;color:#a898c8;line-height:1.5">Open Google Sheets in Simular's cloud.</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px;padding:6px 0">
+                <div style="width:14px;display:flex;justify-content:center;padding-top:4px;flex-shrink:0">
+                  <svg width="7" height="7" viewBox="0 0 7 7" fill="none"><circle cx="3.5" cy="3.5" r="3" fill="#555"/></svg>
+                </div>
+                <span style="font-size:12.5px;color:#a898c8;line-height:1.5">Deliver the completed spreadsheet.</span>
+              </div>
+            </div>
+            <div class="tpanel-activity">
+              <div class="tpanel-activity-lbl">Recent Activity</div>
+              <div class="tpanel-log-item">
+                <div class="tpanel-log-dot" style="background:#6b5e8a"></div>
+                <span style="font-size:11px;color:#8f80b0;line-height:1.4">Spawned browser instance — chromium 120.0.6099</span>
+              </div>
+              <div class="tpanel-log-item">
+                <div class="tpanel-log-dot" style="background:#a78bfa"></div>
+                <span style="font-size:11px;color:#c4b5fd;line-height:1.4;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">GET google.com/search → 200 OK</span>
+              </div>
+            </div>
+            <div class="tpanel-pill">
+              <div style="display:flex;align-items:center;gap:9px">
+                <span style="width:8px;height:8px;border-radius:50%;background:#a78bfa;animation:pulseDot 2s ease-in-out infinite;box-shadow:0 0 6px rgba(139,92,246,.6);flex-shrink:0"></span>
+                <span style="font-size:11px;font-weight:600;color:var(--p-300);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase">Task Progress</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px">
+                <span style="font-size:10.5px;color:rgba(167,139,250,.7);font-family:var(--mono)">2/4</span>
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none" style="color:rgba(167,139,250,.7);transform:rotate(180deg)"><path d="M2 4.5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">Collapsed pill + waiting (amber) state</div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:12px">
+          <div class="tpanel-pill-standalone">
+            <div style="display:flex;align-items:center;gap:9px">
+              <span style="width:8px;height:8px;border-radius:50%;background:#a78bfa;animation:pulseDot 2s ease-in-out infinite;box-shadow:0 0 6px rgba(139,92,246,.6);flex-shrink:0"></span>
+              <span style="font-size:11px;font-weight:600;color:var(--p-300);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase">Task Progress</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-size:10.5px;color:rgba(167,139,250,.7);font-family:var(--mono)">2/4</span>
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" style="color:rgba(167,139,250,.7)"><path d="M2 4.5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <!-- Waiting state -->
+          <div class="tpanel-pill-standalone">
+            <div style="display:flex;align-items:center;gap:9px">
+              <span style="width:8px;height:8px;border-radius:50%;background:#facc15;animation:pulseDot 2s ease-in-out infinite;box-shadow:0 0 6px rgba(250,204,21,.5);flex-shrink:0"></span>
+              <span style="font-size:11px;font-weight:600;color:#fde68a;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase">Waiting for You</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-size:10.5px;color:rgba(250,204,21,.7);font-family:var(--mono)">3/4</span>
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" style="color:rgba(250,204,21,.7)"><path d="M2 4.5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--t-m3);font-family:var(--mono)">
+            Amber dot state = isWaiting: true<br/>
+            (user action required, e.g. Google sign-in)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       12 TAKEOVER POPOVER
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="takeover">
+    <div class="section-head">
+      <span class="section-num">12</span>
+      <span class="section-title">Takeover Popover</span>
+      <span class="section-desc">Hover VM cursor icon to reveal</span>
+    </div>
+    <div class="g2" style="gap:12px">
+      <div class="card">
+        <div class="card-head">Take over the desktop — confirmation popover</div>
+        <div class="card-body">
+          <div class="takeover-pop">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px">
+              <div style="display:flex;align-items:center;gap:8px">
+                <div class="takeover-icon">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l7.07 17 2.51-7.39L21 11.07z"/></svg>
+                </div>
+                <span style="font-size:13px;font-weight:600;color:#e8e8e8">Take over the desktop</span>
+              </div>
+              <span style="color:#777;font-size:15px;cursor:pointer">✕</span>
+            </div>
+            <p style="font-size:12px;color:#888;line-height:1.6;margin-bottom:14px">
+              You'll have direct access to Simular's cloud desktop and browser.
+              <strong style="color:#aaa">Let Simular know what you changed</strong>
+              so it can continue from where you left off.
+            </p>
+            <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px">
+              <button class="btn" style="background:#2a2a2a;color:#888;border-color:#3a3a3a;font-size:12px;padding:5px 14px">Cancel</button>
+              <button class="btn btn-pri" style="font-size:12px;padding:5px 14px;font-weight:600">Take control</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Controlling browser label -->
+      <div class="card">
+        <div class="card-head">"Controlling browser" float label</div>
+        <div class="card-body" style="display:flex;align-items:center;justify-content:center;min-height:100px">
+          <div class="control-label">
+            <span style="width:7px;height:7px;border-radius:50%;background:var(--p-400);flex-shrink:0;box-shadow:0 0 5px rgba(167,139,250,.7)"></span>
+            <span style="font-size:11px;color:var(--p-300);font-family:var(--mono);letter-spacing:.03em;font-weight:500">You are controlling Simular's cloud computer</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       13 MODEL SELECTOR
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="model">
+    <div class="section-head">
+      <span class="section-num">13</span>
+      <span class="section-title">Model Selector</span>
+    </div>
+    <div class="g2" style="gap:12px">
+      <div class="card">
+        <div class="card-head">Trigger button</div>
+        <div class="card-body">
+          <button class="model-btn" style="font-size:12px" data-tip="Switch AI model" data-tip-b>
+            <span style="width:5px;height:5px;border-radius:50%;background:#c77940;flex-shrink:0"></span>
+            Claude Opus 4
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div style="margin-top:10px;font-size:11px;color:var(--t-m3);font-family:var(--mono)">Provider dot color = providerColor(m.provider)</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t-m3);font-family:var(--mono)"><span style="width:8px;height:8px;border-radius:50%;background:#c77940;display:inline-block"></span>Anthropic</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t-m3);font-family:var(--mono)"><span style="width:8px;height:8px;border-radius:50%;background:#74aa9c;display:inline-block"></span>OpenAI</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t-m3);font-family:var(--mono)"><span style="width:8px;height:8px;border-radius:50%;background:#4285F4;display:inline-block"></span>Google</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">Dropdown — grouped by provider</div>
+        <div class="card-body" style="padding:0">
+          <div class="model-dropdown" style="width:100%;border-radius:0">
+            <div class="model-grp-lbl">Anthropic</div>
+            <div class="model-item sel" style="border-left-color:#c77940">
+              <div><div class="model-name sel">Claude Opus 4</div><div class="model-tag">Most Capable</div></div>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#c77940" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="model-item"><div><div class="model-name">Claude Sonnet 4.5</div><div class="model-tag">Balanced</div></div></div>
+            <div class="model-grp-lbl">OpenAI</div>
+            <div class="model-item"><div><div class="model-name">GPT-4o</div><div class="model-tag">Flagship</div></div></div>
+            <div class="model-item"><div><div class="model-name">o3-mini</div><div class="model-tag">Reasoning</div></div></div>
+            <div style="height:6px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       14 STATUS & TAGS
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="status">
+    <div class="section-head">
+      <span class="section-num">14</span>
+      <span class="section-title">Status Indicators &amp; Tags</span>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="flexi" style="gap:20px;flex-wrap:wrap">
+          <!-- Status badges -->
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="status-badge"><span class="status-dot" style="background:var(--g-500)"></span>Cloud Computer Active</div>
+            <div class="status-badge" style="color:var(--p-400)"><span class="status-dot" style="background:var(--p-400);animation:pulseDot 1.6s ease-in-out infinite"></span>Running</div>
+            <div class="status-badge" style="color:#fbbf24"><span class="status-dot" style="background:#fbbf24;animation:pulseDot 1.6s ease-in-out infinite"></span>Waiting for You</div>
+            <div class="status-badge" style="color:var(--r-400)"><span class="status-dot" style="background:var(--r-400)"></span>Error</div>
+          </div>
+          <!-- Step badges -->
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span class="step-running">Running</span>
+            <span style="font-size:10.5px;font-family:var(--mono);color:rgba(167,139,250,.5);letter-spacing:.04em">4 steps</span>
+            <span style="font-size:10.5px;font-family:var(--mono);color:var(--p-400)">2/4</span>
+          </div>
+          <!-- Shimmer bar -->
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:10px;font-family:var(--mono);color:var(--t-m4)">Shimmer bar (execution)</div>
+            <div class="shimmer-bar" style="width:120px;height:3px;border-radius:1.5px"></div>
+          </div>
+          <!-- Mic recording state -->
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+            <div style="font-size:10px;font-family:var(--mono);color:var(--t-m4)">Mic recording</div>
+            <button class="btn btn-ghost" style="width:28px;height:28px;color:#ef4444;background:rgba(239,68,68,.12);position:relative">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+              <span style="position:absolute;top:3px;right:3px;width:6px;height:6px;border-radius:50%;background:#ef4444;animation:pulseDot 2s ease-in-out infinite"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       15 TOOLTIP & KBD
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="tooltip">
+    <div class="section-head">
+      <span class="section-num">15</span>
+      <span class="section-title">Tooltip &amp; Keyboard Shortcut</span>
+    </div>
+    <div class="g2" style="gap:12px">
+      <div class="card">
+        <div class="card-head">Tooltip — data-tip attr (hover to see)</div>
+        <div class="card-body">
+          <div class="flexi">
+            <button class="btn btn-sec" data-tip="Switch AI model">Claude Opus 4</button>
+            <button class="btn btn-ghost" data-tip="Attach file" data-tip-b style="width:28px;height:28px;color:var(--t-m2)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.41 17.41a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+            </button>
+            <span class="step-running" data-tip="Cloud Computer ID: sg-cc-7f2a3b · SG region" style="cursor:default">Cloud Computer Active</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">Keyboard shortcut indicator (KBD)</div>
+        <div class="card-body">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:5px">
+              <kbd>→</kbd>
+              <span style="font-size:10.5px;color:#aaa;font-family:var(--mono)">skip animation</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:5px">
+              <kbd>Esc</kbd>
+              <span style="font-size:10.5px;color:#aaa;font-family:var(--mono)">skip animation</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:5px">
+              <kbd>Enter</kbd>
+              <span style="font-size:10.5px;color:#aaa;font-family:var(--mono)">send message</span>
+            </div>
+          </div>
+          <div style="margin-top:12px">
+            <div style="padding:5px 10px;border-radius:7px;white-space:nowrap;background:#1c1c1c;border:1px solid #444;font-size:11px;color:#bbb;box-shadow:0 4px 14px rgba(0,0,0,.5);display:inline-block">
+              <kbd style="margin-right:4px">→</kbd> or <kbd style="margin:0 4px">Esc</kbd> to skip typing animation
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       16 CODE EDITOR
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="editor">
+    <div class="section-head">
+      <span class="section-num">16</span>
+      <span class="section-title">Code Editor</span>
+      <span class="section-desc">VM Editor tab — Geist Mono</span>
+    </div>
+    <div class="editor-shell">
+      <div class="editor-tabbar">
+        <div class="editor-tab active">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          research_scraper.py
+          <span style="width:5px;height:5px;border-radius:50%;background:var(--p-400);margin-left:2px;flex-shrink:0"></span>
+        </div>
+        <div class="editor-tab">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          data_processor.py
+        </div>
+      </div>
+      <div class="editor-area">
+        <div class="editor-line"><span class="editor-ln">1</span><span style="color:rgba(167,139,250,.45)"># research_scraper.py — auto-generated by Simular AI</span></div>
+        <div class="editor-line"><span class="editor-ln">2</span><span style="color:#0f0f0f">·</span></div>
+        <div class="editor-line"><span class="editor-ln">3</span><span style="color:#c792ea">import</span><span style="color:#d0d0d0"> requests, json, time</span></div>
+        <div class="editor-line"><span class="editor-ln">4</span><span style="color:#c792ea">from</span><span style="color:#d0d0d0"> bs4 </span><span style="color:#c792ea">import</span><span style="color:#d0d0d0"> BeautifulSoup</span></div>
+        <div class="editor-line"><span class="editor-ln">5</span><span style="color:#0f0f0f">·</span></div>
+        <div class="editor-line"><span class="editor-ln">6</span><span style="color:rgba(167,139,250,.45)"># Target sources for Nordic &amp; Japanese home accessories</span></div>
+        <div class="editor-line"><span class="editor-ln">7</span><span style="color:#d0d0d0">SOURCES = [</span></div>
+        <div class="editor-line"><span class="editor-ln">8</span><span style="color:#c3e88d">    "https://www.muji.com/sg"</span><span style="color:#d0d0d0">,</span></div>
+        <div class="editor-line"><span class="editor-ln">9</span><span style="color:#c3e88d">    "https://www.hipvan.com/collections/nordic-home"</span><span style="color:#d0d0d0">,</span></div>
+        <div class="editor-line"><span class="editor-ln">10</span><span style="color:#d0d0d0">]</span></div>
+        <div class="editor-line"><span class="editor-ln">11</span><span style="color:#0f0f0f">·</span></div>
+        <div class="editor-line"><span class="editor-ln">12</span><span style="color:#c792ea">def</span><span style="color:#82aaff"> scrape_product_data</span><span style="color:#d0d0d0">(url):</span></div>
+        <div class="editor-line"><span class="editor-ln">13</span><span style="color:#d0d0d0">    resp = requests.get(url, timeout=</span><span style="color:#f78c6c">10</span><span style="color:#d0d0d0">)</span></div>
+        <div class="editor-line"><span class="editor-ln">14</span><span style="color:#d0d0d0">    soup = BeautifulSoup(resp.text, </span><span style="color:#c3e88d">"html.parser"</span><span style="color:#d0d0d0">)</span></div>
+        <!-- Active cursor line -->
+        <div class="editor-line editor-active-line">
+          <span class="editor-ln editor-active-ln">35</span>
+          <span style="color:var(--p-400)">▶  </span><span style="color:#c3e88d">"Analyzing pricing data for 18 products…"</span>
+        </div>
+      </div>
+      <div class="editor-status">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="display:flex;align-items:center;gap:5px">
+            <span style="width:5px;height:5px;border-radius:50%;background:var(--p-300);animation:pulseDot 1.6s ease-in-out infinite"></span>
+            Running
+          </span>
+          <span style="color:rgba(167,139,250,.6)">research_scraper.py</span>
+        </div>
+        <span style="color:rgba(167,139,250,.6)">Ln 35 · Python 3.11</span>
+      </div>
+    </div>
+
+    <div class="sub">Syntax Color Tokens</div>
+    <div class="card">
+      <div class="card-body-tight">
+        <div class="flexi" style="gap:14px">
+          <div style="display:flex;align-items:center;gap:7px"><div style="width:10px;height:10px;border-radius:2px;background:#c792ea;flex-shrink:0"></div><span style="font-size:11.5px;font-family:var(--mono);color:var(--t-m3)">keyword · #c792ea</span></div>
+          <div style="display:flex;align-items:center;gap:7px"><div style="width:10px;height:10px;border-radius:2px;background:#82aaff;flex-shrink:0"></div><span style="font-size:11.5px;font-family:var(--mono);color:var(--t-m3)">function · #82aaff</span></div>
+          <div style="display:flex;align-items:center;gap:7px"><div style="width:10px;height:10px;border-radius:2px;background:#c3e88d;flex-shrink:0"></div><span style="font-size:11.5px;font-family:var(--mono);color:var(--t-m3)">string · #c3e88d</span></div>
+          <div style="display:flex;align-items:center;gap:7px"><div style="width:10px;height:10px;border-radius:2px;background:#f78c6c;flex-shrink:0"></div><span style="font-size:11.5px;font-family:var(--mono);color:var(--t-m3)">number · #f78c6c</span></div>
+          <div style="display:flex;align-items:center;gap:7px"><div style="width:10px;height:10px;border-radius:2px;background:#d0d0d0;flex-shrink:0"></div><span style="font-size:11.5px;font-family:var(--mono);color:var(--t-m3)">plain · #d0d0d0</span></div>
+          <div style="display:flex;align-items:center;gap:7px"><div style="width:10px;height:10px;border-radius:2px;background:rgba(167,139,250,.45);flex-shrink:0"></div><span style="font-size:11.5px;font-family:var(--mono);color:var(--t-m3)">comment · rgba(167,139,250,.45)</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       17 LAYOUT — HEADER & SIDEBAR
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="layout">
+    <div class="section-head">
+      <span class="section-num">17</span>
+      <span class="section-title">Layout — Header &amp; Sidebar</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <!-- Header -->
+      <div class="card">
+        <div class="card-head">Header — 44px, bg-base, border-bottom</div>
+        <div class="card-body" style="padding:0">
+          <div class="header-demo" style="border-radius:0;border:none;border-bottom:1px solid var(--b-strong)">
+            <div style="display:flex;align-items:center;gap:8px">
+              <img src="/prototype/logo/simular_ai_logo.jpeg" width="20" height="20"
+                   style="border-radius:5px;object-fit:cover"
+                   onerror="this.style.background='#333';this.removeAttribute('src')"/>
+              <span style="font-size:14px;font-weight:600;color:var(--t-pri)">Simular AI</span>
+              <span class="btn-badge">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Design Report
+              </span>
+            </div>
+            <div class="status-badge"><span class="status-dot" style="background:var(--g-500)"></span>Cloud Computer Active</div>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar nav -->
+      <div class="card">
+        <div class="card-head">Sidebar — 240px, chat history nav</div>
+        <div class="card-body">
+          <div class="sidebar-demo" style="max-width:220px">
+            <button class="btn btn-pri" style="margin:6px 8px;width:calc(100% - 16px);justify-content:center;font-size:12px">+ New Session</button>
+            <div class="snav-lbl">Today</div>
+            <div class="snav-item active">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Home decor research SG
+            </div>
+            <div class="snav-item">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Competitor pricing analysis
+            </div>
+            <div class="snav-lbl" style="margin-top:6px">Earlier</div>
+            <div class="snav-item">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Weekly tech news report
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       18 VM PANEL
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="vm">
+    <div class="section-head">
+      <span class="section-num">18</span>
+      <span class="section-title">VM Panel</span>
+    </div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="card-head">Tab Bar — Simular Computer / Interactive mode + tab controls</div>
+      <div class="card-body" style="padding:0">
+        <div class="vmpanel-tabbar">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:11.5px;font-weight:600;font-family:var(--mono);letter-spacing:.04em;color:#c4b5fd;white-space:nowrap">Interactive mode</span>
+            <div style="width:1px;height:14px;background:#333"></div>
+            <div style="display:flex;align-items:center;gap:2px">
+              <button class="vm-tab active">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                Desktop
+                <div class="vm-tab-underline"></div>
+              </button>
+              <button class="vm-tab">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                Browser
+              </button>
+              <button class="vm-tab">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                Editor
+              </button>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px">
+            <button class="vm-ctrl" data-tip="Expand to split view" data-tip-b>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            </button>
+            <button class="vm-ctrl" data-tip="Take control" data-tip-b>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l7.07 17 2.51-7.39L21 11.07z"/></svg>
+            </button>
+          </div>
+        </div>
+        <!-- VM wallpaper preview -->
+        <div class="vm-bg" style="height:80px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px">
+          <div style="display:inline-flex;align-items:center;gap:5px;padding:8px 12px;border-radius:var(--r-3xl);background:rgba(0,0,0,.38);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1)">
+            <div class="vm-ctrl" style="border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:rgba(255,255,255,.6)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            </div>
+            <div class="vm-ctrl" style="border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:rgba(255,255,255,.6)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div class="vm-ctrl" style="border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:rgba(255,255,255,.6)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       19 MOBILE
+  ═══════════════════════════════════════════════ -->
+  <section class="section" id="mobile">
+    <div class="section-head">
+      <span class="section-num">19</span>
+      <span class="section-title">Mobile</span>
+      <span class="section-desc">&lt;768px breakpoint</span>
+    </div>
+    <div class="g2" style="gap:12px">
+      <div class="card">
+        <div class="card-head">Bottom Tab Bar</div>
+        <div class="card-body" style="padding:0">
+          <div class="mob-tabbar">
+            <button class="mob-tab active">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Chat
+            </button>
+            <button class="mob-tab">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              Desktop
+            </button>
+            <button class="mob-tab">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              Browser
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">Mobile-specific rules</div>
+        <div class="card-body-tight">
+          <table class="ttable">
+            <tr><th>Rule</th><th>Value / Reason</th></tr>
+            <tr><td>Input font-size</td><td>16px (iOS zoom fix)</td></tr>
+            <tr><td>Sidebar</td><td>Fixed drawer, slides in from left, 240px</td></tr>
+            <tr><td>Tooltips</td><td>display:none (touch devices)</td></tr>
+            <tr><td>Button min-height</td><td>36px (tap target)</td></tr>
+            <tr><td>--real-vh</td><td>JS: window.visualViewport.height</td></tr>
+            <tr><td>Safe area</td><td>env(safe-area-inset-*) on input bar</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div style="border-top:1px solid var(--b-default);padding-top:20px;display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:11px;color:var(--t-m1);font-family:var(--mono);letter-spacing:.05em">© 2026 YR Cheng — Simular AI Redesign Proposal</span>
+    <span style="font-size:11px;color:var(--t-m4);font-family:var(--mono)">v1.0 · prototype/design-system.html</span>
+  </div>
+</main>
+</div>
+</body>
+</html>
