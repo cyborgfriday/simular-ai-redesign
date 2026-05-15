@@ -437,6 +437,73 @@ footer a:hover { text-decoration: underline; }
       <div style="width: 32px; height: 2px; background: var(--accent); margin: 0 auto 28px;"></div>
       <p style="font-family: var(--serif); font-size: 1.0625rem; font-weight: 400; color: var(--text-dim); line-height: 1.8; margin: 0 auto; max-width: 58ch;">Empower users to orchestrate AI execution with confidence by utilizing progressive, high-legibility feedback to make human-in-the-loop handoffs predictable, minimizing cognitive load and ensuring anxiety-free fallbacks.</p>
     </div>
+    <h2 style="margin-bottom: 16px;">Problem Statement</h2>
+
+    <div style="border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: var(--radius); overflow: hidden; margin-bottom: 56px;">
+
+      <div style="padding: 28px 32px; border-bottom: 1px solid var(--border);">
+        <p style="font-size: 1.125rem; font-weight: 400; color: var(--text-dim); line-height: 1.75; margin: 0; max-width: 72ch;">The black-box nature of AI workflows causes abrupt interruptions and dead-end failures. This lack of transparency and recovery paths strips users of control, making the agent feel like an unreliable executor.</p>
+      </div>
+
+      <!-- Three gap columns -->
+      <div class="prob-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+
+        <!-- BEFORE -->
+        <div style="position: relative; overflow: hidden; background: var(--surface); padding: 28px; border-right: 1px solid var(--border);">
+          <span style="font-family: var(--mono); font-size: 0.625rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--amber); display: block; margin-bottom: 14px;">Before execution</span>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px;">
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--amber); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              No plan preview before the agent starts
+            </li>
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--amber); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              Homepage front-loads a VM panel before the user has typed anything, creating cognitive overhead before the task has even started
+            </li>
+          </ul>
+        </div>
+
+        <!-- DURING -->
+        <div style="position: relative; overflow: hidden; background: var(--surface); padding: 28px; border-right: 1px solid var(--border);">
+          <span style="font-family: var(--mono); font-size: 0.625rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--red); display: block; margin-bottom: 14px;">During execution</span>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px;">
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              Running, stuck, and failed all look identical
+            </li>
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              Clicking into the VM transfers control by accident
+            </li>
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              Google auth popup appears on the local desktop outside the VM. Denying it triggers a silent retry loop with no recovery path
+            </li>
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--red); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              Permission UI shows raw JavaScript written for engineers, not the person approving it
+            </li>
+          </ul>
+        </div>
+
+        <!-- AFTER -->
+        <div style="position: relative; overflow: hidden; background: var(--surface); padding: 28px;">
+          <span style="font-family: var(--mono); font-size: 0.625rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); display: block; margin-bottom: 14px;">After completion</span>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px;">
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--blue); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              Step-limit stop leaves no partial output, no progress summary, no path forward
+            </li>
+            <li style="font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: var(--blue); flex-shrink: 0; margin-top: 6px; font-size: 0.5rem;">●</span>
+              Final output (Google Sheet link) buried in a wall of text with no structured handoff
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
     <h2>Design Strategy: The Human-in-the-Loop Spectrum</h2>
     <p>The audit identified three structural gaps across the task lifecycle: missing plan previews before execution, a lack of recovery paths during execution, and unstructured handoffs after completion. To address these, I apply IBM's AI maturity curve. This framework explains how AI systems must evolve from Human-in-the-Loop (HITL) supervision to full autonomy (HOOL). While Simular's ultimate vision is full autonomy, the agent currently operates in the HITL stage and needs to earn user trust. The four design principles below define how the interface closes these gaps and helps the agent progress along the spectrum.</p>
 
