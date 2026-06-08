@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human + Agent — Pitch Deck · YuRong C.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf9f7; --surface:#ffffff; --surface2:#f3f2ef; --border:#e8e6e1;
+  --text:#2c2c2c; --text-dim:#7a7670; --accent:#b45309; --accent-light:#92400e;
+  --accent-bg:rgba(180,83,9,0.05);
+  --green:#15803d; --amber:#a16207; --red:#b91c1c; --blue:#1d4ed8;
+  --ink:#1c1a17;
+  --serif:'Lora','Georgia',serif;
+  --sans:'DM Sans',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --mono:'JetBrains Mono','SF Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{
+  font-family:var(--sans); background:var(--ink); color:var(--text);
+  -webkit-font-smoothing:antialiased; line-height:1.5;
+}
+
+/* ── Deck engine ── */
+.viewport{ width:100vw; height:100vh; overflow:hidden; position:relative; }
+.track{ position:relative; width:100%; height:100%; }
+.slide{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:clamp(40px,6vw,96px); overflow:hidden; background:var(--bg);
+  opacity:0; pointer-events:none;
+}
+.slide.active{ opacity:1; pointer-events:auto; }
+.slide .inner{ width:100%; max-width:1180px; min-width:0; margin:0 auto; }
+.slide.dark{ background:var(--ink); color:var(--bg); }
+.slide.dark .kicker{ color:rgba(250,249,247,.5); }
+.slide.dark h1,.slide.dark h2{ color:#fff; }
+.slide.dark .dim{ color:rgba(250,249,247,.66); }
+
+/* slide number watermark */
+.slide .pageno{
+  position:absolute; bottom:clamp(28px,4vh,40px); left:clamp(40px,6vw,96px);
+  font-family:var(--mono); font-size:.625rem; letter-spacing:.12em;
+  color:var(--text-dim); opacity:.7;
+}
+.slide.dark .pageno{ color:rgba(250,249,247,.45); }
+
+/* ── Type ── */
+.kicker{
+  font-family:var(--mono); font-size:clamp(.625rem,.9vw,.7rem); font-weight:500;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--text-dim);
+  margin-bottom:24px; display:flex; align-items:center; gap:12px;
+}
+.kicker::before{ content:''; width:24px; height:1px; background:currentColor; opacity:.5; }
+.kicker.no-rule::before{ display:none; }
+h1{
+  font-family:var(--serif); font-weight:400; letter-spacing:-.03em; line-height:1.04;
+  font-size:clamp(2.6rem,6.4vw,5.6rem); color:var(--text);
+}
+h1 em{ font-style:italic; color:var(--accent); }
+h2{
+  font-family:var(--serif); font-weight:400; letter-spacing:-.025em; line-height:1.12;
+  font-size:clamp(1.9rem,4.4vw,3.4rem); color:var(--text); margin-bottom:8px;
+}
+h2 em{ font-style:italic; color:var(--accent); }
+.lead{
+  font-size:clamp(1.05rem,1.7vw,1.5rem); color:var(--text-dim); line-height:1.6;
+  max-width:34ch; font-weight:400;
+}
+.lead.wide{ max-width:60ch; }
+.big-statement{
+  font-family:var(--serif); font-weight:400; letter-spacing:-.025em; line-height:1.16;
+  font-size:clamp(2.1rem,4.8vw,4rem);
+}
+.big-statement em{ font-style:italic; color:var(--accent); }
+.dim{ color:var(--text-dim); }
+.accent{ color:var(--accent); }
+
+/* ── Reveal animation ── */
+.slide .reveal{ opacity:0; transform:translateY(22px); transition:opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1); }
+.slide.active .reveal{ opacity:1; transform:none; }
+.slide.active .reveal:nth-child(1){ transition-delay:.05s; }
+.slide.active .reveal:nth-child(2){ transition-delay:.13s; }
+.slide.active .reveal:nth-child(3){ transition-delay:.21s; }
+.slide.active .reveal:nth-child(4){ transition-delay:.29s; }
+.slide.active .reveal:nth-child(5){ transition-delay:.37s; }
+.slide.active .reveal:nth-child(6){ transition-delay:.45s; }
+.r2{ transition-delay:.18s!important; }
+.r3{ transition-delay:.30s!important; }
+.r4{ transition-delay:.42s!important; }
+.r5{ transition-delay:.54s!important; }
+
+/* ── Building blocks ── */
+.eyebrow-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
+.chip{
+  font-family:var(--mono); font-size:.7rem; letter-spacing:.04em; padding:7px 14px;
+  border:1px solid var(--border); border-radius:6px; color:var(--text-dim); background:var(--surface);
+  white-space:nowrap;
+}
+.slide.dark .chip{ border-color:rgba(255,255,255,.16); background:rgba(255,255,255,.04); color:rgba(250,249,247,.78); }
+.chip.on{ border-color:var(--accent); color:var(--accent); }
+
+.flow{ display:flex; align-items:center; gap:0; flex-wrap:wrap; font-family:var(--mono); font-size:.78rem; letter-spacing:.03em; }
+.flow .node{ padding:9px 16px; border:1px solid var(--text-dim); border-radius:6px; background:var(--surface); color:var(--text); }
+.flow .arr{ padding:0 12px; color:var(--text-dim); }
+
+.byline{ display:flex; align-items:center; gap:16px; }
+.byline img{ width:52px; height:52px; border-radius:50%; object-fit:cover; object-position:center top; border:1.5px solid var(--border); }
+.byline .name{ font-family:var(--serif); font-size:1.05rem; color:var(--text); line-height:1.2; }
+.byline .role{ font-family:var(--mono); font-size:.66rem; letter-spacing:.06em; text-transform:uppercase; color:var(--text-dim); margin-top:3px; }
+
+/* grid of 3 gaps */
+.gap-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:8px; }
+.gap-card{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px 22px; border-top:3px solid var(--c); }
+.gap-card .ph{ font-family:var(--mono); font-size:.64rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--c); margin-bottom:14px; }
+.gap-card ul{ list-style:none; display:flex; flex-direction:column; gap:11px; }
+.gap-card li{ font-size:.82rem; line-height:1.5; color:var(--text-dim); display:flex; gap:9px; align-items:flex-start; }
+.gap-card li::before{ content:'●'; color:var(--c); font-size:.5rem; margin-top:7px; flex-shrink:0; }
+
+/* principles */
+.principles{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:8px; }
+.principle{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:22px; position:relative; }
+.principle .n{ font-family:var(--serif); font-size:1.6rem; color:var(--accent); line-height:1; margin-bottom:12px; }
+.principle h4{ font-size:.98rem; font-weight:650; letter-spacing:-.01em; margin-bottom:6px; color:var(--text); }
+.principle p{ font-size:.8rem; line-height:1.5; color:var(--text-dim); }
+
+/* spectrum */
+.spectrum{ display:flex; border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:8px; }
+.spectrum .seg{ flex:1; padding:26px 24px; }
+.spectrum .seg:nth-child(1){ background:rgba(180,83,9,.06); }
+.spectrum .seg:nth-child(2){ background:rgba(29,78,216,.05); }
+.spectrum .seg:nth-child(3){ background:rgba(21,128,61,.05); }
+.spectrum .lab{ font-family:var(--mono); font-size:.64rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; }
+.spectrum .seg:nth-child(1) .lab{ color:var(--accent); }
+.spectrum .seg:nth-child(2) .lab{ color:var(--blue); }
+.spectrum .seg:nth-child(3) .lab{ color:var(--green); }
+.spectrum .seg p{ font-size:.82rem; line-height:1.55; color:var(--text-dim); }
+
+/* before / after */
+.ba{ display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; margin-top:8px; }
+.ba .col-lab{ font-family:var(--mono); font-size:.64rem; font-weight:500; letter-spacing:.08em; text-transform:uppercase; padding:4px 11px; border-radius:5px; display:inline-block; margin-bottom:12px; }
+.ba .before .col-lab{ background:rgba(185,28,28,.07); color:var(--red); }
+.ba .after .col-lab{ background:rgba(21,128,61,.07); color:var(--green); }
+.ba figure{ border:1px solid var(--border); border-radius:12px; overflow:hidden; background:var(--surface); box-shadow:0 8px 30px rgba(0,0,0,.08); }
+.ba figure img{ width:100%; display:block; }
+.ba .cap{ font-size:.82rem; color:var(--text-dim); line-height:1.55; margin-top:14px; }
+.ba .cap strong{ color:var(--text); font-weight:600; }
+
+/* shot (single hero image) */
+.shot{ border:1px solid var(--border); border-radius:14px; overflow:hidden; background:var(--surface); box-shadow:0 14px 50px rgba(0,0,0,.16); }
+.shot img{ width:100%; display:block; }
+
+/* highlight slide layout */
+.hl-layout{ display:grid; grid-template-columns:42% 1fr; gap:36px; align-items:start; }
+.hl-layout > *{ min-width:0; }
+.hl-imgs{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.hl-imgs > *{ min-width:0; }
+.hl-imgs figure{ border:1px solid var(--border); border-radius:12px; overflow:hidden; background:var(--surface); box-shadow:0 4px 20px rgba(0,0,0,.08); }
+.hl-imgs figure img{ width:100%; display:block; }
+.hl-imgs .col-lab{ font-family:var(--mono); font-size:.64rem; font-weight:500; letter-spacing:.08em; text-transform:uppercase; padding:4px 11px; border-radius:5px; display:inline-block; margin-bottom:10px; }
+.hl-imgs .before .col-lab{ background:rgba(185,28,28,.07); color:var(--red); }
+.hl-imgs .after .col-lab{ background:rgba(21,128,61,.07); color:var(--green); }
+.hl-imgs .cap{ font-size:.78rem; color:var(--text-dim); line-height:1.55; margin-top:10px; }
+.hl-imgs .cap strong{ color:var(--text); font-weight:600; }
+
+/* two-col split layout */
+.split{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(32px,5vw,72px); align-items:center; }
+.split.wide-right{ grid-template-columns:0.85fr 1.15fr; }
+.split.wide-left{ grid-template-columns:1.1fr 0.9fr; }
+
+/* numbered facts */
+.facts{ display:flex; flex-direction:column; gap:22px; margin-top:4px; }
+.fact{ display:flex; gap:18px; align-items:flex-start; }
+.fact .fn{ font-family:var(--mono); font-size:.7rem; color:var(--accent); padding-top:5px; flex-shrink:0; letter-spacing:.05em; }
+.fact .ft{ font-size:clamp(.95rem,1.4vw,1.18rem); line-height:1.5; color:var(--text); }
+.fact .ft span{ color:var(--text-dim); }
+
+/* quote box */
+.quote{ border-left:2px solid var(--accent); padding:6px 0 6px 24px; }
+.quote p{ font-family:var(--serif); font-style:italic; font-size:clamp(1.05rem,1.8vw,1.5rem); line-height:1.5; color:var(--text); }
+.slide.dark .quote p{ color:#fff; }
+.quote .src{ font-family:var(--mono); font-size:.66rem; letter-spacing:.06em; color:var(--text-dim); margin-top:14px; text-transform:uppercase; }
+
+/* CTA button */
+.btn{
+  display:inline-flex; align-items:center; gap:9px; padding:13px 26px; border-radius:9px;
+  background:var(--accent); color:#fff; text-decoration:none; font-weight:600; font-size:.92rem;
+  transition:background .2s, transform .2s;
+}
+.btn:hover{ background:var(--accent-light); transform:translateY(-1px); }
+.btn.ghost{ background:transparent; color:var(--text); border:1px solid var(--border); }
+.slide.dark .btn.ghost{ color:#fff; border-color:rgba(255,255,255,.25); }
+.btn.ghost:hover{ background:rgba(0,0,0,.03); }
+.slide.dark .btn.ghost:hover{ background:rgba(255,255,255,.06); }
+
+/* contact row */
+.contact{ display:flex; gap:28px; flex-wrap:wrap; font-size:.92rem; }
+.contact a{ color:inherit; text-decoration:none; border-bottom:1px solid currentColor; padding-bottom:1px; opacity:.85; }
+.contact a:hover{ opacity:1; }
+
+/* ── Chrome: progress, nav, hint ── */
+.progress{ position:fixed; top:0; left:0; height:3px; background:var(--accent); z-index:60; transition:width .45s cubic-bezier(.7,0,.2,1); }
+.dots{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%); display:flex; gap:9px; z-index:60; }
+.dots button{ width:7px; height:7px; border-radius:50%; border:none; padding:0; cursor:pointer; background:var(--border); transition:all .25s; }
+.dots button.on{ background:var(--accent); width:22px; border-radius:4px; }
+.nav-arrows{ position:fixed; bottom:18px; right:24px; display:flex; gap:8px; z-index:60; }
+.nav-arrows button{
+  width:40px; height:40px; border-radius:9px; border:1px solid var(--border);
+  background:var(--surface); color:var(--text); cursor:pointer; font-size:1.1rem;
+  display:flex; align-items:center; justify-content:center; transition:all .18s;
+}
+.nav-arrows button:hover{ border-color:var(--accent); color:var(--accent); }
+.nav-arrows button:disabled{ opacity:.35; cursor:default; }
+.counter{ position:fixed; bottom:26px; left:28px; font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; color:var(--text-dim); z-index:60; }
+.hint{
+  position:fixed; bottom:64px; left:50%; transform:translateX(-50%); z-index:60;
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.08em; color:var(--text-dim);
+  background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:7px 16px;
+  transition:opacity .5s; opacity:.9;
+}
+.hint.hide{ opacity:0; pointer-events:none; }
+
+@media (max-width:820px){
+  .split,.ba,.gap-grid,.principles{ grid-template-columns:1fr!important; }
+  .spectrum{ flex-direction:column; }
+  .slide{ justify-content:flex-start; padding-top:80px; overflow-y:auto; }
+  .principles{ gap:12px; }
+  .nav-arrows{ bottom:14px; right:14px; }
+}
+@media print{ body{overflow:visible;} .viewport,.track{height:auto;display:block;overflow:visible;} .slide{height:100vh;page-break-after:always;} .progress,.dots,.nav-arrows,.counter,.hint{display:none;} }
+</style>
+</head>
+<body>
+
+<!-- Lightbox -->
+<div id="lb" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);backdrop-filter:blur(8px);cursor:zoom-out;align-items:center;justify-content:center;" onclick="this.style.display='none';document.body.style.overflow='';">
+  <button onclick="event.stopPropagation();document.getElementById('lb').style.display='none';document.body.style.overflow='';" style="position:fixed;top:20px;right:24px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;">×</button>
+  <img id="lb-img" src="" alt="" style="max-width:92vw;max-height:90vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.5);object-fit:contain;">
+</div>
+
+<div class="progress" id="progress"></div>
+
+<div class="viewport">
+  <div class="track" id="track">
+
+    <!-- 1 · TITLE -->
+    <section class="slide dark" data-name="Title">
+      <div class="inner">
+        <div class="kicker reveal no-rule">Self-initiated product redesign · 2026</div>
+        <h1 class="reveal">Human <em>+</em> Agent</h1>
+        <p class="lead dim reveal" style="margin-top:24px;max-width:46ch;">I design <em style="color:#fff;font-style:italic;">and</em> build the interface where people and AI agents meet — the human-in-the-loop layer.</p>
+        <div class="reveal" style="margin-top:44px;">
+          <div class="byline">
+            <img src="report_assets/me_sq.jpeg" alt="YuRong C.">
+            <div>
+              <div class="name" style="color:#fff;">YuRong C.</div>
+              <div class="role">AI Application Designer · Audit → Redesign → Live Prototype</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pageno">01 / 18 · Human + Agent</div>
+    </section>
+
+    <!-- 2 · MARKET POV -->
+    <section class="slide dark" data-name="Why UX wins">
+      <div class="inner">
+        <div class="kicker reveal">The thesis</div>
+        <p class="big-statement reveal">AI agents are shipping similar capabilities.<br><em>UX is what differentiates and retains</em> — and human-in-the-loop is where it's won or lost.</p>
+        <p class="lead dim wide reveal r3" style="margin-top:32px;">When every platform can run an autonomous agent, the product that keeps users isn't the one with more capability. It's the one that handles the messy moments — waiting, permission, failure, handoff — without losing the human.</p>
+      </div>
+      <div class="pageno">02 / 18</div>
+    </section>
+
+    <!-- 3 · HUMAN-AI COLLABORATION FLOW -->
+    <section class="slide" data-name="Human-AI collaboration">
+      <div class="inner">
+        <div class="kicker reveal">Human-AI Collaboration</div>
+        <h2 class="reveal" style="max-width:28ch;">The ideal: a seamless loop between <em>human and agent.</em></h2>
+        <p class="reveal r2" style="margin-top:14px;font-size:.92rem;color:var(--text-dim);max-width:60ch;">Each phase hands off cleanly — the agent works autonomously, surfaces decisions at the right moment, and the human stays in control without micromanaging.</p>
+        <div class="reveal r3" style="margin-top:36px;">
+          <div style="display:flex;align-items:stretch;gap:0;font-family:var(--mono);font-size:.8rem;">
+
+            <div style="flex:1;border:1px solid var(--border);border-radius:10px 0 0 10px;padding:22px 20px;background:var(--surface);text-align:center;">
+              <div style="font-size:.6rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px;">01</div>
+              <div style="font-size:.92rem;font-weight:650;color:var(--text);margin-bottom:8px;">Research</div>
+              <div style="font-size:.75rem;color:var(--text-dim);line-height:1.5;">Agent browses, gathers, synthesises autonomously</div>
+            </div>
+            <div style="display:flex;align-items:center;padding:0 6px;color:var(--text-dim);font-size:.9rem;">→</div>
+
+            <div style="flex:1;border:1px solid var(--border);border-left:none;padding:22px 20px;background:rgba(180,83,9,.04);text-align:center;position:relative;">
+              <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-family:var(--mono);font-size:.55rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:0 0 6px 6px;">Human in loop</div>
+              <div style="font-size:.6rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px;margin-top:8px;">02</div>
+              <div style="font-size:.92rem;font-weight:650;color:var(--text);margin-bottom:8px;">Judgement</div>
+              <div style="font-size:.75rem;color:var(--text-dim);line-height:1.5;">Human reviews plan, approves or redirects before execution</div>
+            </div>
+            <div style="display:flex;align-items:center;padding:0 6px;color:var(--text-dim);font-size:.9rem;">→</div>
+
+            <div style="flex:1;border:1px solid var(--border);border-left:none;padding:22px 20px;background:rgba(180,83,9,.04);text-align:center;position:relative;">
+              <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-family:var(--mono);font-size:.55rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:0 0 6px 6px;">Human in loop</div>
+              <div style="font-size:.6rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px;margin-top:8px;">03</div>
+              <div style="font-size:.92rem;font-weight:650;color:var(--text);margin-bottom:8px;">Auth handoff</div>
+              <div style="font-size:.75rem;color:var(--text-dim);line-height:1.5;">Human grants or denies access; agent proceeds with clarity</div>
+            </div>
+            <div style="display:flex;align-items:center;padding:0 6px;color:var(--text-dim);font-size:.9rem;">→</div>
+
+            <div style="flex:1;border:1px solid var(--border);border-left:none;border-radius:0 10px 10px 0;padding:22px 20px;background:rgba(21,128,61,.04);text-align:center;">
+              <div style="font-size:.6rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:10px;">04</div>
+              <div style="font-size:.92rem;font-weight:650;color:var(--text);margin-bottom:8px;">Delivery</div>
+              <div style="font-size:.75rem;color:var(--text-dim);line-height:1.5;">Output handed off cleanly; human can act immediately</div>
+            </div>
+
+          </div>
+          <p style="margin-top:20px;font-size:.8rem;color:var(--text-dim);font-style:italic;text-align:center;">In practice, each handoff point is a potential breakpoint — and most products leave users stranded there.</p>
+        </div>
+      </div>
+      <div class="pageno">03 / 18</div>
+    </section>
+
+    <!-- 4 · WHY HITL -->
+    <section class="slide" data-name="An agent will fail">
+      <div class="inner">
+        <div class="split">
+          <div>
+            <div class="kicker reveal">Design Challenge</div>
+            <h2 class="reveal" style="max-width:18ch;">AI will fail.<br>The goal isn't <em>zero failures</em> —<br>it's designed recovery.</h2>
+          </div>
+          <div class="reveal r2" style="display:flex;flex-direction:column;gap:22px;justify-content:center;">
+            <div class="quote">
+              <p>"Errors and failures are an inevitable part of any product experience."</p>
+              <div class="src">Google · People + AI Guidebook, Errors &amp; Graceful Failure</div>
+            </div>
+            <p style="font-size:.95rem;color:var(--text-dim);line-height:1.7;">Failure is not the edge case — it's part of every run. The real design question is: <strong style="color:var(--text);">what does the user experience in that moment, and can they find their way forward?</strong></p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:flex-start;gap:12px;font-size:.86rem;color:var(--text-dim);">
+                <span style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);white-space:nowrap;padding-top:2px;">Without design</span>
+                <span>User hits a wall — no context, no options, no way back. They leave.</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:12px;font-size:.86rem;color:var(--text-dim);">
+                <span style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);white-space:nowrap;padding-top:2px;">With design</span>
+                <span>User sees what happened, understands why, and has a clear next step. They stay.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pageno">04 / 18</div>
+    </section>
+
+    <!-- 4 · INDUSTRY-WIDE BLIND SPOT -->
+    <section class="slide" data-name="A category blind spot">
+      <div class="inner">
+        <div class="kicker reveal">This is not a Simular bug</div>
+        <h1 class="reveal" style="font-size:clamp(2.2rem,5vw,4rem);max-width:22ch;">Human-in-the-loop is a blind spot <em>across the category.</em></h1>
+        <p class="reveal r2" style="margin-top:16px;font-size:clamp(.95rem,1.4vw,1.15rem);color:var(--text-dim);max-width:68ch;line-height:1.65;">I ran the same hard task across several autonomous agents. Each one stumbled at the human-in-the-loop moments — in its own way. The failure modes differ; the weak spot is shared.</p>
+        <div class="reveal r3" style="margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);">
+            <div style="overflow:hidden;border-bottom:1px solid var(--border);height:190px;">
+              <img src="report_assets/audit/09_stream_no_hierarchy.png" alt="Execution stream with no hierarchy" style="width:100%;height:190px;display:block;object-fit:cover;object-position:top;">
+            </div>
+            <div style="padding:18px 20px;">
+              <div style="font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;">Pattern A</div>
+              <div style="font-size:.95rem;font-weight:650;color:var(--text);margin-bottom:6px;">No visibility into progress</div>
+              <p style="font-size:.82rem;color:var(--text-dim);line-height:1.55;margin:0;">"Is it still working, or stuck?" — users can't tell.</p>
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);">
+            <div style="overflow:hidden;border-bottom:1px solid var(--border);height:190px;">
+              <img src="report_assets/audit/05a_sheets_access_repeated.png" alt="Auth prompt repeating with no recovery" style="width:100%;height:190px;display:block;object-fit:cover;object-position:top;">
+            </div>
+            <div style="padding:18px 20px;">
+              <div style="font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Pattern B</div>
+              <div style="font-size:.95rem;font-weight:650;color:var(--text);margin-bottom:6px;">Auth loops with no recovery</div>
+              <p style="font-size:.82rem;color:var(--text-dim);line-height:1.55;margin:0;">User says no — agent keeps asking. No graceful next step.</p>
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);">
+            <div style="overflow:hidden;border-bottom:1px solid var(--border);height:190px;">
+              <img src="report_assets/audit/06_step_limit_reached.png" alt="Hard stop with no handoff" style="width:100%;height:190px;display:block;object-fit:cover;object-position:top;">
+            </div>
+            <div style="padding:18px 20px;">
+              <div style="font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">Pattern C</div>
+              <div style="font-size:.95rem;font-weight:650;color:var(--text);margin-bottom:6px;">Hard stop — no handoff</div>
+              <p style="font-size:.82rem;color:var(--text-dim);line-height:1.55;margin:0;">Task ends abruptly. No summary, no partial output, no path forward.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="pageno">05 / 18</div>
+    </section>
+
+    <!-- 5 · THE FINDING -->
+    <section class="slide" data-name="The finding">
+      <div class="inner">
+        <div class="kicker reveal">The finding</div>
+        <h2 class="reveal">Three user pain points — one per phase of the run.</h2>
+        <p class="reveal r2" style="font-size:.92rem;color:var(--text-dim);margin-top:10px;max-width:60ch;">The black-box nature of the workflow strips the user of control. These gaps generalize to <em style="font-style:italic;color:var(--accent);">any</em> agent platform.</p>
+        <div class="gap-grid reveal r3" style="margin-top:34px;">
+          <div class="gap-card" style="--c:var(--amber);">
+            <div class="ph">Before execution</div>
+            <ul>
+              <li>No plan preview before the agent starts</li>
+              <li>A VM panel front-loaded before the user types anything</li>
+            </ul>
+          </div>
+          <div class="gap-card" style="--c:var(--red);">
+            <div class="ph">During execution</div>
+            <ul>
+              <li>Running, stuck and failed all look identical</li>
+              <li>Clicking the VM transfers control by accident</li>
+              <li>Auth prompt loops with no recovery path</li>
+              <li>Permission UI shows raw JS to a non-coder</li>
+            </ul>
+          </div>
+          <div class="gap-card" style="--c:var(--blue);">
+            <div class="ph">After completion</div>
+            <ul>
+              <li>Step-limit stop leaves no partial output, no summary</li>
+              <li>Final deliverable buried in a wall of text</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="pageno">06 / 18</div>
+    </section>
+
+    <!-- 7 · WORST MOMENT -->
+    <!-- 7 · HITL SPECTRUM -->
+    <section class="slide" data-name="Human-in-the-loop spectrum">
+      <div class="inner">
+        <div class="kicker reveal">Design Framework</div>
+        <h2 class="reveal">Not every moment needs the same level of <em>human involvement.</em></h2>
+        <p class="reveal r2" style="margin-top:12px;font-size:.92rem;color:var(--text-dim);max-width:66ch;">The key is matching the interface to the stakes of the moment — from quietly keeping the user informed, to handing control back entirely.</p>
+        <div class="reveal r3" style="margin-top:32px;display:flex;border:1px solid var(--border);border-radius:16px;overflow:hidden;">
+
+          <div style="flex:1;padding:32px 28px;background:rgba(180,83,9,.05);border-right:1px solid var(--border);">
+            <div style="font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;">Low stakes</div>
+            <div style="font-family:var(--mono);font-size:.75rem;font-weight:700;letter-spacing:.06em;color:var(--accent);margin-bottom:10px;opacity:.7;">Out of the loop</div>
+            <div style="font-size:1.4rem;font-family:var(--serif);font-weight:500;color:var(--text);margin-bottom:14px;">Inform</div>
+            <p style="font-size:.86rem;color:var(--text-dim);line-height:1.65;margin-bottom:18px;">Keep the user oriented without demanding action. Show progress, current stage, and reasoning in the background.</p>
+            <div style="font-family:var(--mono);font-size:.72rem;color:var(--accent);background:rgba(180,83,9,.08);padding:8px 12px;border-radius:6px;display:inline-block;">Agent acts · Human watches</div>
+          </div>
+
+          <div style="flex:1;padding:32px 28px;background:rgba(29,78,216,.04);border-right:1px solid var(--border);">
+            <div style="font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Medium stakes</div>
+            <div style="font-family:var(--mono);font-size:.75rem;font-weight:700;letter-spacing:.06em;color:var(--blue);margin-bottom:10px;opacity:.7;">On the loop</div>
+            <div style="font-size:1.4rem;font-family:var(--serif);font-weight:500;color:var(--text);margin-bottom:14px;">Confirm</div>
+            <p style="font-size:.86rem;color:var(--text-dim);line-height:1.65;margin-bottom:18px;">Surface the plan and key decisions as reviewable cards. Easy to approve, easy to redirect before the agent moves.</p>
+            <div style="font-family:var(--mono);font-size:.72rem;color:var(--blue);background:rgba(29,78,216,.07);padding:8px 12px;border-radius:6px;display:inline-block;">Human reviews · Agent proceeds</div>
+          </div>
+
+          <div style="flex:1;padding:32px 28px;background:rgba(185,28,28,.04);">
+            <div style="font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:4px;">High stakes</div>
+            <div style="font-family:var(--mono);font-size:.75rem;font-weight:700;letter-spacing:.06em;color:var(--red);margin-bottom:10px;opacity:.7;">In the loop</div>
+            <div style="font-size:1.4rem;font-family:var(--serif);font-weight:500;color:var(--text);margin-bottom:14px;">Control</div>
+            <p style="font-size:.86rem;color:var(--text-dim);line-height:1.65;margin-bottom:18px;">Permission, auth, and takeover handled deliberately — with plain-language intent and a clear path back if the user says no.</p>
+            <div style="font-family:var(--mono);font-size:.72rem;color:var(--red);background:rgba(185,28,28,.07);padding:8px 12px;border-radius:6px;display:inline-block;">Human decides · Agent waits</div>
+          </div>
+
+        </div>
+      </div>
+      <div class="pageno">07 / 18</div>
+    </section>
+
+    <section class="slide" data-name="The worst moment">
+      <div class="inner">
+        <div class="split wide-right">
+          <div>
+            <div class="kicker reveal">The worst moment</div>
+            <h2 class="reveal">The user said no.<br>The prompt <em>kept coming back.</em></h2>
+            <p class="lead dim reveal r2" style="margin-top:22px;font-size:1.02rem;">The auth dialog appeared on the local desktop — outside the VM the user thought the agent lived in. She denied it. Instead of pausing to ask, the agent re-fired the same prompt. She had to type into the chat, twice, before it changed course.</p>
+            <p class="reveal r3" style="margin-top:20px;font-size:.86rem;color:var(--accent);font-weight:600;">No graceful fallback = a trust break the product never recovers from.</p>
+          </div>
+          <div class="reveal r2">
+            <div class="shot"><img src="report_assets/audit/05a_sheets_access_repeated.png" alt="Auth prompt repeating after the user denied it"></div>
+          </div>
+        </div>
+      </div>
+      <div class="pageno">08 / 18</div>
+    </section>
+
+    <!-- 8 · DESIGN STRATEGY -->
+    <section class="slide" data-name="Design strategy">
+      <div class="inner">
+        <div class="kicker reveal">The redesign · strategy</div>
+        <h2 class="reveal">Match the interface to <em>how much trust</em> the moment needs.</h2>
+        <div class="spectrum reveal r2" style="margin-top:30px;">
+          <div class="seg">
+            <div class="lab">Low stakes · Inform</div>
+            <p>Keep the user oriented. Show progress, stage and reasoning — without demanding action.</p>
+          </div>
+          <div class="seg">
+            <div class="lab">Medium · Confirm</div>
+            <p>Surface the plan and key decisions as reviewable cards. Easy to approve, easy to redirect.</p>
+          </div>
+          <div class="seg">
+            <div class="lab">High stakes · Control</div>
+            <p>Permission, auth and takeover handled deliberately — with a clear path back if the user says no.</p>
+          </div>
+        </div>
+        <div class="principles reveal r3" style="margin-top:26px;">
+          <div class="principle"><div class="n">1</div><h4>Cards, not streams</h4><p>Structured moments the user can read at a glance.</p></div>
+          <div class="principle"><div class="n">2</div><h4>Control with intent</h4><p>Watching never means taking over by accident.</p></div>
+          <div class="principle"><div class="n">3</div><h4>Graceful fallback</h4><p>Every "no" has a designed next step.</p></div>
+          <div class="principle"><div class="n">4</div><h4>Plain-language trust</h4><p>Permissions written for the person approving them.</p></div>
+        </div>
+      </div>
+      <div class="pageno">09 / 18</div>
+    </section>
+
+    <!-- DESIGN HIGHLIGHTS DIVIDER -->
+    <section class="slide dark" data-name="Design Highlights">
+      <div class="inner">
+        <div class="kicker reveal">Six design decisions</div>
+        <h1 class="reveal" style="font-size:clamp(3rem,7vw,6rem);max-width:16ch;">Design<br><em>Highlights.</em></h1>
+        <p class="lead dim wide reveal r2" style="margin-top:28px;max-width:52ch;">Each decision addresses a specific audit gap, applies a design principle, and comes with an explicit trade-off. Before and after — every one.</p>
+        <div class="reveal r3" style="margin-top:36px;display:flex;flex-wrap:wrap;gap:10px;">
+          <span class="chip">01 · Plan Pre-Confirmation</span>
+          <span class="chip">02 · Auth Handoff &amp; Fallback</span>
+          <span class="chip">03 · Workspace Transparency</span>
+          <span class="chip">04 · Progressive Reveal</span>
+          <span class="chip">05 · Post-Completion Delivery</span>
+          <span class="chip">06 · Task Progress Sidebar</span>
+        </div>
+      </div>
+      <div class="pageno">10 / 18</div>
+    </section>
+
+    <!-- HL-01 · PLAN PRE-CONFIRMATION -->
+    <section class="slide" data-name="Plan Pre-Confirmation">
+      <div class="inner hl-layout">
+        <div>
+          <div class="kicker reveal">Design Highlight</div>
+          <div class="reveal" style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:700;background:var(--text);color:#fff;border-radius:5px;padding:3px 8px;">01</span>
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Plan Pre-Confirmation</span>
+          </div>
+          <h2 class="reveal" style="font-size:clamp(1.4rem,2.8vw,2.2rem);margin-bottom:16px;">See the plan <em>before</em> the agent moves.</h2>
+          <div class="reveal r2" style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+            <span style="font-family:var(--mono);font-size:.62rem;padding:4px 10px;border-radius:5px;background:rgba(180,83,9,.08);color:var(--accent);font-weight:500;">Audit gap · No plan preview</span>
+            <span style="font-family:var(--mono);font-size:.62rem;padding:4px 10px;border-radius:5px;background:var(--surface2);color:var(--text-dim);">Principle · Progressive Disclosure</span>
+          </div>
+          <p class="reveal r2" style="font-size:.85rem;color:var(--text-dim);line-height:1.7;margin-bottom:14px;">Before execution, users had no idea what the agent was about to do, which data it would touch, or when it would need their help. A plan preview creates shared expectations upfront — and flags auth handoff steps before they arrive as surprises mid-task.</p>
+          <div class="reveal r3" style="border-left:2px solid var(--border);padding-left:14px;">
+            <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;">Trade-off</div>
+            <p style="font-size:.8rem;color:var(--text-dim);line-height:1.6;font-style:italic;">Not every agent needs this checkpoint. But for agents still maturing in reliability, a 10-second plan review catches misalignments early and builds the trust that earns autonomy over time.</p>
+          </div>
+        </div>
+        <div class="reveal r2 hl-imgs">
+          <div class="before">
+            <span class="col-lab">Before</span>
+            <figure><img src="report_assets/audit/Screenshot_2026-04-04_at_23_58_41.png" alt="Wall of prose with no plan structure"></figure>
+            <p class="cap"><strong>Undifferentiated stream.</strong> Plan, decisions, and output live in the same flow — the user can't find anything at a glance.</p>
+          </div>
+          <div class="after">
+            <span class="col-lab">After</span>
+            <figure><img src="report_assets/Redesign/after_03_plan_confirm.png" alt="Numbered execution plan with handoff steps visible"></figure>
+            <p class="cap"><strong>Reviewable card.</strong> Numbered steps, handoff moments flagged upfront. Approve or redirect before anything runs.</p>
+          </div>
+        </div>
+      </div>
+      <div class="pageno">11 / 18</div>
+    </section>
+
+    <!-- HL-02 · AUTH HANDOFF & GRACEFUL FALLBACK -->
+    <section class="slide" data-name="Auth Handoff">
+      <div class="inner hl-layout">
+        <div>
+          <div class="kicker reveal">Design Highlight</div>
+          <div class="reveal" style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:700;background:var(--text);color:#fff;border-radius:5px;padding:3px 8px;">02</span>
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Auth Handoff &amp; Graceful Fallback</span>
+          </div>
+          <h2 class="reveal" style="font-size:clamp(1.4rem,2.8vw,2.2rem);margin-bottom:16px;">Every "no" has a <em>designed next step.</em></h2>
+          <div class="reveal r2" style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+            <span style="font-family:var(--mono);font-size:.62rem;padding:4px 10px;border-radius:5px;background:rgba(180,83,9,.08);color:var(--accent);font-weight:500;">Audit gap · Silent retry loop</span>
+            <span style="font-family:var(--mono);font-size:.62rem;padding:4px 10px;border-radius:5px;background:var(--surface2);color:var(--text-dim);">Principle · Controllability</span>
+          </div>
+          <p class="reveal r2" style="font-size:.85rem;color:var(--text-dim);line-height:1.7;margin-bottom:14px;">The original flow pushed OAuth through a desktop popup outside the VM. Dismissing it caused the agent to retry endlessly with no explanation and no escape. The redesign treats auth as a deliberate handoff: the agent pauses, explains what it needs, and gives the user a clear recovery path if they say no.</p>
+          <div class="reveal r3" style="border-left:2px solid var(--border);padding-left:14px;">
+            <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;">Trade-off</div>
+            <p style="font-size:.8rem;color:var(--text-dim);line-height:1.6;font-style:italic;">Less seamless than a fully automatic flow. But an agent that pauses cleanly and recovers gracefully is far more trustworthy than one that loops silently until it times out.</p>
+          </div>
+        </div>
+        <div class="reveal r2 hl-imgs">
+          <div class="before">
+            <span class="col-lab">Before</span>
+            <figure><img src="report_assets/audit/05a_sheets_access_repeated.png" alt="Auth prompt repeating after denial"></figure>
+            <p class="cap"><strong>The user said no.</strong> The agent ignored it — same prompt, again and again. No exit.</p>
+          </div>
+          <div class="after">
+            <span class="col-lab">After</span>
+            <figure><img src="report_assets/Redesign/after_21_auth_cancelled_crop.png" alt="Graceful fallback with recovery options"></figure>
+            <p class="cap"><strong>Cancelling is a valid choice.</strong> Agent acknowledges, holds state, and offers options — retry, modify, or skip.</p>
+          </div>
+        </div>
+      </div>
+      <div class="pageno">12 / 18</div>
+    </section>
+
+    <!-- HL-03 · WORKSPACE TRANSPARENCY & SAFE CONTROL -->
+    <section class="slide" data-name="Workspace Transparency">
+      <div class="inner hl-layout">
+        <div>
+          <div class="kicker reveal">Design Highlight</div>
+          <div class="reveal" style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:700;background:var(--text);color:#fff;border-radius:5px;padding:3px 8px;">03</span>
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Workspace Transparency &amp; Safe Control</span>
+          </div>
+          <h2 class="reveal" style="font-size:clamp(1.4rem,2.8vw,2.2rem);margin-bottom:16px;">Watch without <em>accidentally taking over.</em></h2>
+          <div class="reveal r2" style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+            <span style="font-family:var(--mono);font-size:.62rem;padding:4px 10px;border-radius:5px;background:rgba(180,83,9,.08);color:var(--accent);font-weight:500;">Audit gap · Accidental VM takeover</span>
+            <span style="font-family:var(--mono);font-size:.62rem;padding:4px 10px;border-radius:5px;background:var(--surface2);color:var(--text-dim);">Principle · Boundary Awareness</span>
+          </div>
+          <p class="reveal r2" style="font-size:.85rem;color:var(--text-dim);line-height:1.7;margin-bottom:14px;">Clicking into the VM silently transferred control. Raw JS permission dialogs exposed code that non-technical users couldn't evaluate. Two decisions solve this from both angles: tabs make the agent's context visible in real time; a takeover dialog makes control transfer explicit and intentional.</p>
+          <div class="reveal r3" style="border-left:2px solid var(--border);padding-left:14px;">
+            <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;">Trade-off</div>
+            <p style="font-size:.8rem;color:var(--text-dim);line-height:1.6;font-style:italic;">More interface surface area. But for a product operating autonomously in a live environment, visibility without interference is the core trust mechanism.</p>
+          </div>
+        </div>
+        <div class="reveal r2 hl-imgs">
+          <div class="before">
+            <span class="col-lab">Before</span>
+            <figure><img src="report_assets/audit/03_vm_signin_js_permission.png" alt="Raw JS permission dialog"></figure>
+            <p class="cap"><strong>Raw code, no context.</strong> The user can't evaluate what they're approving or why.</p>
+          </div>
+          <div class="after">
+            <span class="col-lab">After</span>
+            <figure><img src="report_assets/Redesign/after_10_takeover_dialog_crop.png" alt="Plain-language takeover dialog"></figure>
+            <p class="cap"><strong>Plain-language intent.</strong> What the agent wants, why, and exactly what the user is agreeing to.</p>
+          </div>
+        </div>
+      </div>
+      <div class="pageno">13 / 18</div>
+    </section>
+
+    <!-- HL-04 · PROGRESSIVE REVEAL -->
+    <section class="slide" data-name="Progressive Reveal">
+      <div class="inner hl-layout">
+        <div>
+          <div class="kicker reveal">Design Highlight</div>
+          <div class="reveal" style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:700;background:var(--text);color:#fff;border-radius:5px;padding:3px 8px;">04</span>
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Progressive Reveal</span>
+          </div>
+          <h2 class="reveal" style="font-size:clamp(1.4rem,2.8vw,2.2rem);margin-bottom:16px;">Show complexity <em>only when it's earned.</em></h2>
+          <div class="reveal r2" style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+            <span style="font-family:var(--mono);font-size:.62rem;padding:4px 10px;border-radius:5px;background:rgba(180,83,9,.08);color:var(--accent);font-weight:500;">Audit gap · Front-loaded VM on homepage</span>
+            <span style="font-family:var(--mono);font-size:.62rem;padding:4px 10px;border-radius:5px;background:var(--surface2);color:var(--text-dim);">Principle · Legibility</span>
+          </div>
+          <p class="reveal r2" style="font-size:.85rem;color:var(--text-dim);line-height:1.7;margin-bottom:14px;">The original interface opened with a split-screen and a live VM preview before the user had typed a single word. For new users, this is immediately overwhelming. The redesign starts with a single focused input — the workspace appears only after the plan is approved, matching the user's growing mental model step by step.</p>
+          <div class="reveal r3" style="border-left:2px solid var(--border);padding-left:14px;">
+            <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;">Trade-off</div>
+            <p style="font-size:.8rem;color:var(--text-dim);line-height:1.6;font-style:italic;">Power users may want immediate workspace access — a shortcut is available. But the default prioritises the first-time experience. Progressive disclosure doesn't hide capability; it sequences it.</p>
+          </div>
+        </div>
+        <div class="reveal r2 hl-imgs">
+          <div class="before">
+            <span class="col-lab">Before</span>
+            <figure><img src="report_assets/audit/01_home_suggestions.png" alt="Original homepage with task list and VM panel immediately visible"></figure>
+            <p class="cap"><strong>Front-loaded complexity.</strong> Task list and VM panel loaded immediately — overwhelming before a single word is typed.</p>
+          </div>
+          <div class="after">
+            <span class="col-lab">After</span>
+            <figure><img src="report_assets/Redesign/after_01_home_idle_crop.png" alt="Redesigned homepage with single clean input field"></figure>
+            <p class="cap"><strong>One thing at a time.</strong> Clean centred input first. Workspace reveals only after the plan is approved.</p>
+          </div>
+        </div>
+      </div>
+      <div class="pageno">14 / 18</div>
+    </section>
+
+    <!-- HL-05 · POST-COMPLETION DELIVERY -->
+    <section class="slide" data-name="Post-Completion Delivery">
+      <div class="inner hl-layout">
+        <div>
+          <div class="kicker reveal">Design Highlight</div>
+          <div class="reveal" style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:700;background:var(--text);color:#fff;border-radius:5px;padding:3px 8px;">05</span>
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Post-Completion: Structured Delivery</span>
+          </div>
+          <h2 class="reveal" style="font-size:clamp(1.4rem,2.8vw,2.2rem);margin-bottom:16px;">Every task ends with a <em>handoff, not a halt.</em></h2>
+          <div class="reveal r2" style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+            <span style="font-family:var(--mono);font-size:.62rem;padding:4px 10px;border-radius:5px;background:rgba(180,83,9,.08);color:var(--accent);font-weight:500;">Audit gap · Output buried in VM</span>
+            <span style="font-family:var(--mono);font-size:.62rem;padding:4px 10px;border-radius:5px;background:var(--surface2);color:var(--text-dim);">Principle · Legibility</span>
+          </div>
+          <p class="reveal r2" style="font-size:.85rem;color:var(--text-dim);line-height:1.7;margin-bottom:14px;">A text "done" message forced users to hunt for their output inside the VM. The redesign treats task completion as a structured delivery moment: file card, export options, and next actions all surface in one view — immediately usable without digging through the interface.</p>
+          <div class="reveal r3" style="border-left:2px solid var(--border);padding-left:14px;">
+            <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;">Trade-off</div>
+            <p style="font-size:.8rem;color:var(--text-dim);line-height:1.6;font-style:italic;">Adds a step after the main task. But showing what was actually produced — and giving the user immediate ways to use it — is the difference between completing a task and delivering value.</p>
+          </div>
+        </div>
+        <div class="reveal r2 hl-imgs">
+          <div class="before">
+            <span class="col-lab">Before</span>
+            <figure><img src="report_assets/audit/07_partial_completion.png" alt="Partial completion with no structured output"></figure>
+            <p class="cap"><strong>Text "done", nothing else.</strong> User must hunt for output inside the VM — no summary, no next step.</p>
+          </div>
+          <div class="after">
+            <span class="col-lab">After</span>
+            <figure><img src="report_assets/Redesign/after_20_completion.png" alt="Structured completion with file card and next actions"></figure>
+            <p class="cap"><strong>File card + next actions.</strong> What was done, what was saved, and how to use it — all visible immediately.</p>
+          </div>
+        </div>
+      </div>
+      <div class="pageno">15 / 18</div>
+    </section>
+
+    <!-- HL-06 · TASK PROGRESS SIDEBAR -->
+    <section class="slide" data-name="Task Progress Sidebar">
+      <div class="inner hl-layout">
+        <div>
+          <div class="kicker reveal">Design Highlight</div>
+          <div class="reveal" style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:700;background:var(--text);color:#fff;border-radius:5px;padding:3px 8px;">06</span>
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Task Progress Sidebar</span>
+          </div>
+          <h2 class="reveal" style="font-size:clamp(1.4rem,2.8vw,2.2rem);margin-bottom:16px;">Make "running" look different <em>from "stuck."</em></h2>
+          <div class="reveal r2" style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+            <span style="font-family:var(--mono);font-size:.62rem;padding:4px 10px;border-radius:5px;background:rgba(180,83,9,.08);color:var(--accent);font-weight:500;">Audit gap · All states look identical</span>
+            <span style="font-family:var(--mono);font-size:.62rem;padding:4px 10px;border-radius:5px;background:var(--surface2);color:var(--text-dim);">Principle · Legibility · Controllability</span>
+          </div>
+          <p class="reveal r2" style="font-size:.85rem;color:var(--text-dim);line-height:1.7;margin-bottom:14px;">The original execution stream updated constantly but had no visual hierarchy. Agent reasoning, process logs, and required actions all appeared as undifferentiated text. Running, stuck, and failed states looked identical. The sidebar introduces a collapsible progress view — steps with status, a clear "needs your attention" signal, and the ability to expand or collapse detail as needed.</p>
+          <div class="reveal r3" style="border-left:2px solid var(--border);padding-left:14px;">
+            <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;">Trade-off</div>
+            <p style="font-size:.8rem;color:var(--text-dim);line-height:1.6;font-style:italic;">More UI surface. But hiding progress entirely leaves users with no way to know if the agent is working, waiting, or broken — and that uncertainty erodes trust faster than any extra chrome.</p>
+          </div>
+        </div>
+        <div class="reveal r2 hl-imgs">
+          <div class="before">
+            <span class="col-lab">Before</span>
+            <figure><img src="report_assets/audit/09_stream_no_hierarchy.png" alt="Flat execution log with no hierarchy"></figure>
+            <p class="cap"><strong>Undifferentiated stream.</strong> Every step looks the same — users can't tell what's done, what's running, or what needs them.</p>
+          </div>
+          <div class="after">
+            <span class="col-lab">After</span>
+            <figure><img src="report_assets/Redesign/after_15_progress_expanded.png" alt="Collapsible task progress sidebar with status indicators"></figure>
+            <p class="cap"><strong>Structured progress sidebar.</strong> Steps with status, attention signals, and collapsible detail — glanceable at any moment.</p>
+          </div>
+        </div>
+      </div>
+      <div class="pageno">16 / 18</div>
+    </section>
+
+    <!-- THE PROTOTYPE -->
+    <section class="slide dark" data-name="The prototype" style="display:flex;flex-direction:column;padding:0;">
+      <div style="padding:28px 48px 18px;display:flex;align-items:center;gap:20px;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.08);">
+        <div>
+          <div class="kicker" style="margin-bottom:4px;">Live prototype</div>
+          <h2 style="color:#fff;font-size:clamp(1.1rem,2vw,1.5rem);margin:0;">I didn't mock it. <em>I built it.</em></h2>
+        </div>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:10px;flex-shrink:0;">
+          <span class="chip on" style="font-size:.7rem;">Plan review</span>
+          <span class="chip on" style="font-size:.7rem;">Mid-task edit</span>
+          <span class="chip on" style="font-size:.7rem;">Sign-in handoff</span>
+          <a class="btn ghost" href="https://simular-redesign.yrcheng.tech/" target="_blank" rel="noopener" style="font-size:.78rem;padding:6px 14px;margin-left:8px;">Open full screen ↗</a>
+        </div>
+      </div>
+      <div style="flex:1;min-height:0;position:relative;">
+        <iframe
+          src="https://simular-redesign.yrcheng.tech/"
+          style="width:100%;height:100%;border:none;display:block;"
+          allow="clipboard-write"
+          loading="lazy"
+          title="Simular SAI redesign prototype"
+        ></iframe>
+      </div>
+      <div class="pageno">17 / 18</div>
+    </section>
+
+    <!-- 13 · CLOSE -->
+    <section class="slide dark" data-name="Close">
+      <div class="inner">
+        <div class="kicker reveal">Why this matters for 0G Lab</div>
+        <h2 class="reveal" style="color:#fff;max-width:24ch;">I want to design the human-in-the-loop layer of your agent.</h2>
+        <p class="lead dim wide reveal r2" style="margin-top:24px;max-width:58ch;">This was a self-initiated weekend: audit a real agent, find where the experience breaks, redesign it around a clear principle, and ship a prototype to prove it. That's how I'd work as your AI Application Designer — POV, craft, and code in one loop.</p>
+        <div class="reveal r3" style="margin-top:40px;">
+          <div class="contact">
+            <a href="https://www.linkedin.com/in/yrcheng/" target="_blank" rel="noopener">linkedin.com/in/yrcheng</a>
+            <a href="mailto:sipho.ds@gmail.com">sipho.ds@gmail.com</a>
+          </div>
+        </div>
+        <p class="reveal r4" style="margin-top:36px;font-family:var(--serif);font-style:italic;font-size:1.25rem;color:#fff;">Let's talk.</p>
+      </div>
+      <div class="pageno">18 / 18 · Thank you</div>
+    </section>
+
+  </div>
+</div>
+
+<!-- chrome -->
+<div class="dots" id="dots"></div>
+<div class="nav-arrows">
+  <button id="prev" aria-label="Previous slide">‹</button>
+  <button id="next" aria-label="Next slide">›</button>
+</div>
+<div class="hint" id="hint">← → or Space to navigate · F for fullscreen</div>
+
+<script>
+(function(){
+  var track = document.getElementById('track');
+  var slides = Array.prototype.slice.call(track.children);
+  var total = slides.length;
+  var i = 0;
+  var progress = document.getElementById('progress');
+
+  var dotsWrap = document.getElementById('dots');
+  var prevBtn = document.getElementById('prev');
+  var nextBtn = document.getElementById('next');
+  var hint = document.getElementById('hint');
+
+  // build dots
+  slides.forEach(function(s, idx){
+    var b = document.createElement('button');
+    b.setAttribute('aria-label','Go to slide ' + (idx+1));
+    b.addEventListener('click', function(){ go(idx); });
+    dotsWrap.appendChild(b);
+  });
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+
+  function pad(n){ return (n<10?'0':'') + n; }
+
+  function render(){
+    progress.style.width = ((i+1)/total*100) + '%';
+    dots.forEach(function(d,idx){ d.classList.toggle('on', idx===i); });
+    slides.forEach(function(s,idx){ s.classList.toggle('active', idx===i); });
+    prevBtn.disabled = (i===0);
+    nextBtn.disabled = (i===total-1);
+    if (location.hash !== '#'+(i+1)) history.replaceState(null,'','#'+(i+1));
+  }
+  function go(n){ i = Math.max(0, Math.min(total-1, n)); render(); }
+  function next(){ go(i+1); }
+  function prev(){ go(i-1); }
+
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+
+  var hideHint = false;
+  function dismissHint(){ if(!hideHint){ hideHint = true; hint.classList.add('hide'); } }
+
+  document.addEventListener('keydown', function(e){
+    if (e.key==='ArrowRight' || e.key===' ' || e.key==='PageDown'){ e.preventDefault(); next(); dismissHint(); }
+    else if (e.key==='ArrowLeft' || e.key==='PageUp'){ e.preventDefault(); prev(); dismissHint(); }
+    else if (e.key==='Home'){ e.preventDefault(); go(0); }
+    else if (e.key==='End'){ e.preventDefault(); go(total-1); }
+    else if (e.key==='f' || e.key==='F'){
+      if (!document.fullscreenElement){ document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); }
+      else { document.exitFullscreen && document.exitFullscreen(); }
+    }
+  });
+
+  // touch swipe
+  var x0=null;
+  track.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend', function(e){
+    if (x0===null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 50){ dx<0 ? next() : prev(); dismissHint(); }
+    x0=null;
+  }, {passive:true});
+
+  // deep link
+  var start = parseInt((location.hash||'').replace('#',''),10);
+  if (start>=1 && start<=total) i = start-1;
+
+  render();
+  setTimeout(dismissHint, 6000);
+
+  // Lightbox — wire all slide images
+  document.querySelectorAll('.slide img').forEach(function(img){
+    img.style.cursor='zoom-in';
+    img.addEventListener('click',function(e){
+      e.stopPropagation();
+      var lb=document.getElementById('lb');
+      document.getElementById('lb-img').src=img.src;
+      document.getElementById('lb-img').alt=img.alt;
+      lb.style.display='flex';
+      document.body.style.overflow='hidden';
+    });
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){ var lb=document.getElementById('lb'); lb.style.display='none'; document.body.style.overflow=''; }
+  });
+})();
+</script>
+</body>
+</html>
