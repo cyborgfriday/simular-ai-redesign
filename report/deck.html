@@ -115,7 +115,9 @@ h2 em{ font-style:italic; color:var(--accent); }
 
 /* grid of 3 gaps */
 .gap-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:8px; }
-.gap-card{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px 22px; border-top:3px solid var(--c); }
+.gap-card{ background:var(--surface); border:1px solid var(--border); border-radius:12px; border-top:3px solid var(--c); overflow:hidden; display:flex; flex-direction:column; }
+.gap-card .card-img{ width:100%; height:130px; object-fit:cover; object-position:top; display:block; border-bottom:1px solid var(--border); }
+.gap-card .card-body{ padding:18px 20px; flex:1; }
 .gap-card .ph{ font-family:var(--mono); font-size:.64rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--c); margin-bottom:14px; }
 .gap-card ul{ list-style:none; display:flex; flex-direction:column; gap:11px; }
 .gap-card li{ font-size:.82rem; line-height:1.5; color:var(--text-dim); display:flex; gap:9px; align-items:flex-start; }
@@ -250,9 +252,9 @@ h2 em{ font-style:italic; color:var(--accent); }
     <!-- 1 · TITLE -->
     <section class="slide dark" data-name="Title">
       <div class="inner">
-        <div class="kicker reveal no-rule">Self-initiated product redesign · 2026</div>
+        <div class="kicker reveal no-rule">Case Study - Redesign Simular AI</div>
         <h1 class="reveal">Human <em>+</em> Agent</h1>
-        <p class="lead dim reveal" style="margin-top:24px;max-width:46ch;">I design <em style="color:#fff;font-style:italic;">and</em> build the interface where people and AI agents meet — the human-in-the-loop layer.</p>
+        <p class="lead dim reveal" style="margin-top:24px;max-width:46ch;">Building seamless human–AI collaboration.</p>
         <div class="reveal" style="margin-top:44px;">
           <div class="byline">
             <img src="report_assets/me_sq.jpeg" alt="YuRong C.">
@@ -263,19 +265,53 @@ h2 em{ font-style:italic; color:var(--accent); }
           </div>
         </div>
       </div>
-      <div class="pageno">01 / 17 · Human + Agent</div>
+      <div class="pageno">01 / 20 · Human + Agent</div>
     </section>
 
     <!-- 2 · MARKET POV -->
     <section class="slide dark" data-name="Why UX wins">
       <div class="inner">
-        <div class="kicker reveal">The thesis</div>
-        <p class="big-statement reveal">AI agents are shipping similar capabilities.<br><em>UX is what differentiates and retains</em> — and human-in-the-loop is where it's won or lost.</p>
+        <p class="big-statement reveal" style="font-size:clamp(1.4rem,2.8vw,2.2rem);line-height:1.8;max-width:42ch;">AI agents are shipping similar capabilities.<br><em>UX is what differentiates and retains.</em><br>Human-in-the-loop is where it's won or lost.</p>
       </div>
-      <div class="pageno">02 / 17</div>
+      <div class="pageno">02 / 20</div>
     </section>
 
-    <!-- 3 · HUMAN-AI COLLABORATION FLOW -->
+    <!-- 3 · PRODUCT OVERVIEW -->
+    <section class="slide dark" data-name="Simular AI overview" style="padding:clamp(32px,4vw,64px);">
+      <div style="width:100%;max-width:900px;margin:0 auto;">
+        <div class="kicker reveal" style="margin-bottom:12px;">The product</div>
+        <h2 class="reveal" style="color:#fff;font-size:clamp(1.2rem,2.2vw,1.8rem);margin-bottom:16px;font-weight:400;">Simular AI: An autonomous computer in the cloud to complete your tasks</h2>
+        <div class="reveal r2" style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 8px 40px rgba(0,0,0,.4);">
+          <img src="report_assets/Screenshot_2026-04-01_at_17.11.46.jpg" alt="Simular AI original interface" style="width:100%;display:block;">
+        </div>
+      </div>
+      <div class="pageno">03 / 20</div>
+    </section>
+
+    <!-- 4 · PERSONAL TEST -->
+    <section class="slide dark" data-name="Personal test">
+      <div class="inner">
+        <div class="kicker reveal">First-hand test</div>
+        <h2 class="reveal" style="color:#fff;font-size:clamp(1.2rem,2.2vw,1.8rem);font-weight:400;line-height:1.7;max-width:48ch;margin-bottom:32px;">I asked Simular AI to book a hotel in Japan — given the dates, number of guests, style, and budget.</h2>
+        <div class="reveal r2" style="display:flex;flex-direction:column;gap:16px;max-width:56ch;">
+          <div style="display:flex;align-items:flex-start;gap:16px;padding:18px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;">
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:600;color:rgba(250,249,247,.35);white-space:nowrap;padding-top:2px;">5 min in</span>
+            <span style="font-size:.9rem;color:rgba(250,249,247,.6);line-height:1.6;">No feedback. No progress. No idea what it was doing.</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:16px;padding:18px 20px;background:rgba(185,28,28,.08);border:1px solid rgba(185,28,28,.2);border-radius:10px;">
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:600;color:rgba(250,100,100,.7);white-space:nowrap;padding-top:2px;">Result</span>
+            <span style="font-size:.9rem;color:rgba(250,249,247,.75);line-height:1.6;">It reported back: a login popup on Booking.com had blocked it. It had already retried <strong style="color:#fff;">12 times</strong> — silently, without asking me once.</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:16px;padding:18px 20px;background:rgba(180,83,9,.1);border:1px solid rgba(180,83,9,.3);border-radius:10px;">
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:600;color:var(--accent);white-space:nowrap;padding-top:2px;">Cost</span>
+            <span style="font-size:.9rem;color:rgba(250,249,247,.75);line-height:1.6;"><strong style="color:#fff;">$10 USD</strong> spent. Task not completed. No way to recover.</span>
+          </div>
+        </div>
+      </div>
+      <div class="pageno">04 / 20</div>
+    </section>
+
+    <!-- 5 · HUMAN-AI COLLABORATION FLOW -->
     <section class="slide" data-name="Human-AI collaboration">
       <div class="inner">
         <div class="kicker reveal">Human-AI Collaboration</div>
@@ -317,7 +353,7 @@ h2 em{ font-style:italic; color:var(--accent); }
           <p style="margin-top:20px;font-size:.8rem;color:var(--text-dim);font-style:italic;text-align:center;">In practice, each handoff point is a potential breakpoint — and most products leave users stranded there.</p>
         </div>
       </div>
-      <div class="pageno">03 / 17</div>
+      <div class="pageno">05 / 20</div>
     </section>
 
     <!-- 4 · WHY HITL -->
@@ -328,26 +364,69 @@ h2 em{ font-style:italic; color:var(--accent); }
             <div class="kicker reveal">Design Challenge</div>
             <h2 class="reveal" style="max-width:18ch;">AI will fail.<br>The goal isn't <em>zero failures</em> —<br>it's designed recovery.</h2>
           </div>
-          <div class="reveal r2" style="display:flex;flex-direction:column;gap:20px;justify-content:center;">
-            <div class="quote">
-              <p>"Errors and failures are an inevitable part of any product experience."</p>
+          <div class="reveal r2" style="display:flex;flex-direction:column;gap:24px;justify-content:center;">
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);">Bad experience</span>
+              <span style="font-size:1.05rem;color:var(--text);line-height:1.5;">The user has no idea what went wrong or what to do next. Trust breaks.</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);">Good experience</span>
+              <span style="font-size:1.05rem;color:var(--text);line-height:1.5;">The failure is visible, named, and recoverable. The user stays in control.</span>
+            </div>
+            <div class="quote" style="margin-top:4px;border-left-color:var(--border);">
+              <p style="font-size:.85rem;font-style:italic;color:var(--text-dim);">"Errors and failures are an inevitable part of any product experience."</p>
               <div class="src">Google · People + AI Guidebook, Errors &amp; Graceful Failure</div>
-            </div>
-            <div style="display:flex;align-items:flex-start;gap:14px;font-size:.9rem;color:var(--text-dim);">
-              <span style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);white-space:nowrap;padding-top:3px;">Bad experience</span>
-              <span>The user has no idea what went wrong or what to do next. Trust breaks.</span>
-            </div>
-            <div style="display:flex;align-items:flex-start;gap:14px;font-size:.9rem;color:var(--text-dim);">
-              <span style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);white-space:nowrap;padding-top:3px;">Good experience</span>
-              <span>The failure is visible, named, and recoverable. The user stays in control.</span>
             </div>
           </div>
         </div>
       </div>
-      <div class="pageno">04 / 17</div>
+      <div class="pageno">06 / 20</div>
     </section>
 
-    <!-- 4 · INDUSTRY-WIDE BLIND SPOT -->
+    <!-- 4 · THE FINDING (Simular-specific) -->
+    <section class="slide" data-name="The finding">
+      <div class="inner">
+        <div class="kicker reveal">The finding</div>
+        <h2 class="reveal">Users lose control at every <em>critical moment.</em></h2>
+        <p class="reveal r2" style="font-size:.92rem;color:var(--text-dim);margin-top:10px;max-width:60ch;">The black-box nature of the workflow strips the user of control. These gaps generalize to <em style="font-style:italic;color:var(--accent);">any</em> agent platform.</p>
+        <div class="gap-grid reveal r3" style="margin-top:34px;">
+          <div class="gap-card" style="--c:var(--amber);">
+            <img class="card-img" src="report_assets/audit/01_home_suggestions.png" alt="Before execution">
+            <div class="card-body">
+              <div class="ph">Before execution</div>
+              <ul>
+                <li>No plan preview before the agent starts</li>
+                <li>VM panel front-loaded before the user types anything</li>
+              </ul>
+            </div>
+          </div>
+          <div class="gap-card" style="--c:var(--red);">
+            <img class="card-img" src="report_assets/audit/09_stream_no_hierarchy.png" alt="During execution">
+            <div class="card-body">
+              <div class="ph">During execution</div>
+              <ul>
+                <li>Running, stuck and failed all look identical</li>
+                <li>Auth prompt loops with no recovery path</li>
+                <li>Permission UI shows raw JS to a non-coder</li>
+              </ul>
+            </div>
+          </div>
+          <div class="gap-card" style="--c:var(--blue);">
+            <img class="card-img" src="report_assets/audit/Screenshot_2026-04-04_at_23_58_41.png" alt="After completion">
+            <div class="card-body">
+              <div class="ph">After completion</div>
+              <ul>
+                <li>Step-limit stop leaves no partial output, no summary</li>
+                <li>Final deliverable buried in a wall of text</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pageno">07 / 20</div>
+    </section>
+
+    <!-- 5 · INDUSTRY-WIDE BLIND SPOT -->
     <section class="slide" data-name="A category blind spot">
       <div class="inner">
         <div class="kicker reveal">This is not a Simular bug</div>
@@ -357,23 +436,23 @@ h2 em{ font-style:italic; color:var(--accent); }
 
           <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);">
             <div style="overflow:hidden;border-bottom:1px solid var(--border);height:190px;">
-              <img src="report_assets/audit/09_stream_no_hierarchy.png" alt="Execution stream with no hierarchy" style="width:100%;height:190px;display:block;object-fit:cover;object-position:top;">
+              <img src="report_assets/audit/09_stream_no_hierarchy.png" alt="Loss of visibility into progress" style="width:100%;height:190px;display:block;object-fit:cover;object-position:top;">
             </div>
             <div style="padding:18px 20px;">
               <div style="font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;">Pattern A</div>
-              <div style="font-size:.95rem;font-weight:650;color:var(--text);margin-bottom:6px;">No visibility into progress</div>
-              <p style="font-size:.82rem;color:var(--text-dim);line-height:1.55;margin:0;">"Is it still working, or stuck?" — users can't tell.</p>
+              <div style="font-size:.95rem;font-weight:650;color:var(--text);margin-bottom:6px;">"Are you still working?" — user loses track of progress</div>
+              <p style="font-size:.82rem;color:var(--text-dim);line-height:1.55;margin:0;">Execution stream updates constantly but has no hierarchy. Running, stuck, and failed all look the same.</p>
             </div>
           </div>
 
           <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);">
             <div style="overflow:hidden;border-bottom:1px solid var(--border);height:190px;">
-              <img src="report_assets/audit/05a_sheets_access_repeated.png" alt="Auth prompt repeating with no recovery" style="width:100%;height:190px;display:block;object-fit:cover;object-position:top;">
+              <img src="report_assets/audit/03_vm_signin_js_permission.png" alt="Opaque JS permission request" style="width:100%;height:190px;display:block;object-fit:cover;object-position:top;">
             </div>
             <div style="padding:18px 20px;">
               <div style="font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Pattern B</div>
-              <div style="font-size:.95rem;font-weight:650;color:var(--text);margin-bottom:6px;">Auth loops with no recovery</div>
-              <p style="font-size:.82rem;color:var(--text-dim);line-height:1.55;margin:0;">User says no — agent keeps asking. No graceful next step.</p>
+              <div style="font-size:.95rem;font-weight:650;color:var(--text);margin-bottom:6px;">The agent asks to run code — but the user can't tell if it's safe</div>
+              <p style="font-size:.82rem;color:var(--text-dim);line-height:1.55;margin:0;">Raw code shown to a non-technical user. No way to judge if it's safe.</p>
             </div>
           </div>
 
@@ -383,49 +462,14 @@ h2 em{ font-style:italic; color:var(--accent); }
             </div>
             <div style="padding:18px 20px;">
               <div style="font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">Pattern C</div>
-              <div style="font-size:.95rem;font-weight:650;color:var(--text);margin-bottom:6px;">Hard stop — no handoff</div>
+              <div style="font-size:.95rem;font-weight:650;color:var(--text);margin-bottom:6px;">Hard stop with no handoff</div>
               <p style="font-size:.82rem;color:var(--text-dim);line-height:1.55;margin:0;">Task ends abruptly. No summary, no partial output, no path forward.</p>
             </div>
           </div>
 
         </div>
       </div>
-      <div class="pageno">05 / 17</div>
-    </section>
-
-    <!-- 5 · THE FINDING -->
-    <section class="slide" data-name="The finding">
-      <div class="inner">
-        <div class="kicker reveal">The finding</div>
-        <h2 class="reveal">Three user pain points — one per phase of the run.</h2>
-        <p class="reveal r2" style="font-size:.92rem;color:var(--text-dim);margin-top:10px;max-width:60ch;">The black-box nature of the workflow strips the user of control. These gaps generalize to <em style="font-style:italic;color:var(--accent);">any</em> agent platform.</p>
-        <div class="gap-grid reveal r3" style="margin-top:34px;">
-          <div class="gap-card" style="--c:var(--amber);">
-            <div class="ph">Before execution</div>
-            <ul>
-              <li>No plan preview before the agent starts</li>
-              <li>A VM panel front-loaded before the user types anything</li>
-            </ul>
-          </div>
-          <div class="gap-card" style="--c:var(--red);">
-            <div class="ph">During execution</div>
-            <ul>
-              <li>Running, stuck and failed all look identical</li>
-              <li>Clicking the VM transfers control by accident</li>
-              <li>Auth prompt loops with no recovery path</li>
-              <li>Permission UI shows raw JS to a non-coder</li>
-            </ul>
-          </div>
-          <div class="gap-card" style="--c:var(--blue);">
-            <div class="ph">After completion</div>
-            <ul>
-              <li>Step-limit stop leaves no partial output, no summary</li>
-              <li>Final deliverable buried in a wall of text</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="pageno">06 / 17</div>
+      <div class="pageno">08 / 20</div>
     </section>
 
     <!-- 7 · WORST MOMENT -->
@@ -473,19 +517,62 @@ h2 em{ font-style:italic; color:var(--accent); }
         <div class="split wide-right">
           <div>
             <div class="kicker reveal">The worst moment</div>
-            <h2 class="reveal">The user said no.<br>The prompt <em>kept coming back.</em></h2>
-            <p class="lead dim reveal r2" style="margin-top:22px;font-size:1.02rem;">The auth dialog appeared on the local desktop — outside the VM the user thought the agent lived in. She denied it. Instead of pausing to ask, the agent re-fired the same prompt. She had to type into the chat, twice, before it changed course.</p>
-            <p class="reveal r3" style="margin-top:20px;font-size:.86rem;color:var(--accent);font-weight:600;">No graceful fallback = a trust break the product never recovers from.</p>
+            <h2 class="reveal">The AI agent stuck <em>in a dead loop.</em></h2>
+            <p class="lead dim reveal r2" style="margin-top:22px;font-size:.95rem;line-height:1.6;">An agent should know when to check human intention when it goes wrong.</p>
           </div>
           <div class="reveal r2">
             <div class="shot"><img src="report_assets/audit/05a_sheets_access_repeated.png" alt="Auth prompt repeating after the user denied it"></div>
           </div>
         </div>
       </div>
-      <div class="pageno">07 / 17</div>
+      <div class="pageno">09 / 20</div>
     </section>
 
-    <!-- 8 · DESIGN STRATEGY -->
+    <!-- 8 · DESIGN HIGHLIGHTS DIVIDER -->
+    <section class="slide dark" data-name="Design Highlights">
+      <div class="inner">
+        <div class="kicker reveal">Six design decisions</div>
+        <h1 class="reveal" style="font-size:clamp(3rem,7vw,6rem);max-width:16ch;">Design<br><em>Highlights.</em></h1>
+<div class="reveal r3" style="margin-top:36px;display:flex;flex-wrap:wrap;gap:10px;">
+          <span class="chip">01 · Plan Pre-Confirmation</span>
+          <span class="chip">02 · Auth Handoff &amp; Fallback</span>
+          <span class="chip">03 · Workspace Transparency</span>
+          <span class="chip">04 · Progressive Reveal</span>
+          <span class="chip">05 · Post-Completion Delivery</span>
+          <span class="chip">06 · Task Progress Sidebar</span>
+        </div>
+      </div>
+      <div class="pageno">10 / 20</div>
+    </section>
+
+    <!-- NEW DESIGN DEMO CONTEXT -->
+    <section class="slide" data-name="New design demo">
+      <div class="inner">
+        <div class="kicker reveal">New design demo</div>
+        <p class="reveal" style="max-width:36ch;font-family:var(--serif);font-size:clamp(1.2rem,2.2vw,1.7rem);line-height:1.7;font-weight:400;color:var(--text);">Imagine you're a <em style="font-style:italic;color:var(--accent);">small business owner</em> asking Simular AI to run a <em style="font-style:italic;color:var(--accent);">marketing research</em> and deliver a report in <em style="font-style:italic;color:var(--accent);">Google Sheet</em> format.</p>
+        <div class="reveal r2" style="margin-top:32px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:22px 26px;max-width:72ch;">
+          <div style="font-family:var(--mono);font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:12px;">User prompt</div>
+          <p style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);line-height:1.8;">I am launching a home decor curation brand in Singapore, focusing on Nordic and Japanese home accessories (e.g., vases, small lighting, stools, stationery — no large furniture). Please research brands popular in Singapore and trending in Europe/Japan, curate 20 items with market analysis and pricing, then compile everything into a Google Sheet report I can use for import decisions.</p>
+        </div>
+      </div>
+      <div class="pageno">11 / 20</div>
+    </section>
+
+    <!-- THE PROTOTYPE -->
+    <section class="slide dark" data-name="The prototype" style="display:flex;flex-direction:column;padding:0;">
+      <div style="flex:1;min-height:0;position:relative;padding-bottom:72px;">
+        <iframe
+          src="https://simular-redesign.yrcheng.tech/"
+          style="width:100%;height:100%;border:none;display:block;"
+          allow="clipboard-write"
+          loading="lazy"
+          title="Simular SAI redesign prototype"
+        ></iframe>
+      </div>
+      <div class="pageno">12 / 20</div>
+    </section>
+
+    <!-- 9 · DESIGN STRATEGY -->
     <section class="slide" data-name="Design strategy">
       <div class="inner">
         <div class="kicker reveal">Design Strategy</div>
@@ -533,25 +620,7 @@ h2 em{ font-style:italic; color:var(--accent); }
           </div>
         </div>
       </div>
-      <div class="pageno">08 / 17</div>
-    </section>
-
-    <!-- DESIGN HIGHLIGHTS DIVIDER -->
-    <section class="slide dark" data-name="Design Highlights">
-      <div class="inner">
-        <div class="kicker reveal">Six design decisions</div>
-        <h1 class="reveal" style="font-size:clamp(3rem,7vw,6rem);max-width:16ch;">Design<br><em>Highlights.</em></h1>
-        <p class="lead dim wide reveal r2" style="margin-top:28px;max-width:52ch;">Each decision addresses a specific audit gap, applies a design principle, and comes with an explicit trade-off. Before and after — every one.</p>
-        <div class="reveal r3" style="margin-top:36px;display:flex;flex-wrap:wrap;gap:10px;">
-          <span class="chip">01 · Plan Pre-Confirmation</span>
-          <span class="chip">02 · Auth Handoff &amp; Fallback</span>
-          <span class="chip">03 · Workspace Transparency</span>
-          <span class="chip">04 · Progressive Reveal</span>
-          <span class="chip">05 · Post-Completion Delivery</span>
-          <span class="chip">06 · Task Progress Sidebar</span>
-        </div>
-      </div>
-      <div class="pageno">09 / 17</div>
+      <div class="pageno">13 / 20</div>
     </section>
 
     <!-- HL-01 · PLAN PRE-CONFIRMATION -->
@@ -562,7 +631,7 @@ h2 em{ font-style:italic; color:var(--accent); }
             <span style="font-family:var(--mono);font-size:.65rem;font-weight:700;background:var(--text);color:#fff;border-radius:5px;padding:3px 8px;">01</span>
             <span style="font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Plan Pre-Confirmation</span>
           </div>
-          <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">See the plan <em>before</em> the agent moves.</h2>
+          <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">Give users <em>expectation</em> with plan before execution.</h2>
           <div class="reveal r2" style="margin-bottom:20px;">
             <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(180,83,9,.1);color:var(--accent);display:inline-block;">Audit gap · No plan preview</span>
           </div>
@@ -577,11 +646,11 @@ h2 em{ font-style:italic; color:var(--accent); }
           <div class="after">
             <span class="col-lab">After</span>
             <figure><img src="report_assets/Redesign/after_03_plan_confirm.png" alt="Numbered execution plan with handoff steps visible"></figure>
-            <p class="cap"><strong>Reviewable card.</strong> Numbered steps, handoff moments flagged upfront. Approve or redirect before anything runs.</p>
+            <p class="cap"><strong>Reviewable card.</strong> Numbered steps with estimated handoff moments flagged upfront — users know what the agent will need from them before anything runs.</p>
           </div>
         </div>
       </div>
-      <div class="pageno">10 / 17</div>
+      <div class="pageno">14 / 20</div>
     </section>
 
     <!-- HL-02 · AUTH HANDOFF & GRACEFUL FALLBACK -->
@@ -592,7 +661,7 @@ h2 em{ font-style:italic; color:var(--accent); }
             <span style="font-family:var(--mono);font-size:.65rem;font-weight:700;background:var(--text);color:#fff;border-radius:5px;padding:3px 8px;">02</span>
             <span style="font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Auth Handoff &amp; Graceful Fallback</span>
           </div>
-          <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">Every "no" has a <em>designed next step.</em></h2>
+          <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;"><em>Graceful fallback</em> when plan changes.</h2>
           <div class="reveal r2" style="margin-bottom:20px;">
             <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(180,83,9,.1);color:var(--accent);display:inline-block;">Audit gap · Silent retry loop</span>
           </div>
@@ -611,7 +680,7 @@ h2 em{ font-style:italic; color:var(--accent); }
           </div>
         </div>
       </div>
-      <div class="pageno">11 / 17</div>
+      <div class="pageno">15 / 20</div>
     </section>
 
     <!-- HL-03 · WORKSPACE TRANSPARENCY & SAFE CONTROL -->
@@ -622,7 +691,7 @@ h2 em{ font-style:italic; color:var(--accent); }
             <span style="font-family:var(--mono);font-size:.65rem;font-weight:700;background:var(--text);color:#fff;border-radius:5px;padding:3px 8px;">03</span>
             <span style="font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Workspace Transparency &amp; Safe Control</span>
           </div>
-          <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">Watch without <em>accidentally taking over.</em></h2>
+          <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">Structured workspace for users to <em>watch or control.</em></h2>
           <div class="reveal r2" style="margin-bottom:20px;">
             <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(180,83,9,.1);color:var(--accent);display:inline-block;">Audit gap · Accidental VM takeover</span>
           </div>
@@ -641,7 +710,7 @@ h2 em{ font-style:italic; color:var(--accent); }
           </div>
         </div>
       </div>
-      <div class="pageno">12 / 17</div>
+      <div class="pageno">16 / 20</div>
     </section>
 
     <!-- HL-04 · PROGRESSIVE REVEAL -->
@@ -652,26 +721,31 @@ h2 em{ font-style:italic; color:var(--accent); }
             <span style="font-family:var(--mono);font-size:.65rem;font-weight:700;background:var(--text);color:#fff;border-radius:5px;padding:3px 8px;">04</span>
             <span style="font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Progressive Reveal</span>
           </div>
-          <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">Show complexity <em>only when it's earned.</em></h2>
+          <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">Progressively reveal info <em>when it's needed.</em></h2>
           <div class="reveal r2" style="margin-bottom:20px;">
             <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(180,83,9,.1);color:var(--accent);display:inline-block;">Audit gap · Front-loaded VM on homepage</span>
           </div>
           <p class="reveal r2" style="font-size:.92rem;color:var(--text-dim);line-height:1.65;">The interface starts with a single focused input — the workspace appears only after the plan is approved.</p>
         </div>
-        <div class="reveal r2 hl-imgs">
-          <div class="before">
-            <span class="col-lab">Before</span>
-            <figure><img src="report_assets/audit/01_home_suggestions.png" alt="Original homepage with task list and VM panel immediately visible"></figure>
-            <p class="cap"><strong>Front-loaded complexity.</strong> Task list and VM panel loaded immediately — overwhelming before a single word is typed.</p>
+        <div class="reveal r2 hl-imgs" style="grid-template-columns:1fr;gap:12px;">
+          <div class="before" style="display:grid;grid-template-columns:40% 1fr;gap:12px;align-items:start;">
+            <div>
+              <span class="col-lab">Before</span>
+              <figure><img src="report_assets/audit/01_home_suggestions.png" alt="Original homepage with task list and VM panel immediately visible"></figure>
+            </div>
+            <p class="cap" style="padding-top:28px;"><strong>Front-loaded complexity.</strong> Task list and VM panel loaded immediately — overwhelming before a single word is typed.</p>
           </div>
           <div class="after">
             <span class="col-lab">After</span>
-            <figure><img src="report_assets/Redesign/after_01_home_idle_crop.png" alt="Redesigned homepage with single clean input field"></figure>
-            <p class="cap"><strong>One thing at a time.</strong> Clean centred input first. Workspace reveals only after the plan is approved.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <figure><img src="report_assets/Redesign/after_01_home_idle_crop.png" alt="Redesigned homepage with single clean input field"></figure>
+              <figure><img src="report_assets/Redesign/after_07_browser_search_crop.png" alt="Split view showing browser search alongside workspace"></figure>
+            </div>
+            <p class="cap"><strong>One thing at a time.</strong> Clean input first; workspace and split view reveal only when needed.</p>
           </div>
         </div>
       </div>
-      <div class="pageno">13 / 17</div>
+      <div class="pageno">17 / 20</div>
     </section>
 
     <!-- HL-05 · POST-COMPLETION DELIVERY -->
@@ -682,7 +756,7 @@ h2 em{ font-style:italic; color:var(--accent); }
             <span style="font-family:var(--mono);font-size:.65rem;font-weight:700;background:var(--text);color:#fff;border-radius:5px;padding:3px 8px;">05</span>
             <span style="font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Post-Completion: Structured Delivery</span>
           </div>
-          <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">Every task ends with a <em>handoff, not a halt.</em></h2>
+          <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">Every task ends with a <em>clear handoff.</em></h2>
           <div class="reveal r2" style="margin-bottom:20px;">
             <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(180,83,9,.1);color:var(--accent);display:inline-block;">Audit gap · Output buried in VM</span>
           </div>
@@ -701,28 +775,22 @@ h2 em{ font-style:italic; color:var(--accent); }
           </div>
         </div>
       </div>
-      <div class="pageno">14 / 17</div>
+      <div class="pageno">18 / 20</div>
     </section>
 
     <!-- HL-06 · TASK PROGRESS SIDEBAR -->
     <section class="slide" data-name="Task Progress Sidebar">
       <div class="inner hl-layout">
         <div>
-          <div class="kicker reveal">Design Highlight</div>
-          <div class="reveal" style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <div class="reveal" style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
             <span style="font-family:var(--mono);font-size:.65rem;font-weight:700;background:var(--text);color:#fff;border-radius:5px;padding:3px 8px;">06</span>
             <span style="font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);">Task Progress Sidebar</span>
           </div>
-          <h2 class="reveal" style="font-size:clamp(1.4rem,2.8vw,2.2rem);margin-bottom:16px;">Make "running" look different <em>from "stuck."</em></h2>
-          <div class="reveal r2" style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
-            <span style="font-family:var(--mono);font-size:.62rem;padding:4px 10px;border-radius:5px;background:rgba(180,83,9,.08);color:var(--accent);font-weight:500;">Audit gap · All states look identical</span>
-            <span style="font-family:var(--mono);font-size:.62rem;padding:4px 10px;border-radius:5px;background:var(--surface2);color:var(--text-dim);">Principle · Legibility · Controllability</span>
+          <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">Transparent steps show <em>where you are.</em></h2>
+          <div class="reveal r2" style="margin-bottom:20px;">
+            <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(180,83,9,.1);color:var(--accent);display:inline-block;">Audit gap · All states look identical</span>
           </div>
-          <p class="reveal r2" style="font-size:.85rem;color:var(--text-dim);line-height:1.7;margin-bottom:14px;">The original execution stream updated constantly but had no visual hierarchy. Agent reasoning, process logs, and required actions all appeared as undifferentiated text. Running, stuck, and failed states looked identical. The sidebar introduces a collapsible progress view — steps with status, a clear "needs your attention" signal, and the ability to expand or collapse detail as needed.</p>
-          <div class="reveal r3" style="border-left:2px solid var(--border);padding-left:14px;">
-            <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;">Trade-off</div>
-            <p style="font-size:.8rem;color:var(--text-dim);line-height:1.6;font-style:italic;">More UI surface. But hiding progress entirely leaves users with no way to know if the agent is working, waiting, or broken — and that uncertainty erodes trust faster than any extra chrome.</p>
-          </div>
+          <p class="reveal r2" style="font-size:.92rem;color:var(--text-dim);line-height:1.65;">A collapsible sidebar shows steps with status, a "needs your attention" signal, and expandable detail — so running, stuck, and failed no longer look the same.</p>
         </div>
         <div class="reveal r2 hl-imgs">
           <div class="before">
@@ -737,25 +805,7 @@ h2 em{ font-style:italic; color:var(--accent); }
           </div>
         </div>
       </div>
-      <div class="pageno">15 / 17</div>
-    </section>
-
-    <!-- THE PROTOTYPE -->
-    <section class="slide dark" data-name="The prototype" style="display:flex;flex-direction:column;padding:0;">
-      <div style="flex:1;min-height:0;position:relative;padding-bottom:72px;">
-        <iframe
-          src="https://simular-redesign.yrcheng.tech/"
-          style="width:100%;height:100%;border:none;display:block;"
-          allow="clipboard-write"
-          loading="lazy"
-          title="Simular SAI redesign prototype"
-        ></iframe>
-        <a href="https://simular-redesign.yrcheng.tech/" target="_blank" rel="noopener"
-           style="position:absolute;bottom:80px;right:24px;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:rgba(250,249,247,.5);text-decoration:none;background:rgba(0,0,0,.35);padding:5px 11px;border-radius:5px;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.1);">
-          Open full screen ↗
-        </a>
-      </div>
-      <div class="pageno">16 / 17</div>
+      <div class="pageno">19 / 20</div>
     </section>
 
     <!-- 13 · CLOSE -->
@@ -764,7 +814,7 @@ h2 em{ font-style:italic; color:var(--accent); }
         <h1 class="reveal" style="color:#fff;max-width:18ch;line-height:1.08;">Let's build something <em>together.</em></h1>
         <p class="reveal r2" style="margin-top:28px;font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,249,247,.4);">Human &nbsp;·&nbsp; Accessible &nbsp;·&nbsp; Valid</p>
       </div>
-      <div class="pageno">17 / 17</div>
+      <div class="pageno">20 / 20</div>
     </section>
 
   </div>
