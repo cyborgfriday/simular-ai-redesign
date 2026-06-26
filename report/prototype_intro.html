@@ -10,19 +10,19 @@
 <style>
 
 :root {
-  --bg: #faf9f7;
+  --bg: #F0F3F9;
   --surface: #ffffff;
-  --surface2: #f3f2ef;
-  --border: #e8e6e1;
-  --text: #2c2c2c;
-  --text-dim: #7a7670;
-  --accent: #b45309;
-  --accent-light: #92400e;
-  --accent-bg: rgba(180,83,9,0.04);
-  --green: #15803d;
-  --amber: #a16207;
-  --red: #b91c1c;
-  --blue: #1d4ed8;
+  --surface2: #E5EAF5;
+  --border: #C8D2E6;
+  --text: #18243C;
+  --text-dim: #52637E;
+  --accent: #0B7285;
+  --accent-light: #0D6776;
+  --accent-bg: rgba(11,114,133,0.06);
+  --green: #157A50;
+  --amber: #96620A;
+  --red: #B71C3C;
+  --blue: #1A4FBF;
   --radius: 10px;
   --serif: 'Lora', 'Georgia', serif;
   --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -78,7 +78,7 @@ figure.zoomable img:hover { opacity: 0.92; }
   display: inline-block; padding: 5px 14px; border-radius: 4px;
   border: 1px solid var(--border); letter-spacing: 1px; margin-bottom: 24px;
 }
-.hero .badge.accent { color: var(--accent); border-color: rgba(180,83,9,0.25); }
+.hero .badge.accent { color: var(--accent); border-color: rgba(11,114,133,0.30); }
 .hero h1 {
   font-family: var(--serif);
   font-size: clamp(2.25rem, 4vw + 0.5rem, 3.5rem);
@@ -135,10 +135,10 @@ p { margin-bottom: 16px; }
   font-family: var(--mono); font-size: 10.5px; font-weight: 500;
   letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 14px;
 }
-.label-red { background: rgba(185,28,28,0.06); color: var(--red); }
-.label-amber { background: rgba(161,98,7,0.06); color: var(--amber); }
-.label-green { background: rgba(21,128,61,0.06); color: var(--green); }
-.label-blue { background: rgba(29,78,216,0.06); color: var(--blue); }
+.label-red { background: rgba(183,28,60,0.06); color: var(--red); }
+.label-amber { background: rgba(150,98,10,0.06); color: var(--amber); }
+.label-green { background: rgba(21,122,80,0.06); color: var(--green); }
+.label-blue { background: rgba(26,79,191,0.06); color: var(--blue); }
 .label-purple { background: var(--accent-bg); color: var(--accent); }
 
 /* ── Figures ── */
@@ -162,8 +162,8 @@ figcaption {
   font-family: var(--mono); font-size: 10px; font-weight: 500;
   letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 10px;
 }
-.before-label { background: rgba(185,28,28,0.06); color: var(--red); }
-.after-label { background: rgba(21,128,61,0.06); color: var(--green); }
+.before-label { background: rgba(183,28,60,0.06); color: var(--red); }
+.after-label { background: rgba(21,122,80,0.06); color: var(--green); }
 .comparison figure { margin: 0; }
 .comparison .col p { font-size: 13px; color: var(--text-dim); margin-top: 10px; line-height: 1.6; }
 
@@ -173,9 +173,9 @@ figcaption {
   overflow: hidden; border: 1px solid var(--border);
 }
 .spectrum-item { flex: 1; padding: 24px 20px; text-align: center; }
-.spectrum-item:nth-child(1) { background: rgba(180,83,9,0.05); }
-.spectrum-item:nth-child(2) { background: rgba(29,78,216,0.04); }
-.spectrum-item:nth-child(3) { background: rgba(21,128,61,0.04); }
+.spectrum-item:nth-child(1) { background: rgba(11,114,133,0.07); }
+.spectrum-item:nth-child(2) { background: rgba(26,79,191,0.05); }
+.spectrum-item:nth-child(3) { background: rgba(21,122,80,0.05); }
 .spectrum-item .label { margin-bottom: 10px; }
 .spectrum-item p { font-size: 13px; color: var(--text-dim); margin: 0; line-height: 1.6; }
 
@@ -406,7 +406,7 @@ footer a:hover { text-decoration: underline; }
     <div style="color: var(--text-dim); line-height: 1.85;">
       <div style="font-family: var(--serif); font-size: 4.5rem; line-height: 0.75; color: var(--accent); margin-bottom: 16px; user-select: none;">&ldquo;</div>
       <p style="font-size: 0.9375rem; margin-bottom: 18px;">Hi! This prototype was built directly in code using Claude Code. As a designer, I enjoy building products and polishing them. Every interaction, from the typing animations to the exact moment the split view slides in, was implemented and iterated by hand.</p>
-      <p style="font-size: 0.9375rem; margin-bottom: 18px;">It took a bit longer than a static mockup, and I spent quite some time polishing it even though it's a prototype. I believe interaction design only truly comes alive when you can actually feel the timing. Building it live also surfaced many ideas that wireframes never could. You can see how some of these UI components evolved from this process on the <a href="/report/design_revolution" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(180,83,9,0.3);">Design Evolution page</a>.</p>
+      <p style="font-size: 0.9375rem; margin-bottom: 18px;">It took a bit longer than a static mockup, and I spent quite some time polishing it even though it's a prototype. I believe interaction design only truly comes alive when you can actually feel the timing. Building it live also surfaced many ideas that wireframes never could. You can see how some of these UI components evolved from this process on the <a href="/report/design_revolution" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(11,114,133,0.3);">Design Evolution page</a>.</p>
       <p style="font-size: 0.9375rem; margin-bottom: 0;">A quick note: if you run into any weird bugs, or if the simulated agent forgets its script and gets stuck, please bear with it — it's still just a prototype. Have fun playing around with it! 👾</p>
     </div>
   </div>

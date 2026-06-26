@@ -9,10 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#faf9f7; --surface:#ffffff; --surface2:#f3f2ef; --border:#e8e6e1;
-  --text:#2c2c2c; --text-dim:#7a7670; --accent:#b45309; --accent-light:#92400e;
-  --accent-bg:rgba(180,83,9,0.05);
-  --green:#15803d; --amber:#a16207; --red:#b91c1c; --blue:#1d4ed8;
+  --bg: #F0F3F9; --surface:#ffffff; --surface2: #E5EAF5; --border: #C8D2E6;
+  --text: #18243C; --text-dim: #52637E; --accent: #0B7285; --accent-light: #0D6776;
+  --accent-bg:rgba(11,114,133,0.07);
+  --green: #157A50; --amber: #96620A; --red: #B71C3C; --blue: #1A4FBF;
   --ink:#1c1a17;
   --serif:'Lora','Georgia',serif;
   --sans:'DM Sans',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
@@ -37,9 +37,9 @@ body{
 .slide.active{ opacity:1; pointer-events:auto; }
 .slide .inner{ width:100%; max-width:1180px; min-width:0; margin:0 auto; }
 .slide.dark{ background:var(--ink); color:var(--bg); }
-.slide.dark .kicker{ color:rgba(250,249,247,.5); }
+.slide.dark .kicker{ color:rgba(240,243,249,.5); }
 .slide.dark h1,.slide.dark h2{ color:#fff; }
-.slide.dark .dim{ color:rgba(250,249,247,.66); }
+.slide.dark .dim{ color:rgba(240,243,249,.66); }
 
 /* slide number watermark */
 .slide .pageno{
@@ -47,7 +47,7 @@ body{
   font-family:var(--mono); font-size:.625rem; letter-spacing:.12em;
   color:var(--text-dim); opacity:.7;
 }
-.slide.dark .pageno{ color:rgba(250,249,247,.45); }
+.slide.dark .pageno{ color:rgba(240,243,249,.45); }
 
 /* ── Type ── */
 .kicker{
@@ -101,7 +101,7 @@ h2 em{ font-style:italic; color:var(--accent); }
   border:1px solid var(--border); border-radius:6px; color:var(--text-dim); background:var(--surface);
   white-space:nowrap;
 }
-.slide.dark .chip{ border-color:rgba(255,255,255,.16); background:rgba(255,255,255,.04); color:rgba(250,249,247,.78); }
+.slide.dark .chip{ border-color:rgba(255,255,255,.16); background:rgba(255,255,255,.04); color:rgba(240,243,249,.78); }
 .chip.on{ border-color:var(--accent); color:var(--accent); }
 
 .flow{ display:flex; align-items:center; gap:0; flex-wrap:wrap; font-family:var(--mono); font-size:.78rem; letter-spacing:.03em; }
@@ -133,7 +133,7 @@ h2 em{ font-style:italic; color:var(--accent); }
 /* spectrum */
 .spectrum{ display:flex; border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:8px; }
 .spectrum .seg{ flex:1; padding:26px 24px; }
-.spectrum .seg:nth-child(1){ background:rgba(180,83,9,.06); }
+.spectrum .seg:nth-child(1){ background:rgba(11,114,133,.07); }
 .spectrum .seg:nth-child(2){ background:rgba(29,78,216,.05); }
 .spectrum .seg:nth-child(3){ background:rgba(21,128,61,.05); }
 .spectrum .lab{ font-family:var(--mono); font-size:.64rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; }
@@ -286,7 +286,7 @@ h2 em{ font-style:italic; color:var(--accent); }
         <div class="reveal r2" style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
           <span style="width:18px;height:2px;background:var(--accent);display:inline-block;"></span>
           <span style="font-family:var(--mono);font-size:.66rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);">Original screenshot</span>
-          <span style="color:rgba(250,249,247,.3);font-size:.7rem;">(<a href="https://www.simular.ai/" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(180,83,9,.4);padding-bottom:1px;">www.simular.ai ↗</a>)</span>
+          <span style="color:rgba(240,243,249,.3);font-size:.7rem;">(<a href="https://www.simular.ai/" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(11,114,133,.40);padding-bottom:1px;">www.simular.ai ↗</a>)</span>
         </div>
         <div class="reveal r2" style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 8px 40px rgba(0,0,0,.4);">
           <img src="report_assets/Screenshot_2026-04-01_at_17.11.46.jpg" alt="Simular AI original interface" style="width:100%;display:block;">
@@ -302,16 +302,16 @@ h2 em{ font-style:italic; color:var(--accent); }
         <h2 class="reveal" style="color:#fff;font-size:clamp(1.2rem,2.2vw,1.8rem);font-weight:400;line-height:1.7;max-width:48ch;margin-bottom:32px;">I asked Simular AI to book a hotel in Japan — given the dates, number of guests, style, and budget.</h2>
         <div class="reveal r2" style="display:flex;flex-direction:column;gap:16px;max-width:56ch;">
           <div style="display:flex;align-items:flex-start;gap:16px;padding:18px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;">
-            <span style="font-family:var(--mono);font-size:.65rem;font-weight:600;color:rgba(250,249,247,.35);white-space:nowrap;padding-top:2px;">5 min in</span>
-            <span style="font-size:.9rem;color:rgba(250,249,247,.6);line-height:1.6;">No feedback. No progress. No idea what it was doing.</span>
+            <span style="font-family:var(--mono);font-size:.65rem;font-weight:600;color:rgba(240,243,249,.35);white-space:nowrap;padding-top:2px;">5 min in</span>
+            <span style="font-size:.9rem;color:rgba(240,243,249,.6);line-height:1.6;">No feedback. No progress. No idea what it was doing.</span>
           </div>
           <div style="display:flex;align-items:flex-start;gap:16px;padding:18px 20px;background:rgba(185,28,28,.08);border:1px solid rgba(185,28,28,.2);border-radius:10px;">
             <span style="font-family:var(--mono);font-size:.65rem;font-weight:600;color:rgba(250,100,100,.7);white-space:nowrap;padding-top:2px;">Result</span>
-            <span style="font-size:.9rem;color:rgba(250,249,247,.75);line-height:1.6;">It reported back: a login popup on Booking.com had blocked it. It had already retried <strong style="color:#fff;">12 times</strong> — silently, without asking me once.</span>
+            <span style="font-size:.9rem;color:rgba(240,243,249,.75);line-height:1.6;">It reported back: a login popup on Booking.com had blocked it. It had already retried <strong style="color:#fff;">12 times</strong> — silently, without asking me once.</span>
           </div>
-          <div style="display:flex;align-items:flex-start;gap:16px;padding:18px 20px;background:rgba(180,83,9,.1);border:1px solid rgba(180,83,9,.3);border-radius:10px;">
+          <div style="display:flex;align-items:flex-start;gap:16px;padding:18px 20px;background:rgba(11,114,133,.10);border:1px solid rgba(11,114,133,.30);border-radius:10px;">
             <span style="font-family:var(--mono);font-size:.65rem;font-weight:600;color:var(--accent);white-space:nowrap;padding-top:2px;">Cost</span>
-            <span style="font-size:.9rem;color:rgba(250,249,247,.75);line-height:1.6;"><strong style="color:#fff;">$10 USD</strong> spent. Task not completed. No way to recover.</span>
+            <span style="font-size:.9rem;color:rgba(240,243,249,.75);line-height:1.6;"><strong style="color:#fff;">$10 USD</strong> spent. Task not completed. No way to recover.</span>
           </div>
         </div>
       </div>
@@ -334,7 +334,7 @@ h2 em{ font-style:italic; color:var(--accent); }
             </div>
             <div style="display:flex;align-items:center;padding:0 6px;color:var(--text-dim);font-size:.9rem;">→</div>
 
-            <div style="flex:1;border:1px solid var(--border);border-left:none;padding:22px 20px;background:rgba(180,83,9,.04);text-align:center;position:relative;">
+            <div style="flex:1;border:1px solid var(--border);border-left:none;padding:22px 20px;background:rgba(11,114,133,.05);text-align:center;position:relative;">
               <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-family:var(--mono);font-size:.55rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:0 0 6px 6px;">Human in loop</div>
               <div style="font-size:.6rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px;margin-top:8px;">02</div>
               <div style="font-size:.92rem;font-weight:650;color:var(--text);margin-bottom:8px;">Judgement</div>
@@ -342,7 +342,7 @@ h2 em{ font-style:italic; color:var(--accent); }
             </div>
             <div style="display:flex;align-items:center;padding:0 6px;color:var(--text-dim);font-size:.9rem;">→</div>
 
-            <div style="flex:1;border:1px solid var(--border);border-left:none;padding:22px 20px;background:rgba(180,83,9,.04);text-align:center;position:relative;">
+            <div style="flex:1;border:1px solid var(--border);border-left:none;padding:22px 20px;background:rgba(11,114,133,.05);text-align:center;position:relative;">
               <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-family:var(--mono);font-size:.55rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:0 0 6px 6px;">Human in loop</div>
               <div style="font-size:.6rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px;margin-top:8px;">03</div>
               <div style="font-size:.92rem;font-weight:650;color:var(--text);margin-bottom:8px;">Auth handoff</div>
@@ -489,12 +489,12 @@ h2 em{ font-style:italic; color:var(--accent); }
         <p class="reveal r2" style="margin-top:12px;font-size:.92rem;color:var(--text-dim);max-width:66ch;">The key is matching the interface to the stakes of the moment — from quietly keeping the user informed, to handing control back entirely.</p>
         <div class="reveal r3" style="margin-top:32px;display:flex;border:1px solid var(--border);border-radius:16px;overflow:hidden;">
 
-          <div style="flex:1;padding:32px 28px;background:rgba(180,83,9,.05);border-right:1px solid var(--border);">
+          <div style="flex:1;padding:32px 28px;background:rgba(11,114,133,.06);border-right:1px solid var(--border);">
             <div style="font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;">Low stakes</div>
             <div style="font-family:var(--mono);font-size:.75rem;font-weight:700;letter-spacing:.06em;color:var(--accent);margin-bottom:10px;opacity:.7;">Out of the loop</div>
             <div style="font-size:1.4rem;font-family:var(--serif);font-weight:500;color:var(--text);margin-bottom:14px;">Inform</div>
             <p style="font-size:.86rem;color:var(--text-dim);line-height:1.65;margin-bottom:18px;">Keep the user oriented without demanding action. Show progress, current stage, and reasoning in the background.</p>
-            <div style="font-family:var(--mono);font-size:.72rem;color:var(--accent);background:rgba(180,83,9,.08);padding:8px 12px;border-radius:6px;display:inline-block;">Agent acts · Human watches</div>
+            <div style="font-family:var(--mono);font-size:.72rem;color:var(--accent);background:rgba(11,114,133,.08);padding:8px 12px;border-radius:6px;display:inline-block;">Agent acts · Human watches</div>
           </div>
 
           <div style="flex:1;padding:32px 28px;background:rgba(29,78,216,.04);border-right:1px solid var(--border);">
@@ -587,7 +587,7 @@ h2 em{ font-style:italic; color:var(--accent); }
 
         <!-- HITL / HOTL / HOOL -->
         <div class="reveal r2" style="margin-top:28px;display:flex;border:1px solid var(--border);border-radius:14px;overflow:hidden;">
-          <div style="flex:1;padding:22px 24px;background:rgba(180,83,9,.05);border-right:1px solid var(--border);">
+          <div style="flex:1;padding:22px 24px;background:rgba(11,114,133,.06);border-right:1px solid var(--border);">
             <div style="font-family:var(--serif);font-size:1.6rem;font-weight:500;color:var(--accent);margin-bottom:6px;">HITL</div>
             <div style="font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:4px;">Human-in-the-Loop</div>
             <p style="font-size:.78rem;color:var(--text-dim);line-height:1.5;margin-bottom:6px;">Human reviews and approves each critical decision.</p>
@@ -610,7 +610,7 @@ h2 em{ font-style:italic; color:var(--accent); }
         <!-- 4 principles -->
         <div class="reveal r3" style="margin-top:22px;display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;align-items:baseline;gap:14px;">
-            <span style="font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:rgba(180,83,9,.08);padding:3px 9px;border-radius:4px;white-space:nowrap;">Legibility</span>
+            <span style="font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:rgba(11,114,133,.08);padding:3px 9px;border-radius:4px;white-space:nowrap;">Legibility</span>
             <span style="font-size:.84rem;color:var(--text-dim);">Make the agent's plan readable before execution. Users can't trust what they can't see.</span>
           </div>
           <div style="display:flex;align-items:baseline;gap:14px;">
@@ -640,7 +640,7 @@ h2 em{ font-style:italic; color:var(--accent); }
           </div>
           <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">Give users <em>expectation</em> with plan before execution.</h2>
           <div class="reveal r2" style="margin-bottom:20px;">
-            <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(180,83,9,.1);color:var(--accent);display:inline-block;">Audit gap · No plan preview</span>
+            <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(11,114,133,.10);color:var(--accent);display:inline-block;">Audit gap · No plan preview</span>
           </div>
           <p class="reveal r2" style="font-size:.92rem;color:var(--text-dim);line-height:1.65;">A plan card surfaces before execution — users see steps, auth moments, and decide before anything runs.</p>
         </div>
@@ -670,7 +670,7 @@ h2 em{ font-style:italic; color:var(--accent); }
           </div>
           <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;"><em>Graceful fallback</em> when plan changes.</h2>
           <div class="reveal r2" style="margin-bottom:20px;">
-            <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(180,83,9,.1);color:var(--accent);display:inline-block;">Audit gap · Silent retry loop</span>
+            <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(11,114,133,.10);color:var(--accent);display:inline-block;">Audit gap · Silent retry loop</span>
           </div>
           <p class="reveal r2" style="font-size:.92rem;color:var(--text-dim);line-height:1.65;">Auth becomes a deliberate pause — plain-language intent, clear recovery path if the user says no.</p>
         </div>
@@ -700,7 +700,7 @@ h2 em{ font-style:italic; color:var(--accent); }
           </div>
           <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">Structured workspace for users to <em>watch or control.</em></h2>
           <div class="reveal r2" style="margin-bottom:20px;">
-            <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(180,83,9,.1);color:var(--accent);display:inline-block;">Audit gap · Accidental VM takeover</span>
+            <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(11,114,133,.10);color:var(--accent);display:inline-block;">Audit gap · Accidental VM takeover</span>
           </div>
           <p class="reveal r2" style="font-size:.92rem;color:var(--text-dim);line-height:1.65;">Tabs show the agent's live context; a takeover dialog makes control transfer explicit and intentional.</p>
         </div>
@@ -730,7 +730,7 @@ h2 em{ font-style:italic; color:var(--accent); }
           </div>
           <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">Progressively reveal info <em>when it's needed.</em></h2>
           <div class="reveal r2" style="margin-bottom:20px;">
-            <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(180,83,9,.1);color:var(--accent);display:inline-block;">Audit gap · Front-loaded VM on homepage</span>
+            <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(11,114,133,.10);color:var(--accent);display:inline-block;">Audit gap · Front-loaded VM on homepage</span>
           </div>
           <p class="reveal r2" style="font-size:.92rem;color:var(--text-dim);line-height:1.65;">The interface starts with a single focused input — the workspace appears only after the plan is approved.</p>
         </div>
@@ -765,7 +765,7 @@ h2 em{ font-style:italic; color:var(--accent); }
           </div>
           <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">Every task ends with a <em>clear handoff.</em></h2>
           <div class="reveal r2" style="margin-bottom:20px;">
-            <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(180,83,9,.1);color:var(--accent);display:inline-block;">Audit gap · Output buried in VM</span>
+            <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(11,114,133,.10);color:var(--accent);display:inline-block;">Audit gap · Output buried in VM</span>
           </div>
           <p class="reveal r2" style="font-size:.92rem;color:var(--text-dim);line-height:1.65;">Task completion surfaces a structured card with output, export options, and next actions — not just "done."</p>
         </div>
@@ -795,7 +795,7 @@ h2 em{ font-style:italic; color:var(--accent); }
           </div>
           <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:22px;line-height:1.1;">Transparent steps show <em>where you are.</em></h2>
           <div class="reveal r2" style="margin-bottom:20px;">
-            <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(180,83,9,.1);color:var(--accent);display:inline-block;">Audit gap · All states look identical</span>
+            <span style="font-family:var(--mono);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:6px;background:rgba(11,114,133,.10);color:var(--accent);display:inline-block;">Audit gap · All states look identical</span>
           </div>
           <p class="reveal r2" style="font-size:.92rem;color:var(--text-dim);line-height:1.65;">A collapsible sidebar shows steps with status, a "needs your attention" signal, and expandable detail — so running, stuck, and failed no longer look the same.</p>
         </div>
@@ -819,7 +819,7 @@ h2 em{ font-style:italic; color:var(--accent); }
     <section class="slide dark" data-name="Close">
       <div class="inner">
         <h1 class="reveal" style="color:#fff;max-width:18ch;line-height:1.08;">Let's build something <em>together.</em></h1>
-        <p class="reveal r2" style="margin-top:28px;font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,249,247,.4);">Human &nbsp;·&nbsp; Accessible &nbsp;·&nbsp; Valid</p>
+        <p class="reveal r2" style="margin-top:28px;font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,243,249,.4);">Human &nbsp;·&nbsp; Accessible &nbsp;·&nbsp; Valid</p>
         <div class="reveal r3" style="margin-top:36px;">
           <a href="https://simular-redesign.yrcheng.tech/report/redesign" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.74rem;letter-spacing:.04em;color:#fff;text-decoration:none;padding:11px 20px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);">View Full Report ↗</a>
         </div>
